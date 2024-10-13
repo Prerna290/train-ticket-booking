@@ -1,0 +1,55 @@
+<section>
+  <div class="container header">
+    <h1 class="heading">Railway Ticket Booking</h1>
+    <p class="sub-heading">
+      Plan your journey and book your tickets quickly and easily!
+    </p>
+  </div>
+
+  <div class="search container">
+    <form>
+      <div class="from-and-to-container">
+        <!-- From Location -->
+        <div class="location">
+          <div class="location-select">
+            <fa-icon [icon]="faLocationDot"></fa-icon>
+            <select formControlName="from">
+              <option value="" selected>FROM</option>
+              <!-- Dynamically add options here -->
+            </select>
+          </div>
+
+          <!-- To Location -->
+          <div class="location-select">
+            <fa-icon [icon]="faLocationDot"></fa-icon>
+            <select formControlName="to">
+              <option value="" selected>TO</option>
+              <!-- Dynamically add options here -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Arrow Icon -->
+        <div class="arrow-icon">
+          <fa-icon [icon]="faArrowUp"></fa-icon>
+          <fa-icon [icon]="faArrowDown"></fa-icon>
+        </div>
+      </div>
+
+      <!-- Date Picker -->
+      <div class="date-picker">
+        <fa-icon [icon]="faCalendarDays"></fa-icon>
+        <input type="date" formControlName="date" />
+      </div>
+
+      <!-- Search Button -->
+      <button type="submit" class="submit-btn">SEARCH TRAINS</button>
+    </form>
+    <!-- </div> -->
+    <img
+      src="assets/images/ticket.png"
+      alt="Railway Booking"
+      class="w-full lg:w-3/4 mx-auto rounded-lg shadow-lg"
+    />
+  </div>
+</section>

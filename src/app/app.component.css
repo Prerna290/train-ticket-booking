@@ -1,0 +1,45 @@
+nav {
+  @apply bg-blue-900 border-b-2 border-t-2 p-0;
+
+  .nav-container {
+    @apply mx-auto flex items-center justify-between py-4;
+  }
+
+  .logo {
+    @apply flex items-center md:text-2xl text-lg font-bold text-white hover:text-yellow-400;
+
+    fa-icon {
+      @apply md:text-xl text-lg;
+    }
+
+    span {
+      @apply ml-2;
+    }
+  }
+
+  .links {
+    @apply flex md:gap-6 gap-2;
+
+    a {
+      @apply text-white font-semibold hover:text-yellow-400 transition;
+    }
+  }
+}
+
+/* .form-control {
+    border: 1px solid black !important;
+}
+.form-select {
+    border: 1px solid black !important;
+}
+
+.rounded-btn {
+    border-radius: 20px;
+}
+.navbar {
+    background-color: #1e6a99 !important;
+    color: white !important;
+}
+.card-body {
+    border: 1px solid gray !important;
+} */
