@@ -1,0 +1,42 @@
+<div>
+  <div class="action-btns">
+    <button class="add-train">Add Train</button>
+    <button class="edit-train">Edit Train Details</button>
+    <button class="delete-train">Delete Train</button>
+  </div>
+  <div class="container train-details-container">
+    <div *ngFor="let train of trainList" class="train-list">
+      <div class="id-name">
+        <p class="train-id">
+          Train Id: <span>{{ train.trainId }}</span>
+        </p>
+        <div>
+          <span class="train-name">{{ train.trainName }}</span
+          >&nbsp;<span class="train-no">({{ train.trainNo }})</span>
+        </div>
+      </div>
+      <div class="arival-departure-station">
+        <span>{{ train.departureStationName }}</span
+        ><fa-icon [icon]="faArrowRightArrowLeft"></fa-icon
+        ><span>{{ train.arrivalStationName }}</span>
+      </div>
+      <p class="departure-details">
+        Departure Details:
+        <span>{{ formatDepartureTime(train.departureDate) }}</span>
+      </p>
+      <p class="arivial-time">
+        Arrival Time: <span>{{ train.arrivalTime }}</span>
+      </p>
+      <p class="departure-time">
+        Departure Time: <span>{{ train.departureTime }}</span>
+      </p>
+      <div class="seats">
+        <p class="total-seats">Total Seats: {{ train.totalSeats }}</p>
+        <p class="booked-seats">Booked Seats: {{ train.bookedSeats }}</p>
+        <p class="reamining-seats">
+          Remaining Seats: {{ train.totalSeats - train.bookedSeats }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

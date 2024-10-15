@@ -13,7 +13,7 @@ nav {
     }
 
     span {
-      @apply ml-2;
+      @apply ml-2 text-white;
     }
   }
 

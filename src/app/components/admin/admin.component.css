@@ -1,0 +1,77 @@
+.action-btns {
+  @apply flex flex-row justify-between max-w-[700px] mx-auto my-6;
+
+  button {
+    @apply rounded-xl shadow-md p-4 border-solid border-2 font-medium;
+  }
+
+  .add-train {
+    @apply text-green-600 border-green-600 hover:border-yellow-600 hover:text-yellow-600;
+  }
+
+  .edit-train {
+    @apply text-blue-600 border-blue-600 hover:border-yellow-600 hover:text-yellow-600;
+  }
+
+  .delete-train {
+    @apply text-red-600 border-red-600 hover:border-yellow-600 hover:text-yellow-600;
+  }
+}
+
+.train-details-container {
+  @apply mx-auto grid grid-cols-3 gap-4;
+  .train-list {
+    @apply px-6 pt-6 pb-4 rounded-md border border-solid border-gray-200;
+
+    .id-name {
+      @apply flex flex-row justify-between;
+
+      .train-name {
+        @apply text-sm font-medium text-black;
+      }
+
+      .train-no {
+        @apply text-sm font-medium text-blue-700;
+      }
+    }
+
+    .train-id,
+    .arivial-time,
+    .departure-time,
+    .departure-details {
+      @apply text-sm font-medium text-gray-600;
+
+      span {
+        @apply text-sm font-medium text-black;
+      }
+    }
+
+    .arival-departure-station {
+      @apply text-base font-medium text-gray-700 flex items-center mb-2;
+
+      span {
+        @apply font-semibold text-black;
+      }
+
+      fa-icon {
+        @apply mx-3;
+      }
+    }
+
+    .seats {
+      @apply flex flex-row justify-between text-sm font-medium mt-2;
+
+      .total-seats {
+        @apply text-gray-600;
+      }
+
+      .booked-seats {
+        @apply text-red-500;
+      }
+
+      .reamining-seats {
+        @apply text-green-600;
+      }
+    }
+  }
+}

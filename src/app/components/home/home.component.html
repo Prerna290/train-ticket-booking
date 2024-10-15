@@ -7,32 +7,50 @@
   </div>
 
   <div class="search container">
-    <form>
+    <form [formGroup]="stationForm" (ngSubmit)="onSubmit()">
       <div class="from-and-to-container">
         <!-- From Location -->
         <div class="location">
           <div class="location-select">
             <fa-icon [icon]="faLocationDot"></fa-icon>
-            <select formControlName="from">
+            <select formControlName="fromStation">
               <option value="" selected>FROM</option>
-              <!-- Dynamically add options here -->
+              <option
+                *ngFor="let station of stationList"
+                [value]="station.stationID"
+              >
+                {{ station.stationName }}
+              </option>
             </select>
+          </div>
+
+          <!-- Arrow Icon -->
+          <div class="arrow-icon">
+            <fa-icon [icon]="faArrowUp"></fa-icon>
+            <fa-icon [icon]="faArrowDown"></fa-icon>
           </div>
 
           <!-- To Location -->
           <div class="location-select">
             <fa-icon [icon]="faLocationDot"></fa-icon>
-            <select formControlName="to">
+            <select formControlName="toStation">
               <option value="" selected>TO</option>
-              <!-- Dynamically add options here -->
+              <option
+                *ngFor="let station of stationList"
+                [value]="station.stationID"
+              >
+                {{ station.stationName }}
+              </option>
             </select>
           </div>
-        </div>
-
-        <!-- Arrow Icon -->
-        <div class="arrow-icon">
-          <fa-icon [icon]="faArrowUp"></fa-icon>
-          <fa-icon [icon]="faArrowDown"></fa-icon>
+          <p *ngIf="showSameLocationError" class="alert">
+            <fa-icon [icon]="faCircleInfo"></fa-icon>Source and Destination
+            cannot be same
+          </p>
+          <p *ngIf="showEmptyLocationError" class="alert">
+            <fa-icon [icon]="faCircleInfo"></fa-icon>Source or Destination
+            cannot be empty
+          </p>
         </div>
       </div>
 
@@ -47,9 +65,8 @@
     </form>
     <!-- </div> -->
     <img
-      src="assets/images/ticket.png"
+      src="https://t3.ftcdn.net/jpg/04/75/99/98/240_F_475999820_fU277meJh9CJdNmTdOQr6CyqYaM1U7XX.jpg"
       alt="Railway Booking"
-      class="w-full lg:w-3/4 mx-auto rounded-lg shadow-lg"
     />
   </div>
 </section>
