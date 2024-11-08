@@ -1,45 +1,52 @@
 nav {
-  @apply bg-blue-900 border-b-2 border-t-2 p-0;
+  @apply bg-indigo-600 shadow-md;
 
   .nav-container {
-    @apply mx-auto flex items-center justify-between py-4;
+    @apply mx-auto flex items-center justify-between py-4 px-6 text-indigo-50;
   }
 
   .logo {
-    @apply flex items-center md:text-2xl text-lg font-bold text-white hover:text-yellow-400;
+    @apply flex items-center md:text-2xl text-lg font-bold text-white hover:text-yellow-300;
 
     fa-icon {
-      @apply md:text-xl text-lg;
+      @apply md:text-2xl text-xl;
     }
 
-    span {
-      @apply ml-2 text-white;
+    .title {
+      @apply md:ml-3 ml-2 tracking-wide;
     }
   }
 
   .links {
-    @apply flex md:gap-6 gap-2;
+    @apply flex md:gap-8 gap-4 items-center;
 
-    a {
-      @apply text-white font-semibold hover:text-yellow-400 transition;
+    a,
+    button {
+      @apply text-white font-semibold hover:text-yellow-300 transition;
     }
+  }
+
+  .logout-btn {
+    @apply absolute right-[50px] top-10 mt-2 bg-gray-200 shadow-lg rounded-xl z-50 cursor-pointer;
+
+    ul {
+      @apply p-2 text-red-500;
+
+      li {
+        fa {
+          @apply mr-2;
+        }
+      }
+    }
+  }
+
+  .register-btn {
+    @apply flex items-center space-x-2;
+  }
+
+  .profile-info {
+    @apply text-lg font-semibold flex items-center space-x-2 cursor-pointer hover:text-yellow-300 text-indigo-100;
   }
 }
 
-/* .form-control {
-    border: 1px solid black !important;
-}
-.form-select {
-    border: 1px solid black !important;
-}
-
-.rounded-btn {
-    border-radius: 20px;
-}
-.navbar {
-    background-color: #1e6a99 !important;
-    color: white !important;
-}
-.card-body {
-    border: 1px solid gray !important;
-} */
+/* ogout-btn, logon-btn amd registration btn pending */

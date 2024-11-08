@@ -1,18 +1,52 @@
 <div>
   <nav>
     <div class="container nav-container">
-      <a class="logo" [routerLink]="'/home'">
+      <a class="logo" routerLink="/home">
         <fa-icon [icon]="faTrain"></fa-icon>
-        <span>RailConnect</span>
+        <span class="title">RailConnect</span>
       </a>
       <div class="links">
-        <a [routerLink]="'/home'">Home</a>
-        <a [routerLink]="'/home'">Trains</a>
-        <a [routerLink]="'/home'">Login</a>
+        <a routerLink="/home">Home</a>
+        <a routerLink="/home">Trains</a>
+
+        <ng-container
+          *ngIf="(isUserLoggedIn$ | async) && userData; else loggedOutTemplate"
+        >
+          <div
+            class="profile-info"
+            (click)="toggleDropdown()"
+            #dropdownContainer
+          >
+            <fa-icon [icon]="faUserCircle"></fa-icon>
+            <span>{{ userData.firstName }} {{ userData.lastName }}</span>
+          </div>
+          <div *ngIf="isDropdownOpen" class="logout-btn">
+            <ul>
+              <li (click)="getMyBookings()">
+                <fa-icon [icon]="faSignOutAlt"></fa-icon>My Bookings
+              </li>
+            </ul>
+            <ul>
+              <li (click)="logoutProfile()">
+                <fa-icon [icon]="faSignOutAlt"></fa-icon> Logout
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+
+        <ng-template #loggedOutTemplate>
+          <button (click)="openPopup()" class="register-btn">
+            <fa-icon [icon]="faUserPlus"></fa-icon>
+            <span>Register</span>
+          </button>
+        </ng-template>
       </div>
     </div>
   </nav>
 </div>
+
+<!-- Read the function or importance of async -->
+<!-- show loggedIn user details -->
 
 <!-- Heading Section -->
 <!-- f -->
@@ -24,164 +58,10 @@
 <!-- Search Section -->
 
 <router-outlet></router-outlet>
-
-<!-- <div>
-  <nav class="bg-yellow-500 border-b-2 border-t-2 p-0">
-    <div class="container mx-auto flex items-center justify-between py-4">
-      <a class="flex items-center text-2xl font-bold text-white" href="#">
-        <i class="fa fa-cart-shopping text-red-600"></i>
-        <span class="ml-2">Railway</span>
-      </a>
-      <button class="block lg:hidden text-white focus:outline-none">
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="hidden lg:flex space-x-8">
-        <a
-          class="text-white font-semibold hover:text-gray-200 transition"
-          href="#"
-          >Home</a
-        >
-        <a
-          class="text-white font-semibold hover:text-gray-200 transition"
-          href="#"
-          >Trains</a
-        >
-        <a
-          class="text-white font-semibold hover:text-gray-200 transition"
-          href="#"
-          >Login</a
-        >
-      </div>
-    </div>
-  </nav>
-</div>
-
-<section class="py-10 bg-gradient-to-r from-blue-500 to-purple-500">
-  <div class="container mx-auto">
-    <div class="flex justify-center">
-      <form
-        class="bg-white p-6 rounded-full flex flex-row items-center shadow-lg gap-4"
-      >
-        <div class="flex items-center bg-gray-100 p-3 rounded-full shadow-md">
-          <i class="fa fa-train text-blue-500 mr-3"></i>
-          <select
-            class="text-xl border-none focus:outline-none"
-            formControlName="from"
-          >
-            <option value="" selected>FROM</option>
-          </select>
-        </div>
-        
-        <i class="fa fa-arrows-alt-h text-3xl text-white"></i>
-        
-        <div class="flex items-center bg-gray-100 p-3 rounded-full shadow-md">
-          <i class="fa fa-train text-blue-500 mr-3"></i>
-          <select
-            class="text-xl border-none focus:outline-none"
-            formControlName="to"
-          >
-            <option value="" selected>TO</option>
-          </select>
-        </div>
-        
-        <div class="flex items-center bg-gray-100 p-3 rounded-full shadow-md">
-          <i class="fa fa-calendar-alt text-blue-500 mr-3"></i>
-          <input
-            type="date"
-            class="text-xl border-none focus:outline-none"
-            formControlName="date"
-          />
-        </div>
-        
-        <button
-          type="submit"
-          class="bg-yellow-500 text-white font-bold text-xl px-6 py-3 rounded-full shadow-md hover:bg-yellow-600 transition duration-300"
-        >
-          SEARCH TRAINS
-        </button>
-      </form>
-    </div>
-  </div>
-</section> -->
-
-<!-- <div>
-  <nav class="navbar navbar-expand-lg navbar-light nav-yellow  border-bottom border-top p-0">
-      <div class="container">
-          <a class="navbar-brand fs-4 fw-bold " href="#"><i class="fa fa-cart-shopping fs-4"
-                  style="color: #f54242;"></i><span class="text-white">
-                  Railway
-              </span></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-              aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav ms-auto mb-2 mb-lg-0  text-center ">
-
-                  <li class="nav-item">
-                      <a class="nav-link fw-semibold text-white  me-1" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link fw-semibold text-white  me-1" href="#">Trains</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link fw-semibold  text-white  me-1" href="#">Login</a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
-</div>
-
-<section>
-    <div class="search">
-      <form
-        [formGroup]="searchResults"
-        (ngSubmit)="getSearchResults()"
-        class="search-form"
-      >
-        <div class="input-group">
-          <fa-icon [icon]="faBusSimple"></fa-icon>
-          <select formControlName="from">
-            <option value="" selected>FROM</option>
-            <option
-              *ngFor="let busLocation of busLocations"
-              [value]="busLocation.locationId"
-              class="form-control"
-            >
-              {{ busLocation.locationName }}
-            </option>
-          </select>
-        </div>
-        <fa-icon
-          [icon]="faArrowRightArrowLeft"
-          class="arrow-right-left"
-        ></fa-icon>
-        <div class="input-group">
-          <fa-icon [icon]="faBusSimple"></fa-icon>
-          <select formControlName="to">
-            <option value="" selected>TO</option>
-            <option
-              *ngFor="let busLocation of busLocations"
-              [value]="busLocation.locationId"
-              class="form-control"
-            >
-              {{ busLocation.locationName }}
-            </option>
-          </select>
-        </div>
-        <div class="input-group">
-          <fa-icon [icon]="faCalendarDays"></fa-icon>
-          <input
-            type="date"
-            class="form-control"
-            placeholder="Date"
-            formControlName="date"
-          />
-        </div>
-        <button type="submit">SEARCH BUSES</button>
-      </form>
-    </div>
-  </section>
-</div> -->
+<app-login
+  [isRegisterPopupVisible]="isRegisterPopupVisible"
+  (isRegisterPopupVisibleChange)="handleRegisterPopupChange($event)"
+></app-login>
+<!-- Train button functionality -->
+<!-- validation of required field not working on email -->
+<!-- If i type email already register then -->

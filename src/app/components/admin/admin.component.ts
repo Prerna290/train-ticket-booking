@@ -31,6 +31,7 @@ export class AdminComponent {
     // const presentDate = moment().format('YYYY-MM-DD');
     this.trainForm = this.fb.group({
       trainId: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      //While adding train we dont need trainId as it is primary key
       trainNo: [
         '',
         [
@@ -49,6 +50,20 @@ export class AdminComponent {
       bookedSeats: [0, Validators.pattern('^[0-9]+$')],
     });
   }
+
+  //For train add we need
+  // trainId
+  // bookedSeats
+  //   //While adding train we dont need trainId and booked seats field as it is primary key
+  //   trainNo,
+  //   trainName,
+  //   departureStationId,
+  //   arrivalStationId,
+  //   arrivalTime
+  //   departureTime,
+  //   totalSeats,
+  //   departureDate,
+  // Add train from Add train API and then check from get Train between stations api
 
   ngOnInit() {
     this.getAllTrains();

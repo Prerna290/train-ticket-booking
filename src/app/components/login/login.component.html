@@ -1,0 +1,170 @@
+<form
+  *ngIf="isRegisterPopupVisible"
+  class="login-container"
+  id="registerModel"
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmitRegister()"
+>
+  <div class="login">
+    <div class="header">
+      <h4>Register</h4>
+      <button type="button" (click)="closePopup()">
+        <fa-icon [icon]="faXmark"></fa-icon>
+      </button>
+    </div>
+    <div class="form">
+      <div class="first-last-name">
+        <div class="first-name">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" formControlName="firstName" />
+          <p
+            *ngIf="
+              registerForm.get('firstName')?.touched &&
+              registerForm.get('firstName')?.errors?.['required']
+            "
+            class="alert-message"
+          >
+            First name is required.
+          </p>
+        </div>
+        <div class="last-name">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" formControlName="lastName" />
+          <p
+            *ngIf="
+              registerForm.get('lastName')?.touched &&
+              registerForm.get('lastName')?.errors?.['required']
+            "
+            class="alert-message"
+          >
+            Last name is required.
+          </p>
+        </div>
+      </div>
+      <div class="email-phone">
+        <div class="email">
+          <label for="email">Email</label>
+          <input type="text" id="email" formControlName="email" />
+          <p
+            *ngIf="
+              registerForm.get('email')?.touched &&
+              registerForm.get('email')?.errors?.['email']
+            "
+            class="alert-message"
+          >
+            Enter a valid email.
+          </p>
+          <p
+            *ngIf="
+              registerForm.get('email')?.touched &&
+              registerForm.get('email')?.errors?.['required']
+            "
+            class="alert-message"
+          >
+            Email is required.
+          </p>
+        </div>
+        <div class="phone">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" formControlName="phone" />
+          <p
+            *ngIf="
+              registerForm.get('phone')?.touched &&
+              registerForm.get('phone')?.errors?.['pattern']
+            "
+            class="alert-message"
+          >
+            Enter a valid phone number
+          </p>
+          <p
+            *ngIf="
+              registerForm.get('phone')?.touched &&
+              registerForm.get('phone')?.errors?.['required']
+            "
+            class="alert-message"
+          >
+            Phone number is required.
+          </p>
+        </div>
+      </div>
+      <div class="password-container">
+        <div class="password">
+          <label for="password">Password</label>
+          <input type="password" id="password" formControlName="password" />
+          <p
+            *ngIf="
+              registerForm.get('password')?.touched &&
+              registerForm.get('password')?.errors?.['required']
+            "
+            class="alert-message"
+          >
+            Password is required.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="action-btns">
+      <button type="button" class="close-btn" (click)="closePopup()">
+        Close
+      </button>
+      <button type="submit" class="register-btn">Register</button>
+    </div>
+    <p class="toggle-login">
+      Already Have An Account? <a (click)="toggleLogin()">Click here</a> to
+      login
+    </p>
+  </div>
+</form>
+
+<form
+  *ngIf="isLoginPopupVisible"
+  class="login-container"
+  id="registerModel"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmitLogin()"
+>
+  <div class="login">
+    <div class="header">
+      <h4>Login</h4>
+      <button type="button" (click)="closePopup()">
+        <fa-icon [icon]="faXmark"></fa-icon>
+      </button>
+    </div>
+    <div class="form">
+      <div class="phone-password">
+        <div class="phone">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" formControlName="phone" />
+          <p
+            *ngIf="
+              loginForm.get('phone')?.touched &&
+              loginForm.get('phone')?.hasError('minlength')
+            "
+            class="alert-message"
+          >
+            Phone number must be at least 10 characters long.
+          </p>
+        </div>
+        <div class="password">
+          <label for="password">Password</label>
+          <input type="password" id="password" formControlName="password" />
+          <p
+            *ngIf="
+              loginForm.get('password')?.touched &&
+              loginForm.get('password')?.hasError('required')
+            "
+            class="alert-message"
+          >
+            Password is required.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="action-btns">
+      <button type="button" class="close-btn" (click)="closePopup()">
+        Close
+      </button>
+      <button type="submit" class="register-btn">Login</button>
+    </div>
+  </div>
+</form>

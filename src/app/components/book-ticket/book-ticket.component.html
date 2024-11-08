@@ -1,0 +1,99 @@
+<div id="myModal" class="book-ticket" *ngIf="openBookTicket">
+  <div class="form">
+    <!-- Header -->
+    <div class="header">
+      <h5>Book Ticket</h5>
+      <button type="button" (click)="closePopup()">
+        <fa-icon [icon]="faXmark"></fa-icon>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+      <div class="train">
+        <p>
+          Train: {{ selectedTrain.trainName }} - {{ selectedTrain.trainNo }}
+        </p>
+        <p>Time: {{ selectedTrain.departureTime }}</p>
+      </div>
+
+      <form
+        class="passenger"
+        [formGroup]="passengerForm"
+        (ngSubmit)="addPassenger()"
+      >
+        <div class="name">
+          <label>Passenger Name</label>
+          <input formControlName="passengerName" type="text" />
+        </div>
+        <div class="age">
+          <label>Age</label>
+          <input formControlName="age" type="text" />
+        </div>
+        <div class="add-btn">
+          <button type="submit">Add</button>
+        </div>
+      </form>
+
+      <div *ngIf="passengersList.length > 0" class="passenger-list">
+        <div class="list-header sr-no bg-gray-200">Sr</div>
+        <div class="list-header bg-gray-200 passenger-name">Passenger Name</div>
+        <div class="list-header bg-gray-200 age">Age</div>
+        <div class="list-header bg-gray-200 action">Action</div>
+      </div>
+
+      <div
+        *ngFor="let passenger of passengersList; let i = index"
+        class="passenger-list"
+      >
+        <p class="list-header sr-no">{{ i + 1 }}</p>
+        <p class="list-header passenger-name">{{ passenger.passengerName }}</p>
+        <p class="list-header age">{{ passenger.age }}</p>
+        <p class="list-header action">Remove</p>
+        <!--
+            <tr class="">
+              <th class="px-4 py-2 border">Sr</th>
+              <th class="px-4 py-2 border">Passenger Name</th>
+              <th class="px-4 py-2 border">Age</th>
+              <th class="px-4 py-2 border">Action</th>
+            </tr>
+          <tbody class="text-sm">
+            <tr>
+              <td class="px-4 py-2 border text-center">1</td>
+              <td class="px-4 py-2 border text-center">Sachin</td>
+              <td class="px-4 py-2 border text-center">34</td>
+              <td class="px-4 py-2 border text-center">
+                <button
+                  class="bg-red-500 text-white text-sm px-2 py-1 rounded-md hover:bg-red-600"
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 border text-center">2</td>
+              <td class="px-4 py-2 border text-center">Rohit</td>
+              <td class="px-4 py-2 border text-center">34</td>
+              <td class="px-4 py-2 border text-center">
+                <button
+                  class="bg-red-500 text-white text-sm px-2 py-1 rounded-md hover:bg-red-600"
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </tbody> -->
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <button type="button" class="close-btn" (click)="closePopup()">
+        Close
+      </button>
+      <button type="button" class="create-btn" (click)="bookTicket()">
+        Book Ticket
+      </button>
+    </div>
+  </div>
+</div>
