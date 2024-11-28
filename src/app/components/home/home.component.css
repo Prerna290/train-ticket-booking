@@ -1,5 +1,5 @@
 section {
-  @apply bg-indigo-50 py-20;
+  @apply bg-indigo-50 dark:bg-black py-20;
 
   .header {
     @apply mx-auto text-center mb-16;
@@ -49,7 +49,7 @@ section {
         }
 
         &:hover {
-          @apply shadow-lg bg-gray-200;
+          @apply shadow-lg bg-gray-200 focus:outline-none;
         }
 
         select,

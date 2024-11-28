@@ -1,0 +1,15 @@
+.toast {
+  @apply fixed top-40 right-40 bg-white text-black font-medium p-4 rounded-md z-[1000];
+}
+
+.success {
+  @apply border-2 border-solid border-green-500;
+}
+
+.alert {
+  @apply border-2 border-solid border-red-500;
+}
+
+.warning {
+  @apply border-2 border-solid border-yellow-500;
+}

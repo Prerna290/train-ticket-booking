@@ -1,12 +1,12 @@
 nav {
-  @apply bg-indigo-600 shadow-md;
+  @apply dark:bg-Charleston-Green bg-indigo-50 shadow-lg border-0 border-b-2 border-solid border-Dark-Cyan;
 
   .nav-container {
-    @apply mx-auto flex items-center justify-between py-4 px-6 text-indigo-50;
+    @apply mx-auto flex items-center justify-between py-4 px-6;
   }
 
   .logo {
-    @apply flex items-center md:text-2xl text-lg font-bold text-white hover:text-yellow-300;
+    @apply flex items-center md:text-2xl text-lg font-bold text-Dark-Cyan dark:text-Persian-Green hover:text-teal-500  dark:hover:text-teal-400;
 
     fa-icon {
       @apply md:text-2xl text-xl;
@@ -18,35 +18,52 @@ nav {
   }
 
   .links {
-    @apply flex md:gap-8 gap-4 items-center;
-
-    a,
-    button {
-      @apply text-white font-semibold hover:text-yellow-300 transition;
-    }
+    @apply flex md:gap-6 gap-4 items-center;
   }
 
-  .logout-btn {
-    @apply absolute right-[50px] top-10 mt-2 bg-gray-200 shadow-lg rounded-xl z-50 cursor-pointer;
+  .dropdown {
+    @apply absolute right-[200px] top-16 mt-2 shadow-2xl bg-gray-100 rounded-xl z-50 cursor-pointer;
 
     ul {
-      @apply p-2 text-red-500;
+      @apply p-2 flex flex-col;
 
       li {
-        fa {
-          @apply mr-2;
+        @apply text-gray-600 p-2 hover:bg-gray-200 rounded-md flex flex-row items-center;
+        fa-icon {
+          @apply mr-2 text-lg;
         }
+      }
+
+      .horizontal-line {
+        @apply border border-Dark-Cyan;
       }
     }
   }
 
   .register-btn {
-    @apply flex items-center space-x-2;
+    @apply flex items-center space-x-2 text-Dark-Cyan dark:text-Persian-Green border p-2 border-solid border-Dark-Cyan rounded-md hover:text-teal-500  dark:hover:text-teal-400;
   }
 
-  .profile-info {
-    @apply text-lg font-semibold flex items-center space-x-2 cursor-pointer hover:text-yellow-300 text-indigo-100;
+  .user-icon {
+    @apply text-lg font-semibold cursor-pointer text-Dark-Cyan border-2 border-solid border-Dark-Cyan dark:text-Persian-Green rounded-full px-2 py-1 hover:text-teal-500  dark:hover:text-teal-400;
+  }
+
+  .moon-icon {
+    @apply text-Charleston-Green;
+
+    fa-icon {
+      @apply text-lg;
+    }
+  }
+
+  .sun-icon {
+    @apply text-gray-200;
+
+    fa-icon {
+      @apply text-lg;
+    }
   }
 }
 
 /* ogout-btn, logon-btn amd registration btn pending */
+/* when login after register then why refresh */

@@ -6,29 +6,49 @@
         <span class="title">RailConnect</span>
       </a>
       <div class="links">
-        <a routerLink="/home">Home</a>
-        <a routerLink="/home">Trains</a>
+        <button *ngIf="!isDarkMode" class="moon-icon" (click)="toggleTheme()">
+          <fa-icon [icon]="faMoon"></fa-icon>
+        </button>
+        <button *ngIf="isDarkMode" class="sun-icon" (click)="toggleTheme()">
+          <fa-icon [icon]="faSun"></fa-icon>
+        </button>
 
         <ng-container
           *ngIf="(isUserLoggedIn$ | async) && userData; else loggedOutTemplate"
         >
           <div
-            class="profile-info"
+            *ngIf="userData"
+            class="user-icon"
             (click)="toggleDropdown()"
             #dropdownContainer
           >
-            <fa-icon [icon]="faUserCircle"></fa-icon>
-            <span>{{ userData.firstName }} {{ userData.lastName }}</span>
+            {{
+              userData.lastName
+                ? userData.firstName[0].toUpperCase() +
+                  userData.lastName[0].toUpperCase()
+                : userData.firstName.slice(0, 2).toUpperCase()
+            }}
           </div>
-          <div *ngIf="isDropdownOpen" class="logout-btn">
+          <div *ngIf="isDropdownOpen" class="dropdown">
             <ul>
-              <li (click)="getMyBookings()">
-                <fa-icon [icon]="faSignOutAlt"></fa-icon>My Bookings
+              <li>
+                <fa-icon [icon]="faUser"></fa-icon>
+                <span
+                  >{{ userData.firstName.toUpperCase() }}
+                  {{ userData.lastName.toUpperCase() }}</span
+                >
               </li>
-            </ul>
-            <ul>
+              <li>
+                <fa-icon [icon]="faEnvelope"></fa-icon>
+                <span>{{ userData.email }}</span>
+              </li>
+
+              <hr class="horizontal-line" />
+              <li [routerLink]="'/bookings'">
+                <fa-icon [icon]="faClipboardList"></fa-icon>My Bookings
+              </li>
               <li (click)="logoutProfile()">
-                <fa-icon [icon]="faSignOutAlt"></fa-icon> Logout
+                <fa-icon [icon]="faSignOutAlt"></fa-icon> Sign Out
               </li>
             </ul>
           </div>
@@ -37,7 +57,7 @@
         <ng-template #loggedOutTemplate>
           <button (click)="openPopup()" class="register-btn">
             <fa-icon [icon]="faUserPlus"></fa-icon>
-            <span>Register</span>
+            <span>Sign Up</span>
           </button>
         </ng-template>
       </div>

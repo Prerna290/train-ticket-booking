@@ -9,11 +9,16 @@ import {
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+  faMoon,
   faSignInAlt,
   faSignOutAlt,
+  faSun,
   faTrain,
   faUserCircle,
   faUserPlus,
+  faClipboardList,
+  faUser,
+  faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 import { LoginComponent } from './components/login/login.component';
 import { TicketBookingService } from './services/ticket-booking.service';
@@ -39,11 +44,19 @@ export class AppComponent {
   faSignOutAlt = faSignOutAlt;
   faUserPlus = faUserPlus;
   faSignInAlt = faSignInAlt;
+  faMoon = faMoon;
+  faSun = faSun;
+  faClipboardList = faClipboardList;
+  faUser = faUser;
+  faEnvelope = faEnvelope;
 
   isRegisterPopupVisible = false;
   isUserLoggedIn$ = this.ticketBookingService.userLoggedIn$;
   userData!: IUser;
   isDropdownOpen = false;
+
+  isDarkMode = false;
+  userTheme = '';
 
   constructor() {
     this.isUserLoggedIn$ = this.ticketBookingService.userLoggedIn$;
@@ -51,6 +64,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    this.checkTheme();
     const user = localStorage.getItem('trainApp');
     if (user) {
       this.userData = JSON.parse(user);
@@ -79,15 +93,41 @@ export class AppComponent {
     }
   }
 
-  getMyBookings() {
-    this.ticketBookingService
-      .getBookedTrainData(this.userData.passengerID)
-      .subscribe((data) => {
-        console.log(data);
-      });
-  }
-
   handleRegisterPopupChange(value: boolean) {
     this.isRegisterPopupVisible = value;
+  }
+
+  checkTheme() {
+    const userTheme = localStorage.getItem('theme');
+    const systemPreference = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+
+    // Apply dark mode if user preference is 'dark' or system prefers dark
+    if (userTheme === 'dark' || (!userTheme && systemPreference)) {
+      this.enableDarkMode();
+    } else {
+      this.disableDarkMode();
+    }
+  }
+
+  toggleTheme() {
+    if (this.isDarkMode) {
+      this.disableDarkMode();
+    } else {
+      this.enableDarkMode();
+    }
+  }
+
+  enableDarkMode() {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+    this.isDarkMode = true;
+  }
+
+  disableDarkMode() {
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('theme', 'default');
+    this.isDarkMode = false;
   }
 }

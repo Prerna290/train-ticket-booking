@@ -80,7 +80,7 @@ This is particularly helpful for centering or stretching elements. */
   @apply text-sm text-blue-600 px-6 pt-1 pb-4 cursor-pointer;
 
   a {
-    @apply text-yellow-500 font-medium;
+    @apply text-yellow-500 font-semibold;
   }
 }
 

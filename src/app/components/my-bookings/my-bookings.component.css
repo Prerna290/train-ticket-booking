@@ -1,0 +1,104 @@
+.main-div {
+  @apply mx-auto py-8;
+
+  .heading {
+    @apply flex justify-center text-3xl font-bold mb-8 text-Dark-Cyan;
+  }
+
+  .bookings-container {
+    @apply grid grid-cols-2 gap-6;
+
+    .booking {
+      @apply bg-white shadow-md rounded-xl p-6 hover:shadow-xl border border-solid border-Dark-Cyan;
+
+      .booking-header {
+        @apply flex justify-between items-center;
+
+        .train-name {
+          @apply text-lg font-semibold;
+        }
+      }
+
+      /* journey-arrival-departure css pending */
+
+      .departure,
+      .arrival {
+        @apply text-gray-500 text-sm;
+        span {
+          @apply font-medium;
+        }
+      }
+
+      .horizontal-line {
+        @apply mt-2;
+      }
+
+      .passengers-section {
+        @apply flex flex-col gap-4 mt-3;
+
+        .passengers-list-heading {
+          @apply text-gray-500 text-sm tracking-wide font-medium;
+        }
+
+        .passenger-card {
+          @apply bg-gray-50 rounded-lg p-3 flex flex-col gap-2 ease-in-out hover:bg-gray-100  hover:-translate-y-1;
+
+          .detail-label {
+            @apply text-xs text-gray-500;
+          }
+
+          .detail-value {
+            @apply text-sm font-medium text-gray-800;
+          }
+
+          .passenger-header {
+            @apply flex flex-row justify-between;
+          }
+
+          .name,
+          .age,
+          .booking-id {
+            @apply flex flex-row items-center;
+          }
+
+          .seat-no {
+            @apply text-blue-600 font-medium inline-flex items-center gap-1 text-sm;
+          }
+
+          .booking-id {
+            @apply text-gray-600 text-sm;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* .passengers-list-heading {
+        @apply text-gray-700 mb-1;
+      }
+
+      .passengers-list {
+        @apply text-sm grid grid-cols-5 gap-5;
+
+        .passenger-name {
+          @apply col-span-2 text-base text-gray-700;
+
+          span {
+            @apply font-medium;
+          }
+        }
+
+        .passenger-age,
+        .booking-id {
+          @apply text-base text-gray-700;
+
+          span {
+            @apply font-medium;
+          }
+        }
+
+        .seat-no {
+          @apply text-blue-600 font-medium;
+        }
+      } */

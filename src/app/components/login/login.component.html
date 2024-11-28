@@ -1,3 +1,4 @@
+<app-toast *ngIf="showToast" [message]="message"></app-toast>
 <form
   *ngIf="isRegisterPopupVisible"
   class="login-container"
@@ -24,6 +25,7 @@
             "
             class="alert-message"
           >
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
             First name is required.
           </p>
         </div>
@@ -37,6 +39,7 @@
             "
             class="alert-message"
           >
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
             Last name is required.
           </p>
         </div>
@@ -61,6 +64,7 @@
             "
             class="alert-message"
           >
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
             Email is required.
           </p>
         </div>
@@ -83,6 +87,7 @@
             "
             class="alert-message"
           >
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
             Phone number is required.
           </p>
         </div>
@@ -98,6 +103,7 @@
             "
             class="alert-message"
           >
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
             Password is required.
           </p>
         </div>
@@ -137,12 +143,23 @@
           <input type="text" id="phone" formControlName="phone" />
           <p
             *ngIf="
-              loginForm.get('phone')?.touched &&
-              loginForm.get('phone')?.hasError('minlength')
-            "
+          loginForm.get('phone')?.touched &&
+          loginForm.get('phone')?.errors?.['pattern']
+        "
             class="alert-message"
           >
-            Phone number must be at least 10 characters long.
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
+            Enter a valid password
+          </p>
+          <p
+            *ngIf="
+            loginForm.get('phone')?.touched &&
+            loginForm.get('phone')?.errors?.['required']
+          "
+            class="alert-message"
+          >
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
+            Phone number is required.
           </p>
         </div>
         <div class="password">
@@ -150,11 +167,12 @@
           <input type="password" id="password" formControlName="password" />
           <p
             *ngIf="
-              loginForm.get('password')?.touched &&
-              loginForm.get('password')?.hasError('required')
-            "
+          loginForm.get('password')?.touched &&
+          loginForm.get('password')?.errors?.['required']
+        "
             class="alert-message"
           >
+            <fa-icon [icon]="faCircleExclamation"></fa-icon>
             Password is required.
           </p>
         </div>

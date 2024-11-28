@@ -7,14 +7,23 @@ import {
   Validators,
 } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleExclamation,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
 import { TicketBookingService } from '../../services/ticket-booking.service';
 import { IUser } from '../../model/train';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    ToastComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -25,9 +34,12 @@ export class LoginComponent {
   private ticketBookingService = inject(TicketBookingService);
 
   faXmark = faXmark;
+  faCircleExclamation = faCircleExclamation;
   registerForm: FormGroup;
   loginForm: FormGroup;
   isLoginPopupVisible = false;
+  message = '';
+  showToast = false;
 
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
@@ -58,21 +70,26 @@ export class LoginComponent {
   }
 
   closePopup() {
+    this.resetForms();
     this.isRegisterPopupVisible = false;
     this.isLoginPopupVisible = false;
     this.isRegisterPopupVisibleChange.emit(false);
   }
 
   onSubmitRegister() {
+    this.message = 'Yay, Registration Successful';
     if (this.registerForm.valid) {
       const user: IUser = this.registerForm.value;
       this.ticketBookingService.addUsers(user).subscribe((data: any) => {
         if (data.result) {
-          alert('Registration Successful');
+          this.showToast = true;
+          this.message = 'Yay, Registration Successful';
+          this.resetForms();
           this.isRegisterPopupVisible = false;
           this.isRegisterPopupVisibleChange.emit(false);
         } else {
-          alert(data.message);
+          this.showToast = true;
+          this.message = data.message;
         }
       });
     }
@@ -83,14 +100,20 @@ export class LoginComponent {
       const loginUser: any = this.loginForm.value;
       this.ticketBookingService.loginUser(loginUser).subscribe((res) => {
         if (res.result) {
-          alert('Login Successful');
+          this.message = 'Yay, Login Successful';
+          this.resetForms();
           this.ticketBookingService.loginDetails(res.data);
           this.isLoginPopupVisible = false;
         } else {
-          alert(res.message);
+          this.message = res.message;
         }
       });
     }
+  }
+
+  resetForms() {
+    this.registerForm.reset();
+    this.loginForm.reset();
   }
 
   toggleLogin() {

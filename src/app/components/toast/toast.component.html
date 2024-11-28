@@ -1,0 +1,11 @@
+<div
+  *ngIf="visible"
+  class="toast"
+  [ngClass]="{
+    success: messageType === 'success',
+    alert: messageType === 'alert',
+    warning: messageType === 'warning'
+  }"
+>
+  {{ message }}
+</div>
