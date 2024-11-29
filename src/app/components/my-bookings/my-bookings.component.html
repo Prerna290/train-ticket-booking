@@ -1,6 +1,14 @@
 <div class="container main-div">
-  <h2 class="heading">My Bookings</h2>
-
+  <div class="header">
+    <h2 class="heading">My Bookings</h2>
+    <div class="sort">
+      <select [(ngModel)]="sortType" (change)="sortBookings()">
+        <option value="" disabled>SORT BY DEPARTURE DATE</option>
+        <option value="latest">LATEST</option>
+        <option value="oldest">OLDEST</option>
+      </select>
+    </div>
+  </div>
   <!-- Booking Cards -->
   <div class="bookings-container">
     <div *ngFor="let booking of groupedMyBookings">

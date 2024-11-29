@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { TicketBookingService } from '../../services/ticket-booking.service';
 import { IBooking, IUser } from '../../model/train';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './my-bookings.component.html',
   styleUrl: './my-bookings.component.css',
 })
@@ -14,6 +15,7 @@ export class MyBookingsComponent {
   userData!: IUser;
   myBookings: IBooking[] = [];
   groupedMyBookings: IBooking[] = [];
+  sortType: 'latest' | 'oldest' = 'latest';
 
   private ticketBookingService = inject(TicketBookingService);
 
@@ -70,6 +72,18 @@ export class MyBookingsComponent {
 
     console.log(Object.values(groupedBookings));
     return Object.values(groupedBookings);
+  }
+
+  sortBookings() {
+    this.groupedMyBookings.sort((a, b) => {
+      const dateA = new Date(a.departureDate);
+      const dateB = new Date(b.departureDate);
+
+      //When comparing two Date objects directly without getTime(e.g., dateA > dateB), JavaScript will convert them to strings, which can lead to unexpected results. Using getTime() ensures that you are comparing numeric values.
+      return this.sortType === 'latest'
+        ? dateB.getTime() - dateA.getTime()
+        : dateA.getTime() - dateB.getTime();
+    });
   }
 }
 
