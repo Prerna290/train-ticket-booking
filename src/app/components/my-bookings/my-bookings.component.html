@@ -1,64 +1,66 @@
-<div class="container main-div">
-  <div class="header">
-    <h2 class="heading">My Bookings</h2>
-    <div class="sort">
-      <select [(ngModel)]="sortType" (change)="sortBookings()">
-        <option value="" disabled>SORT BY DEPARTURE DATE</option>
-        <option value="latest">LATEST</option>
-        <option value="oldest">OLDEST</option>
-      </select>
+<div class="booking-container">
+  <div class="container">
+    <div class="header">
+      <h2 class="heading">My Bookings</h2>
+      <div class="sort">
+        <select [(ngModel)]="sortType" (change)="sortBookings()">
+          <option value="" disabled>SORT BY DEPARTURE DATE</option>
+          <option value="latest">LATEST</option>
+          <option value="oldest">OLDEST</option>
+        </select>
+      </div>
     </div>
-  </div>
-  <!-- Booking Cards -->
-  <div class="bookings-container">
-    <div *ngFor="let booking of groupedMyBookings">
-      <!-- Booking 1 -->
-      <div class="booking">
-        <div class="booking-header">
-          <h3 class="train-name">
-            {{ booking.trainName }} ({{ booking.trainNo }})
-          </h3>
-        </div>
-        <p class="departure">
-          Departure:
-          <span>{{ booking.departureStationName }}</span> at
-          <span>{{ booking.departureTime }}</span> on
-          <span>{{ booking.departureDate | date }}</span>
-        </p>
-        <p class="arrival">
-          Arrival:
-          <span>{{ booking.arrivalStationName }}</span> at
-          <span>{{ booking.arrivalTime }}</span>
-        </p>
-        <hr class="horizontal-line" />
-        <div class="passengers-section">
-          <h4 class="passengers-list-heading">
-            PASSENGERS ({{ booking.passengers.length }})
-          </h4>
+    <!-- Booking Cards -->
+    <div class="bookings-container">
+      <div *ngFor="let booking of groupedMyBookings">
+        <!-- Booking 1 -->
+        <div class="booking">
+          <div class="booking-header">
+            <h3 class="train-name">
+              {{ booking.trainName }} ({{ booking.trainNo }})
+            </h3>
+          </div>
+          <p class="departure">
+            Departure:
+            <span>{{ booking.departureStationName }}</span> at
+            <span>{{ booking.departureTime }}</span> on
+            <span>{{ booking.departureDate | date }}</span>
+          </p>
+          <p class="arrival">
+            Arrival:
+            <span>{{ booking.arrivalStationName }}</span> at
+            <span>{{ booking.arrivalTime }}</span>
+          </p>
+          <hr class="horizontal-line" />
+          <div class="passengers-section">
+            <h4 class="passengers-list-heading">
+              PASSENGERS ({{ booking.passengers.length }})
+            </h4>
 
-          <div
-            *ngFor="let passenger of booking.passengers"
-            class="passenger-card"
-          >
-            <div class="passenger-header">
-              <div class="name">
-                <p class="detail-label">Passenger Name: &nbsp;</p>
-                <p class="detail-value">{{ passenger.passengerName }}</p>
+            <div
+              *ngFor="let passenger of booking.passengers"
+              class="passenger-card"
+            >
+              <div class="passenger-header">
+                <div class="name">
+                  <p class="detail-label">Passenger Name: &nbsp;</p>
+                  <p class="detail-value">{{ passenger.passengerName }}</p>
+                </div>
+                <div class="age">
+                  <p class="detail-label">Age: &nbsp;</p>
+                  <p class="detail-value">
+                    {{ passenger.age }} year{{ passenger.age > 1 ? "s" : "" }}
+                  </p>
+                </div>
               </div>
-              <div class="age">
-                <p class="detail-label">Age: &nbsp;</p>
-                <p class="detail-value">
-                  {{ passenger.age }} year{{ passenger.age > 1 ? "s" : "" }}
-                </p>
-              </div>
-            </div>
 
-            <div class="passenger-header">
-              <div class="seat-no">Seat {{ passenger.seatNo }}</div>
-              <div class="booking-id">
-                <div class="detail-label">Booking ID: &nbsp;</div>
-                <div class="detail-value">
-                  {{ passenger.bookingPassengerId }}
+              <div class="passenger-header">
+                <div class="seat-no">Seat {{ passenger.seatNo }}</div>
+                <div class="booking-id">
+                  <div class="detail-label">Booking ID: &nbsp;</div>
+                  <div class="detail-value">
+                    {{ passenger.bookingPassengerId }}
+                  </div>
                 </div>
               </div>
             </div>
