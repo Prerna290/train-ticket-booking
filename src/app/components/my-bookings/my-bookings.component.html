@@ -12,8 +12,10 @@
     </div>
     <!-- Booking Cards -->
     <div class="bookings-container">
-      <div *ngFor="let booking of groupedMyBookings">
-        <!-- Booking 1 -->
+      <div
+        *ngFor="let booking of groupedMyBookings"
+        class="break-inside-avoid-column"
+      >
         <div class="booking">
           <div class="booking-header">
             <h3 class="train-name">

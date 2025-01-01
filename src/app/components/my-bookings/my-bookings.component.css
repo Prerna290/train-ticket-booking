@@ -1,31 +1,39 @@
 .booking-container {
-  @apply bg-indigo-50 py-8;
+  @apply bg-indigo-50 dark:bg-Charleston-Green py-8;
 
   .container {
     @apply mx-auto;
   }
 
   .header {
-    @apply flex items-center mb-8 text-Dark-Cyan;
+    @apply flex items-center mb-8 dark:text-Persian-Green text-Dark-Cyan;
     .heading {
       @apply flex text-3xl font-bold;
     }
 
     .sort {
-      @apply flex ml-auto p-3 border-2 border-Dark-Cyan border-solid rounded-md font-semibold;
+      @apply flex ml-auto p-3 border-2 dark:border-Persian-Green border-Dark-Cyan border-solid rounded-md font-semibold;
+
+      select {
+        @apply bg-transparent outline-none;
+      }
     }
   }
+
   .bookings-container {
-    @apply grid grid-cols-2 gap-6;
+    @apply columns-2 gap-6 mb-6;
+    .break-inside-avoid-column {
+      @apply break-inside-avoid mb-6;
+    }
 
     .booking {
-      @apply bg-white shadow-md rounded-xl p-6 hover:shadow-xl border border-solid border-Dark-Cyan;
+      @apply bg-white dark:bg-gray-700 shadow-md rounded-xl p-6 hover:shadow-xl border border-solid border-Dark-Cyan dark:border-Persian-Green;
 
       .booking-header {
         @apply flex justify-between items-center;
 
         .train-name {
-          @apply text-lg font-semibold;
+          @apply text-lg font-semibold mb-1 dark:text-white text-black;
         }
       }
 
@@ -33,7 +41,7 @@
 
       .departure,
       .arrival {
-        @apply text-gray-500 text-sm;
+        @apply dark:text-gray-300 text-gray-500 text-sm;
         span {
           @apply font-medium;
         }
@@ -47,18 +55,18 @@
         @apply flex flex-col gap-4 mt-3;
 
         .passengers-list-heading {
-          @apply text-gray-500 text-sm tracking-wide font-medium;
+          @apply text-gray-500 dark:text-gray-300 text-sm tracking-wide font-medium;
         }
 
         .passenger-card {
-          @apply bg-gray-50 rounded-lg p-3 flex flex-col gap-2 ease-in-out hover:bg-gray-100  hover:-translate-y-1;
+          @apply bg-gray-50 dark:bg-gray-600 rounded-lg p-3 flex flex-col gap-2 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 hover:-translate-y-1;
 
           .detail-label {
-            @apply text-xs text-gray-500;
+            @apply text-xs dark:text-gray-200 text-gray-500;
           }
 
           .detail-value {
-            @apply text-sm font-medium text-gray-800;
+            @apply text-sm font-medium text-gray-800 dark:text-gray-100;
           }
 
           .passenger-header {
@@ -72,11 +80,7 @@
           }
 
           .seat-no {
-            @apply text-blue-600 font-medium inline-flex items-center gap-1 text-sm;
-          }
-
-          .booking-id {
-            @apply text-gray-600 text-sm;
+            @apply text-blue-600 dark:text-blue-400 font-medium inline-flex items-center gap-1 text-sm;
           }
         }
       }

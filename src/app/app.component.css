@@ -1,5 +1,5 @@
 nav {
-  @apply dark:bg-Charleston-Green bg-indigo-50 shadow-lg border-0 border-b-2 border-solid border-Dark-Cyan;
+  @apply dark:bg-Charleston-Green bg-indigo-50 shadow-lg border-0 border-b-2 border-solid dark:border-Persian-Green border-Dark-Cyan;
 
   .nav-container {
     @apply mx-auto flex items-center justify-between py-4 px-6;
@@ -22,30 +22,30 @@ nav {
   }
 
   .dropdown {
-    @apply absolute right-[200px] top-16 mt-2 shadow-2xl bg-gray-100 rounded-xl z-50 cursor-pointer;
+    @apply absolute right-[200px] top-16 mt-2 shadow-2xl bg-gray-100 dark:bg-Charleston-Green rounded-xl z-50 cursor-pointer;
 
     ul {
       @apply p-2 flex flex-col;
 
       li {
-        @apply text-gray-600 p-2 hover:bg-gray-200 rounded-md flex flex-row items-center;
+        @apply text-gray-600 dark:text-gray-100 p-2 hover:bg-gray-200 dark:hover:text-gray-600 rounded-md flex flex-row items-center;
         fa-icon {
           @apply mr-2 text-lg;
         }
       }
 
       .horizontal-line {
-        @apply border border-Dark-Cyan;
+        @apply border border-Dark-Cyan dark:border-Persian-Green;
       }
     }
   }
 
   .register-btn {
-    @apply flex items-center space-x-2 text-Dark-Cyan dark:text-Persian-Green border p-2 border-solid border-Dark-Cyan rounded-md hover:text-teal-500  dark:hover:text-teal-400;
+    @apply flex items-center space-x-2 text-Dark-Cyan dark:text-Persian-Green border p-2 border-solid border-Dark-Cyan dark:border-Persian-Green rounded-md hover:text-teal-500  dark:hover:text-teal-400;
   }
 
   .user-icon {
-    @apply text-lg font-semibold cursor-pointer text-Dark-Cyan border-2 border-solid border-Dark-Cyan dark:text-Persian-Green rounded-full px-2 py-1 hover:text-teal-500  dark:hover:text-teal-400;
+    @apply text-lg font-semibold cursor-pointer text-Dark-Cyan dark:text-Persian-Green border-2 border-solid border-Dark-Cyan dark:border-Persian-Green  rounded-full px-2 py-1 hover:text-teal-500  dark:hover:text-teal-400;
   }
 
   .moon-icon {
