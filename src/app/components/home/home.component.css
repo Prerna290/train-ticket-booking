@@ -1,15 +1,15 @@
 section {
-  @apply bg-indigo-50 dark:bg-black py-20;
+  @apply bg-indigo-50 dark:bg-Charleston-Green py-20;
 
   .header {
     @apply mx-auto text-center mb-16;
 
     .heading {
-      @apply text-5xl font-extrabold text-gray-800 mb-5 tracking-wide;
+      @apply text-5xl font-extrabold text-gray-800 dark:text-white mb-5 tracking-wide;
     }
 
     .sub-heading {
-      @apply text-xl text-gray-600 mb-8;
+      @apply text-xl text-gray-600 dark:text-gray-300 mb-8;
     }
   }
 
@@ -27,10 +27,10 @@ section {
       }
 
       .location-select {
-        @apply flex items-center p-4 rounded-full text-xl bg-gray-100 text-gray-900 w-full shadow-md hover:shadow-lg hover:bg-gray-200;
+        @apply flex items-center p-4 rounded-full text-xl bg-gray-100 text-gray-900 w-full shadow-md hover:shadow-lg;
 
         fa-icon {
-          @apply text-indigo-500 mr-4 text-2xl;
+          @apply text-[#008A90] mr-4 text-2xl;
         }
 
         &:hover {
@@ -39,7 +39,7 @@ section {
 
         select,
         input {
-          @apply bg-gray-100 w-full focus:outline-none;
+          @apply bg-transparent w-full focus:outline-none;
         }
       }
 
@@ -47,7 +47,7 @@ section {
         @apply flex items-center p-4 rounded-full text-xl bg-gray-100 text-gray-900 w-full shadow-md hover:shadow-lg hover:bg-gray-200;
 
         fa-icon {
-          @apply text-indigo-500 mr-4 text-2xl;
+          @apply text-[#008A90] mr-4 text-2xl;
         }
 
         &:hover {
@@ -56,12 +56,12 @@ section {
 
         select,
         input {
-          @apply bg-gray-100 w-full focus:outline-none;
+          @apply bg-transparent w-full focus:outline-none;
         }
       }
 
       .arrow-icon {
-        @apply flex flex-row justify-center w-fit p-4 text-2xl rounded-2xl bg-indigo-200 text-indigo-600 my-[-16px] z-10;
+        @apply flex flex-row justify-center w-fit p-4 text-2xl rounded-2xl bg-teal-200 text-[#008A90] my-[-16px] z-10;
       }
 
       .alert {

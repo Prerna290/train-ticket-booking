@@ -42,8 +42,7 @@
   <span>{{ trainSearchResults.length }}</span> result{{
     trainSearchResults.length > 1 ? "s" : ""
   }}
-  found from <span>{{ searchData.fromStationId }}</span> to
-  <span>{{ searchData.toStationId }}</span> on
+  found on
   <span>{{ searchData.dateOfTravel }}</span>
 </div>
 
@@ -75,10 +74,24 @@
       </p>
       <!-- Total train Journey and Arrival date missing -->
     </div>
-    <button class="book-train" (click)="openBookTicketPopup(i)">
-      Book Ticket
-    </button>
-    <button class="check-availability">Check Availability</button>
+    <div class="book-ticket-availability">
+      <div class="check-availability">
+        <button class="availability" (click)="toggleCheckAvailability(i)">
+          Check Availability
+        </button>
+        <p *ngIf="showTicketAvailability[i]" class="total-seats-available">
+          Seats Available:
+          <span>{{ train.totalSeats - train.bookedSeats }}</span>
+        </p>
+      </div>
+      <button
+        [disabled]="train.totalSeats - train.bookedSeats === 0"
+        class="book-train"
+        (click)="openBookTicketPopup(i)"
+      >
+        Book Ticket
+      </button>
+    </div>
     <div *ngIf="openBookTicket[i]">
       <app-book-ticket [selectedTrain]="train"></app-book-ticket>
     </div>

@@ -39,6 +39,7 @@ export class SearchComponent {
   searchData!: ISearch;
   trainSearchResults: ITrain[] = [];
   stationList: IStation[] = [];
+  showTicketAvailability = [false];
   // stationForm: FormGroup;
 
   activatedRoute = inject(ActivatedRoute);
@@ -91,5 +92,9 @@ export class SearchComponent {
 
   openBookTicketPopup(index: number) {
     this.openBookTicket[index] = !this.openBookTicket[index];
+  }
+
+  toggleCheckAvailability(index: number) {
+    this.showTicketAvailability[index] = !this.showTicketAvailability[index];
   }
 }

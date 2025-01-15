@@ -1,32 +1,32 @@
 .total-results {
-  @apply p-5 rounded-lg text-lg font-medium bg-blue-100 text-gray-600;
+  @apply p-5 text-lg font-medium bg-blue-100 dark:bg-Charleston-Green text-gray-600 dark:text-gray-300;
 
   span {
-    @apply font-bold text-black;
+    @apply font-bold text-black dark:text-white;
   }
 }
 
 .train-details-container {
   @apply mx-auto grid grid-cols-3 gap-4 my-10;
   .train-list {
-    @apply pb-4 rounded-md border border-solid border-gray-200;
+    @apply pb-4 rounded-lg border border-solid border-gray-200 bg-white dark:bg-gray-400;
 
     .id-name {
-      @apply flex flex-row justify-between items-center bg-blue-100 py-4 px-6;
+      @apply flex flex-row justify-between items-center bg-blue-100 dark:bg-Charleston-Green py-4 px-6 rounded-t-lg;
 
       .train-name {
-        @apply text-base font-semibold text-black;
+        @apply text-base font-semibold text-black dark:text-white;
       }
 
       .arival-departure-station {
         @apply text-sm  flex items-center;
 
         span {
-          @apply font-medium text-black;
+          @apply font-medium text-black dark:text-white;
         }
 
         fa-icon {
-          @apply mx-3 font-normal text-gray-700;
+          @apply mx-3 font-normal text-gray-700 dark:text-gray-200;
         }
       }
     }
@@ -35,15 +35,15 @@
     .arivial-time,
     .departure-details,
     .arival-details {
-      @apply text-sm font-medium text-gray-600 px-6 pt-2;
+      @apply text-sm font-medium text-gray-600 dark:text-white px-6 pt-2;
 
       span {
-        @apply text-sm font-medium text-black;
+        @apply text-sm font-medium text-black dark:text-white;
       }
     }
 
     .train-no {
-      @apply text-sm font-medium text-blue-700 mb-2;
+      @apply text-sm font-medium text-blue-700 dark:text-blue-500 mb-2;
     }
 
     .arrival-departure-details {
@@ -54,28 +54,50 @@
       @apply flex flex-row justify-between text-sm font-medium mt-2  px-6;
 
       .total-seats {
-        @apply text-gray-600;
+        @apply text-gray-600 dark:text-gray-300;
       }
 
       .booked-seats {
-        @apply text-red-500;
+        @apply text-red-500 dark:text-red-300;
       }
 
       .reamining-seats {
-        @apply text-green-600;
+        @apply text-green-600 dark:text-green-300;
       }
     }
   }
 }
 
+.book-ticket-availability {
+  @apply flex justify-between px-6 pt-4;
+  .book-train {
+    @apply py-1 px-2 bg-blue-400 dark:bg-blue-600 rounded-md text-white text-xs;
+  }
+
+  .check-availability {
+    @apply flex flex-row items-center gap-2;
+
+    .availability {
+      @apply py-1 px-2 bg-orange-400 dark:bg-orange-500 rounded-md text-white text-xs;
+    }
+  }
+}
+
+.total-seats-available {
+  @apply m-0 text-gray-800 dark:text-white font-normal text-sm;
+  span {
+    @apply font-medium;
+  }
+}
+
 .form {
-  @apply flex flex-row items-center p-10 shadow-2xl w-full gap-6 bg-white py-10;
+  @apply flex flex-row items-center p-10 shadow-2xl w-full gap-6 bg-white dark:bg-gray-600 py-10;
 
   .location-select {
     @apply flex items-center p-2 rounded-full text-lg bg-gray-100 text-gray-800 w-full shadow-md hover:shadow-lg;
 
     fa-icon {
-      @apply text-blue-600 mr-2 text-xl;
+      @apply text-[#008A90] mr-2 text-xl;
     }
 
     select,
@@ -88,7 +110,7 @@
     @apply flex items-center p-3 rounded-full text-lg bg-gray-100 text-gray-800 w-full shadow-md hover:shadow-lg;
 
     fa-icon {
-      @apply text-blue-600 mr-2 text-xl;
+      @apply text-[#008A90] mr-2 text-xl;
     }
 
     select,
