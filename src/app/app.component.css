@@ -1,12 +1,12 @@
 nav {
-  @apply dark:bg-Charleston-Green bg-indigo-50 shadow-lg border-0 border-b-2 border-solid dark:border-Persian-Green border-Dark-Cyan;
+  @apply dark:bg-gray-900 bg-indigo-50 shadow-lg border-0 border-b-2 border-solid dark:border-teal-400 border-Dark-Cyan;
 
   .nav-container {
     @apply mx-auto flex items-center justify-between py-4 px-6;
   }
 
   .logo {
-    @apply flex items-center md:text-2xl text-lg font-bold text-Dark-Cyan dark:text-Persian-Green hover:text-teal-500  dark:hover:text-teal-400;
+    @apply flex items-center md:text-2xl text-lg font-bold text-Dark-Cyan dark:text-teal-400 hover:text-teal-500  dark:hover:text-teal-300;
 
     fa-icon {
       @apply md:text-2xl text-xl;
@@ -22,7 +22,7 @@ nav {
   }
 
   .dropdown {
-    @apply absolute right-[200px] top-16 mt-2 shadow-2xl bg-gray-100 dark:bg-Charleston-Green rounded-xl z-50 cursor-pointer;
+    @apply absolute right-[200px] top-16 mt-2 shadow-2xl bg-gray-100 dark:bg-gray-800 rounded-xl z-50 cursor-pointer;
 
     ul {
       @apply p-2 flex flex-col;
@@ -41,11 +41,11 @@ nav {
   }
 
   .register-btn {
-    @apply flex items-center space-x-2 text-Dark-Cyan dark:text-Persian-Green border p-2 border-solid border-Dark-Cyan dark:border-Persian-Green rounded-md hover:text-teal-500  dark:hover:text-teal-400;
+    @apply flex items-center space-x-2 text-Dark-Cyan dark:text-teal-400 border p-2 border-solid border-Dark-Cyan dark:border-teal-400 rounded-md hover:text-teal-500  dark:hover:text-teal-300;
   }
 
   .user-icon {
-    @apply text-lg font-semibold cursor-pointer text-Dark-Cyan dark:text-Persian-Green border-2 border-solid border-Dark-Cyan dark:border-Persian-Green  rounded-full px-2 py-1 hover:text-teal-500  dark:hover:text-teal-400;
+    @apply text-lg font-semibold cursor-pointer text-Dark-Cyan dark:text-teal-400 border-2 border-solid border-Dark-Cyan dark:border-teal-400  rounded-full px-2 py-1 hover:text-teal-500  dark:hover:text-teal-300;
   }
 
   .moon-icon {
@@ -65,5 +65,5 @@ nav {
   }
 }
 
-/* ogout-btn, logon-btn amd registration btn pending */
-/* when login after register then why refresh */
+/* ogout-btn, logon-btn amd registration btn pending
+when login after register then why refresh */
