@@ -70,12 +70,16 @@ export class HomeComponent {
       !this.stationForm.value.toStation
     ) {
       this.showEmptyLocationError = true;
+      setTimeout(() => {
+        this.showEmptyLocationError = false;
+      }, 3000);
       return;
     }
     if (
       this.stationForm.value.fromStation === this.stationForm.value.toStation
     ) {
       this.showSameLocationError = true;
+      setTimeout(() => (this.showSameLocationError = false), 3000);
       return;
     }
     this.router.navigate([
