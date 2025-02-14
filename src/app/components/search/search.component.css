@@ -1,3 +1,6 @@
+.container-div {
+  @apply bg-white dark:bg-gray-600 pb-6;
+}
 .total-results {
   @apply p-5 text-lg font-medium bg-blue-100 dark:bg-Charleston-Green text-gray-600 dark:text-gray-300;
 
@@ -84,7 +87,7 @@
 }
 
 .total-seats-available {
-  @apply m-0 text-gray-800 dark:text-white font-normal text-sm;
+  @apply m-0 text-gray-800 dark:text-white font-medium text-sm;
   span {
     @apply font-medium;
   }
