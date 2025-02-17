@@ -1,10 +1,14 @@
 <div class="container-div">
-  <div class="form">
+  <form class="form">
     <!-- From Location -->
     <div class="location-select">
       <fa-icon [icon]="faLocationDot"></fa-icon>
-      <select [(ngModel)]="searchData.fromStationId">
-        <option value="" selected>FROM</option>
+      <label for="fromStation" class="from-label">FROM- </label>
+      <select
+        id="fromStation"
+        name="fromStation"
+        [(ngModel)]="searchData.fromStationId"
+      >
         <option *ngFor="let station of stationList" [value]="station.stationID">
           {{ station.stationName }}
         </option>
@@ -19,8 +23,12 @@
     <!-- To Location -->
     <div class="location-select">
       <fa-icon [icon]="faLocationDot"></fa-icon>
-      <select [(ngModel)]="searchData.toStationId">
-        <option value="" selected>TO</option>
+      <label for="toStation" class="to-label">TO- </label>
+      <select
+        id="toStation"
+        name="toStation"
+        [(ngModel)]="searchData.toStationId"
+      >
         <option *ngFor="let station of stationList" [value]="station.stationID">
           {{ station.stationName }}
         </option>
@@ -30,21 +38,31 @@
     <!-- Date Picker -->
     <div class="date-picker">
       <fa-icon [icon]="faCalendarDays"></fa-icon>
-      <input type="date" [(ngModel)]="searchData.dateOfTravel" />
+      <label for="datePicker" class="date-label">DATE- </label>
+      <input
+        type="date"
+        id="datePicker"
+        name="datePicker"
+        [(ngModel)]="searchData.dateOfTravel"
+      />
     </div>
 
     <!-- Search Button -->
     <button type="submit" class="submit-btn" (click)="getSearchResults()">
       Modify Search
     </button>
-  </div>
+  </form>
 
-  <div class="total-results">
+  <div *ngIf="trainSearchResults.length > 0" class="total-results">
     <span>{{ trainSearchResults.length }}</span> result{{
       trainSearchResults.length > 1 ? "s" : ""
     }}
     found on
     <span>{{ searchData.dateOfTravel }}</span>
+  </div>
+
+  <div *ngIf="trainSearchResults.length === 0 && !isLoading" class="no-results">
+    No trains found for the selected criteria.
   </div>
 
   <div class="container train-details-container">

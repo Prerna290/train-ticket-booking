@@ -67,3 +67,5 @@ nav {
 
 /* ogout-btn, logon-btn amd registration btn pending
 when login after register then why refresh */
+/* when adding passengers book-ticket, age canot be 0
+Add button should be disabled, if no name, and age is added */

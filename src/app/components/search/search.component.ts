@@ -51,6 +51,7 @@ export class SearchComponent {
   faCircleInfo = faCircleInfo;
   moment = moment;
   openBookTicket: boolean[] = [false];
+  isLoading = false;
 
   private ticketBookingService = inject(TicketBookingService);
   private fb = inject(FormBuilder);
@@ -72,6 +73,7 @@ export class SearchComponent {
   }
 
   getSearchResults() {
+    this.isLoading = true;
     this.ticketBookingService
       .getSearchTrains(
         this.searchData.fromStationId,
@@ -80,7 +82,7 @@ export class SearchComponent {
       )
       .subscribe((res: any) => {
         this.trainSearchResults = res.data;
-        console.log(res.data);
+        this.isLoading = false;
       });
   }
 

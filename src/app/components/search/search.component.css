@@ -1,6 +1,7 @@
 .container-div {
   @apply bg-white dark:bg-gray-900 pb-6;
 }
+
 .total-results {
   @apply p-5 text-lg font-medium bg-blue-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200;
 
@@ -9,11 +10,15 @@
   }
 }
 
+.no-results {
+  @apply p-5 text-lg font-medium text-center text-gray-600 dark:text-gray-300;
+}
+
 .train-details-container {
   @apply mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 my-10;
 
   .train-list {
-    @apply pb-4 rounded-lg border border-solid border-gray-200 bg-white dark:border-gray-600  dark:bg-gray-400;
+    @apply pb-4 rounded-lg border border-solid border-gray-200 bg-white  dark:bg-gray-800;
 
     .id-name {
       @apply flex flex-row justify-between items-center bg-blue-100 dark:bg-gray-700 py-4 px-6 rounded-t-lg;
@@ -39,7 +44,7 @@
     .arivial-time,
     .departure-details,
     .arival-details {
-      @apply text-sm font-medium text-gray-600 dark:text-white px-6 pt-2;
+      @apply text-sm font-medium text-gray-600 dark:text-white;
 
       span {
         @apply text-sm font-medium text-black dark:text-white;
@@ -73,7 +78,7 @@
 }
 
 .book-ticket-availability {
-  @apply flex justify-between px-6 pt-4;
+  @apply flex justify-between px-6 pt-2;
   .book-train {
     @apply py-1 px-3 bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors duration-300 rounded-md text-white text-xs;
   }
@@ -95,7 +100,7 @@
 }
 
 .form {
-  @apply flex flex-col md:flex-row items-center p-10 shadow-2xl w-full gap-6 bg-white dark:bg-gray-500 py-10;
+  @apply flex flex-col md:flex-row items-center p-10 shadow-2xl w-full gap-6 bg-white dark:bg-gray-800 py-10;
 
   .location-select,
   .date-picker {
@@ -105,9 +110,15 @@
       @apply text-Dark-Cyan dark:text-teal-400 mr-2 text-xl;
     }
 
+    .from-label,
+    .to-label,
+    .date-label {
+      @apply text-gray-700;
+    }
+
     select,
     input {
-      @apply bg-transparent focus:outline-none w-full text-black;
+      @apply bg-transparent focus:outline-none w-full  text-black font-medium;
     }
   }
 
@@ -116,7 +127,7 @@
   }
 
   .arrow-icon {
-    @apply flex flex-row justify-center w-fit text-xl;
+    @apply flex flex-row justify-center w-fit text-xl text-black dark:text-white;
   }
 
   .alert {
