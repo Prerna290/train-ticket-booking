@@ -1,0 +1,62 @@
+<div class="add-train" *ngIf="showAddTrainPopup">
+  <div class="form">
+    <div class="header">
+      <h5>Add Train</h5>
+      <button type="button" (click)="closePopup()">
+        <fa-icon [icon]="faXmark"></fa-icon>
+      </button>
+    </div>
+    <form [formGroup]="addTrainForm" (ngSubmit)="addTrain()">
+      <div class="train-no-name">
+        <div class="train-number">
+          <label>Train No</label>
+          <input formControlName="trainNo" type="number" />
+        </div>
+        <div class="name">
+          <label>Train Name</label>
+          <input formControlName="trainName" type="text" />
+        </div>
+      </div>
+      <div class="departure-arrival-station">
+        <div class="departure-station">
+          <label>Departure Station Name</label>
+          <input formControlName="departureStationName" type="text" />
+        </div>
+        <div class="arrival-station">
+          <label>Arrival Station Name</label>
+          <input formControlName="arrivalStationName" type="text" />
+        </div>
+      </div>
+      <div class="arrival-departure-time">
+        <div class="arrival-time">
+          <label>Arrival Time</label>
+          <input formControlName="arrivalTime" type="time" />
+        </div>
+        <div class="departure-time">
+          <label>Departure Time</label>
+          <input formControlName="departureTime" type="time" />
+        </div>
+      </div>
+      <div class="departure-date">
+        <label for="departureDate">Departure Date</label>
+        <input id="departureDate" formControlName="departureDate" type="date" />
+      </div>
+      <div class="seats">
+        <div class="total-seats">
+          <label>Total Seats</label>
+          <input formControlName="totalSeats" type="number" />
+        </div>
+        <!-- <div class="name">
+          <label>Booked Seats</label>
+          <input formControlName="bookedSeats" type="number" />
+        </div> -->
+      </div>
+      <div class="footer">
+        <button type="button" class="close-btn" (click)="closePopup()">
+          Close
+        </button>
+        <button type="submit" class="create-btn">Add Train</button>
+      </div>
+    </form>
+  </div>
+</div>

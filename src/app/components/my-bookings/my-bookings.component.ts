@@ -69,8 +69,6 @@ export class MyBookingsComponent {
         });
       }
     });
-
-    console.log(Object.values(groupedBookings));
     return Object.values(groupedBookings);
   }
 

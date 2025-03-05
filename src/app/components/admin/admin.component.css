@@ -1,37 +1,36 @@
-.action-btns {
-  @apply flex flex-row justify-between max-w-[700px] mx-auto my-6;
+.container {
+  @apply mx-auto;
+}
 
-  button {
-    @apply rounded-xl shadow-md p-4 border-solid border-2 font-medium;
-  }
+button {
+  @apply rounded-xl shadow-md px-4 py-2 border-solid border font-medium;
+}
+
+.admin-section {
+  @apply dark:bg-gray-900 bg-indigo-50;
 
   .add-train {
-    @apply text-green-600 border-green-600 hover:border-yellow-600 hover:text-yellow-600;
-  }
-
-  .edit-train {
-    @apply text-blue-600 border-blue-600 hover:border-yellow-600 hover:text-yellow-600;
-  }
-
-  .delete-train {
-    @apply text-red-600 border-red-600 hover:border-yellow-600 hover:text-yellow-600;
+    @apply flex justify-start py-4;
+    button {
+      @apply py-4 bg-gray-50 text-green-700 dark:text-green-400 border-green-700 dark:border-green-400 hover:border-yellow-600 hover:text-yellow-600 dark:hover:text-yellow-600 dark:hover:border-yellow-600;
+    }
   }
 }
 
 .train-details-container {
-  @apply mx-auto grid grid-cols-3 gap-4;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
   .train-list {
-    @apply px-6 pt-6 pb-4 rounded-md border border-solid border-gray-200;
+    @apply p-6 rounded-lg border border-solid border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white shadow-md hover:shadow-lg dark:hover:bg-gray-700;
 
     .id-name {
-      @apply flex flex-row justify-between;
+      @apply flex flex-row justify-between items-center mb-4;
 
       .train-name {
-        @apply text-sm font-medium text-black;
+        @apply text-lg font-semibold text-gray-800 dark:text-gray-200;
       }
 
       .train-no {
-        @apply text-sm font-medium text-blue-700;
+        @apply text-sm font-medium text-blue-600 dark:text-blue-400;
       }
     }
 
@@ -39,30 +38,30 @@
     .arivial-time,
     .departure-time,
     .departure-details {
-      @apply text-sm font-medium text-gray-600;
+      @apply text-sm font-medium text-gray-600 dark:text-gray-300;
 
       span {
-        @apply text-sm font-medium text-black;
+        @apply text-sm font-medium text-gray-800 dark:text-gray-100;
       }
     }
 
     .arival-departure-station {
-      @apply text-base font-medium text-gray-700 flex items-center mb-2;
+      @apply text-base font-medium text-gray-700 flex items-center mb-3 dark:text-gray-300;
 
       span {
-        @apply font-semibold text-black;
+        @apply font-semibold text-black dark:text-white;
       }
 
       fa-icon {
-        @apply mx-3;
+        @apply mx-3 text-gray-500 dark:text-gray-400;
       }
     }
 
     .seats {
-      @apply flex flex-row justify-between text-sm font-medium mt-2;
+      @apply flex flex-row justify-between text-sm font-medium mt-4;
 
       .total-seats {
-        @apply text-gray-600;
+        @apply text-blue-600 dark:text-blue-400;
       }
 
       .booked-seats {
@@ -70,7 +69,40 @@
       }
 
       .reamining-seats {
-        @apply text-green-600;
+        @apply text-green-600 dark:text-green-400;
+      }
+    }
+
+    .card-action-btns {
+      @apply flex flex-row justify-end mx-auto pt-4;
+
+      .edit-train {
+        @apply text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400 hover:border-yellow-600 hover:text-yellow-600 dark:hover:text-yellow-600 dark:hover:border-yellow-600;
+      }
+
+      .delete-train {
+        @apply text-red-500 border-red-500 hover:border-yellow-600 hover:text-yellow-600;
+      }
+    }
+  }
+}
+
+.delete-popup {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center;
+  .delete-popup-header {
+    @apply bg-white dark:bg-gray-800 p-6  rounded-lg shadow-lg;
+    p {
+      @apply text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4;
+    }
+    .action-button-popup {
+      @apply flex justify-between gap-4;
+
+      .cancel-delete {
+        @apply text-white bg-blue-500;
+      }
+
+      .confirm-delete {
+        @apply text-white bg-red-500;
       }
     }
   }

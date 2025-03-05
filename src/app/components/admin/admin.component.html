@@ -1,9 +1,8 @@
-<div>
-  <div class="action-btns">
-    <button class="add-train">Add Train</button>
-    <button class="edit-train">Edit Train Details</button>
-    <button class="delete-train">Delete Train</button>
+<div class="admin-section">
+  <div class="container add-train">
+    <button (click)="addTicketPopup()">Add Train</button>
   </div>
+  <!-- None add, edit an delete are working Show popup before deleting -->
   <div class="container train-details-container">
     <div *ngFor="let train of trainList" class="train-list">
       <div class="id-name">
@@ -37,6 +36,29 @@
           Remaining Seats: {{ train.totalSeats - train.bookedSeats }}
         </p>
       </div>
+      <div class="card-action-btns">
+        <button class="delete-train" (click)="deleteTrainPopup(train.trainId)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showAddTrainPopup">
+  <app-admin-add-train
+    [showAddTrainPopup]="showAddTrainPopup"
+    (closePopupEvent)="closeAddTrainPopup()"
+  ></app-admin-add-train>
+</div>
+<!-- Delete Confirmation Popup -->
+<div *ngIf="showDeleteConfirmation" class="delete-popup">
+  <div class="delete-popup-header">
+    <p>Are you sure you want to delete this train?</p>
+    <div class="action-button-popup">
+      <button class="cancel-delete" (click)="showDeleteConfirmation = false">
+        Cancel
+      </button>
+      <button class="confirm-delete" (click)="deleteTrain()">Delete</button>
     </div>
   </div>
 </div>

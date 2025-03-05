@@ -1,0 +1,64 @@
+.add-train {
+  @apply fixed inset-0  flex items-center justify-center bg-black bg-opacity-50;
+}
+
+.form {
+  @apply bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-2xl;
+
+  .header {
+    @apply flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700;
+
+    h5 {
+      @apply text-xl font-semibold text-gray-800 dark:text-gray-100;
+    }
+
+    button {
+      @apply text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100;
+
+      fa-icon {
+        @apply text-2xl;
+      }
+    }
+  }
+
+  form {
+    @apply p-6 flex flex-col gap-6;
+
+    .train-no-name,
+    .departure-arrival-station,
+    .arrival-departure-time,
+    .seats {
+      @apply grid grid-cols-2 gap-6;
+    }
+
+    .train-number,
+    .name,
+    .departure-station,
+    .arrival-station,
+    .arrival-time,
+    .departure-time,
+    .total-seats,
+    .departure-date {
+      @apply flex flex-col;
+
+      label {
+        @apply text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+      }
+
+      input {
+        @apply mt-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500;
+      }
+    }
+  }
+}
+.footer {
+  @apply flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700;
+
+  .close-btn {
+    @apply bg-red-500 text-white text-sm px-4 py-2 rounded-md hover:bg-red-600 mr-2;
+  }
+
+  .create-btn {
+    @apply bg-green-600 text-white text-sm px-4 py-2 rounded-md hover:bg-green-700;
+  }
+}
