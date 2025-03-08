@@ -1,8 +1,9 @@
+<app-toast #toast></app-toast>
 <div class="admin-section">
   <div class="container add-train">
     <button (click)="addTicketPopup()">Add Train</button>
   </div>
-  <!-- None add, edit an delete are working Show popup before deleting -->
+
   <div class="container train-details-container">
     <div *ngFor="let train of trainList" class="train-list">
       <div class="id-name">
@@ -50,6 +51,7 @@
     (closePopupEvent)="closeAddTrainPopup()"
   ></app-admin-add-train>
 </div>
+
 <!-- Delete Confirmation Popup -->
 <div *ngIf="showDeleteConfirmation" class="delete-popup">
   <div class="delete-popup-header">

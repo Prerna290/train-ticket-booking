@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TicketBookingService } from '../../services/ticket-booking.service';
@@ -12,6 +12,7 @@ import {
 import moment from 'moment';
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { AdminAddTrainComponent } from '../admin-add-train/admin-add-train.component';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-admin',
@@ -21,11 +22,13 @@ import { AdminAddTrainComponent } from '../admin-add-train/admin-add-train.compo
     FontAwesomeModule,
     ReactiveFormsModule,
     AdminAddTrainComponent,
+    ToastComponent,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
 })
 export class AdminComponent {
+  @ViewChild(ToastComponent) toast!: ToastComponent;
   trainForm: FormGroup;
   trainList: ITrain[] = [];
   faArrowRightArrowLeft = faArrowRightArrowLeft;
@@ -79,6 +82,8 @@ export class AdminComponent {
     this.getAllTrains();
   }
 
+  ngAfterViewInit() {}
+
   getAllTrains() {
     this.ticketBookingService.getAllTrainAdmin().subscribe((res: any) => {
       this.trainList = res.data;
@@ -97,8 +102,6 @@ export class AdminComponent {
     this.showAddTrainPopup = false;
   }
 
-  editTrain() {}
-
   deleteTrainPopup(trainId: number) {
     this.trainToDelete = trainId;
     this.showDeleteConfirmation = true;
@@ -116,10 +119,24 @@ export class AdminComponent {
             );
             this.cdr.detectChanges();
             this.showDeleteConfirmation = false;
-            //show popup / toast of success
+            this.showSuccessToast();
+          } else {
+            this.showTrainDeleteError(res);
           }
           console.log(res);
         });
+    }
+  }
+
+  showSuccessToast() {
+    if (this.toast) {
+      this.toast.showToastPopup('Train Deleted Successfully', 'success');
+    }
+  }
+
+  showTrainDeleteError(errorMessage: string) {
+    if (this.toast) {
+      this.toast.showToastPopup(errorMessage, 'error');
     }
   }
 

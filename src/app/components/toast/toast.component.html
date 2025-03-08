@@ -1,11 +1,25 @@
-<div
-  *ngIf="visible"
-  class="toast"
-  [ngClass]="{
-    success: messageType === 'success',
-    alert: messageType === 'alert',
-    warning: messageType === 'warning'
-  }"
->
-  {{ message }}
+<div *ngIf="showToast" [ngSwitch]="messageType">
+  <!-- Success Toast -->
+  <div *ngSwitchCase="'success'" class="toast-success toast">
+    <fa-icon [icon]="faCircleCheck" class="success-icon"></fa-icon>
+    <p class="toast-message">{{ message }}</p>
+  </div>
+
+  <!-- Error Toast -->
+  <div *ngSwitchCase="'error'" class="toast-error toast">
+    <fa-icon [icon]="faCircleExclamation" class="error-icon"></fa-icon>
+    <p class="toast-message">{{ message }}</p>
+  </div>
+
+  <!-- Warning Toast -->
+  <div *ngSwitchCase="'warning'" class="toast-warning toast">
+    <fa-icon [icon]="faTriangleExclamation" class="warning-icon"></fa-icon>
+    <p class="toast-message">{{ message }}</p>
+  </div>
+
+  <!-- Info Toast -->
+  <div *ngSwitchCase="'info'" class="toast-info toast">
+    <fa-icon [icon]="faCircleInfo" class="info-icon"></fa-icon>
+    <p class="toast-message">{{ message }}</p>
+  </div>
 </div>
