@@ -1,0 +1,26 @@
+.alert-container {
+  @apply flex items-start border border-solid rounded-lg px-2 py-1 mt-2;
+}
+.error {
+  @apply border-red-500 text-red-500;
+}
+
+fa-icon {
+  @apply text-sm mr-2;
+}
+
+.info {
+  @apply border-blue-500 text-blue-500;
+}
+
+.message {
+  @apply text-sm font-medium m-0;
+}
+
+.error-message {
+  @apply text-red-500;
+}
+
+.info-message {
+  @apply text-blue-500;
+}

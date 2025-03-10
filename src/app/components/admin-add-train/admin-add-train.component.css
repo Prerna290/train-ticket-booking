@@ -26,8 +26,7 @@
 
     .train-no-name,
     .departure-arrival-station,
-    .arrival-departure-time,
-    .seats {
+    .arrival-departure-time {
       @apply grid grid-cols-2 gap-6;
     }
 
@@ -47,6 +46,18 @@
 
       input {
         @apply mt-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500;
+      }
+
+      select {
+        @apply w-full;
+      }
+
+      .location-select {
+        @apply flex flex-row items-center mt-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500;
+
+        fa-icon {
+          @apply mr-2;
+        }
       }
     }
   }

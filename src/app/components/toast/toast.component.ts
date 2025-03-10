@@ -25,8 +25,7 @@ export class ToastComponent {
   faCircleExclamation = faCircleExclamation;
   faCircleInfo = faCircleInfo;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   showToastPopup(
     message: string,
@@ -40,3 +39,4 @@ export class ToastComponent {
       this.message = '';
     }, this.duration);
   }
+}

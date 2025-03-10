@@ -11,40 +11,94 @@
         <div class="train-number">
           <label>Train No</label>
           <input formControlName="trainNo" type="number" />
+          <app-alert
+            *ngIf="addTrainForm.get('trainNo')?.touched && addTrainForm.get('trainNo')?.errors?.['required']"
+          ></app-alert>
         </div>
         <div class="name">
           <label>Train Name</label>
           <input formControlName="trainName" type="text" />
+          <app-alert
+            *ngIf="addTrainForm.get('trainName')?.touched && addTrainForm.get('trainName')?.errors?.['required']"
+          ></app-alert>
         </div>
       </div>
       <div class="departure-arrival-station">
         <div class="departure-station">
           <label>Departure Station Name</label>
-          <input formControlName="departureStationName" type="text" />
+          <div class="location-select">
+            <fa-icon [icon]="faLocationDot"></fa-icon>
+            <select formControlName="departureStationId">
+              <option value="" selected>FROM</option>
+              <option
+                *ngFor="let station of stationList"
+                [value]="station.stationID"
+              >
+                {{ station.stationName }}
+              </option>
+            </select>
+          </div>
+          <app-alert
+            *ngIf="showSameLocationError"
+            [errorMessage]="'Source and Destination cannot be same'"
+          ></app-alert>
+          <app-alert
+            *ngIf="addTrainForm.get('departureStationId')?.touched && addTrainForm.get('departureStationId')?.errors?.['required']"
+          ></app-alert>
         </div>
         <div class="arrival-station">
           <label>Arrival Station Name</label>
-          <input formControlName="arrivalStationName" type="text" />
+          <div class="location-select">
+            <fa-icon [icon]="faLocationDot"></fa-icon>
+            <select formControlName="arrivalStationId">
+              <option value="" selected>TO</option>
+              <option
+                *ngFor="let station of stationList"
+                [value]="station.stationID"
+              >
+                {{ station.stationName }}
+              </option>
+            </select>
+          </div>
+          <app-alert
+            *ngIf="showSameLocationError"
+            [errorMessage]="'Source and Destination cannot be same'"
+          ></app-alert>
+          <app-alert
+            *ngIf="addTrainForm.get('arrivalStationId')?.touched && addTrainForm.get('arrivalStationId')?.errors?.['required']"
+          ></app-alert>
         </div>
       </div>
       <div class="arrival-departure-time">
         <div class="arrival-time">
           <label>Arrival Time</label>
           <input formControlName="arrivalTime" type="time" />
+          <app-alert
+            *ngIf="addTrainForm.get('arrivalTime')?.touched && addTrainForm.get('arrivalTime')?.errors?.['required']"
+          ></app-alert>
         </div>
         <div class="departure-time">
           <label>Departure Time</label>
           <input formControlName="departureTime" type="time" />
+          <app-alert
+            *ngIf="addTrainForm.get('departureTime')?.touched && addTrainForm.get('departureTime')?.errors?.['required']"
+          ></app-alert>
         </div>
       </div>
       <div class="departure-date">
         <label for="departureDate">Departure Date</label>
         <input id="departureDate" formControlName="departureDate" type="date" />
+        <app-alert
+          *ngIf="addTrainForm.get('departureDate')?.touched && addTrainForm.get('departureDate')?.errors?.['required']"
+        ></app-alert>
       </div>
       <div class="seats">
         <div class="total-seats">
           <label>Total Seats</label>
           <input formControlName="totalSeats" type="number" />
+          <app-alert
+            *ngIf="addTrainForm.get('totalSeats')?.touched && addTrainForm.get('totalSeats')?.errors?.['required']"
+          ></app-alert>
         </div>
         <!-- <div class="name">
           <label>Booked Seats</label>

@@ -1,0 +1,11 @@
+<div
+  *ngIf="messageType === 'error' && errorMessage"
+  class="alert-container error"
+>
+  <fa-icon [icon]="faCircleExclamation"></fa-icon>
+  <p class="message error-message">{{ errorMessage }}</p>
+</div>
+<div *ngIf="messageType === 'info' && infoMessage" class="alert-container info">
+  <fa-icon [icon]="faCircleInfo"></fa-icon>
+  <p class="message info-message">{{ infoMessage }}</p>
+</div>

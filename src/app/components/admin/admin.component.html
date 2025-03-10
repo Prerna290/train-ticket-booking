@@ -1,11 +1,26 @@
 <app-toast #toast></app-toast>
 <div class="admin-section">
-  <div class="container add-train">
-    <button (click)="addTicketPopup()">Add Train</button>
+  <div class="search-container container">
+    <div class="add-train">
+      <button class="add-train-btn" (click)="addTicketPopup()">
+        Add Train
+      </button>
+    </div>
+    <div class="search-container">
+      <input
+        class="search"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+        placeholder="Search Trains"
+      />
+    </div>
   </div>
 
-  <div class="container train-details-container">
-    <div *ngFor="let train of trainList" class="train-list">
+  <div
+    *ngIf="filteredTrains.length > 0"
+    class="container train-details-container"
+  >
+    <div *ngFor="let train of filteredTrains" class="train-list">
       <div class="id-name">
         <p class="train-id">
           Train Id: <span>{{ train.trainId }}</span>
@@ -44,7 +59,11 @@
       </div>
     </div>
   </div>
+  <div *ngIf="filteredTrains.length === 0" class="no-result-found">
+    Oops! No Results Found. Try Searching With A Differennt Query.
+  </div>
 </div>
+
 <div *ngIf="showAddTrainPopup">
   <app-admin-add-train
     [showAddTrainPopup]="showAddTrainPopup"

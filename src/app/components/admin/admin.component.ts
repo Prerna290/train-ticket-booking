@@ -6,6 +6,7 @@ import { ITrain } from '../../model/train';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -23,6 +24,7 @@ import { ToastComponent } from '../toast/toast.component';
     ReactiveFormsModule,
     AdminAddTrainComponent,
     ToastComponent,
+    FormsModule,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
@@ -31,10 +33,12 @@ export class AdminComponent {
   @ViewChild(ToastComponent) toast!: ToastComponent;
   trainForm: FormGroup;
   trainList: ITrain[] = [];
+  filteredTrains: ITrain[] = [];
   faArrowRightArrowLeft = faArrowRightArrowLeft;
   showAddTrainPopup = false;
   showDeleteConfirmation = false;
   trainToDelete!: number;
+  searchTerm: string = '';
 
   private ticketBookingService = inject(TicketBookingService);
   private fb = inject(FormBuilder);
@@ -87,6 +91,7 @@ export class AdminComponent {
   getAllTrains() {
     this.ticketBookingService.getAllTrainAdmin().subscribe((res: any) => {
       this.trainList = res.data;
+      this.filteredTrains = this.trainList;
     });
   }
 
@@ -126,6 +131,19 @@ export class AdminComponent {
           console.log(res);
         });
     }
+  }
+
+  applyFilter() {
+    this.filteredTrains = this.trainList.filter(
+      (train) =>
+        train.trainName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        train.departureStationName
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase()) ||
+        train.arrivalStationName
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase())
+    );
   }
 
   showSuccessToast() {
