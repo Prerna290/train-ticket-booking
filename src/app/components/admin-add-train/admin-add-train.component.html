@@ -1,3 +1,4 @@
+<app-toast #toast></app-toast>
 <div class="add-train" *ngIf="showAddTrainPopup">
   <div class="form">
     <div class="header">
@@ -100,10 +101,6 @@
             *ngIf="addTrainForm.get('totalSeats')?.touched && addTrainForm.get('totalSeats')?.errors?.['required']"
           ></app-alert>
         </div>
-        <!-- <div class="name">
-          <label>Booked Seats</label>
-          <input formControlName="bookedSeats" type="number" />
-        </div> -->
       </div>
       <div class="footer">
         <button type="button" class="close-btn" (click)="closePopup()">

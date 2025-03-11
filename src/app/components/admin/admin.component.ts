@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TicketBookingService } from '../../services/ticket-booking.service';
@@ -29,7 +35,7 @@ import { ToastComponent } from '../toast/toast.component';
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   @ViewChild(ToastComponent) toast!: ToastComponent;
   trainForm: FormGroup;
   trainList: ITrain[] = [];
@@ -45,10 +51,8 @@ export class AdminComponent {
   private cdr = inject(ChangeDetectorRef);
 
   constructor() {
-    // const presentDate = moment().format('YYYY-MM-DD');
     this.trainForm = this.fb.group({
       trainId: [0, [Validators.required, Validators.pattern('^[0-9]+$')]],
-      //While adding train we dont need trainId as it is primary key
       trainNo: [
         '',
         [
@@ -68,25 +72,9 @@ export class AdminComponent {
     });
   }
 
-  //For train add we need
-  // trainId
-  // bookedSeats
-  //   //While adding train we dont need trainId and booked seats field as it is primary key
-  //   trainNo,
-  //   trainName,
-  //   departureStationId,
-  //   arrivalStationId,
-  //   arrivalTime
-  //   departureTime,
-  //   totalSeats,
-  //   departureDate,
-  // Add train from Add train API and then check from get Train between stations api
-
   ngOnInit() {
     this.getAllTrains();
   }
-
-  ngAfterViewInit() {}
 
   getAllTrains() {
     this.ticketBookingService.getAllTrainAdmin().subscribe((res: any) => {
@@ -122,13 +110,13 @@ export class AdminComponent {
             this.trainList = this.trainList.filter(
               (train) => train.trainId !== this.trainToDelete
             );
+            this.filteredTrains = this.trainList;
             this.cdr.detectChanges();
             this.showDeleteConfirmation = false;
             this.showSuccessToast();
           } else {
             this.showTrainDeleteError(res);
           }
-          console.log(res);
         });
     }
   }
@@ -158,37 +146,9 @@ export class AdminComponent {
     }
   }
 
-  // {
-  //   "trainId": 0,
-  //   "trainNo": 0,
-  //   "trainName": "string",
-  //   "departureStationId": 0,
-  //   "arrivalStationId": 0,
-  //   "departureTime": "string",
-  //   "arrivalTime": "string",
-  //   "totalSeats": 0,
-  //   "departureDate": "2025-02-25T17:37:58.408Z"
-  // }
-
-  // onSubmit() {
-  //   if (
-  // !this.stationForm.value.fromStation ||
-  // !this.stationForm.value.toStation
-  //   ) {
-  //     this.showEmptyLocationError = true;
-  //     return;
-  //   }
-  //   if (
-  //     this.stationForm.value.fromStation === this.stationForm.value.toStation
-  //   ) {
-  //     this.showSameLocationError = true;
-  //     return;
-  //   }
-  //   this.router.navigate([
-  //     '/search',
-  //     this.stationForm.value.fromStation,
-  //     this.stationForm.value.toStation,
-  //     this.stationForm.value.date,
-  //   ]);
-  // }
+  handleTrainAdded(newTrain: ITrain) {
+    this.trainList.push(newTrain);
+    this.filteredTrains = this.trainList;
+    this.showAddTrainPopup = false;
+  }
 }
