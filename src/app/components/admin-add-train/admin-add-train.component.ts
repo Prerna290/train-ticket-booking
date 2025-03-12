@@ -34,7 +34,6 @@ import { ToastComponent } from '../toast/toast.component';
   styleUrl: './admin-add-train.component.css',
 })
 export class AdminAddTrainComponent {
-  @ViewChild(ToastComponent) toast!: ToastComponent;
   @Input() showAddTrainPopup = false;
   @Output() closePopupEvent = new EventEmitter<void>();
   @Output() trainAddedEvent = new EventEmitter<ITrain>();
@@ -97,12 +96,7 @@ export class AdminAddTrainComponent {
           this.trainAddedEvent.emit(res.data);
           this.showAddTrainPopup = false;
           this.closePopupEvent.emit();
-          this.toast.showToastPopup('Train Added Successfully', 'success');
         }
       });
   }
 }
-
-//Loader
-//Toast
-//update the data without refresh

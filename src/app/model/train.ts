@@ -15,6 +15,8 @@ export interface ITrain {
   totalSeats: number;
   departureDate: string;
   bookedSeats: number;
+  departureStationId: number;
+  arrivalStationId: number;
 }
 
 export interface ISearch {

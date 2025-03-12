@@ -8,7 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TicketBookingService } from '../../services/ticket-booking.service';
-import { ITrain } from '../../model/train';
+import { IStation, ITrain } from '../../model/train';
 import {
   FormBuilder,
   FormGroup,
@@ -48,6 +48,7 @@ export class AdminComponent implements OnInit {
   trainToDelete!: number;
   searchTerm: string = '';
   loading = true;
+  stationList: IStation[] = [];
 
   private ticketBookingService = inject(TicketBookingService);
   private fb = inject(FormBuilder);
@@ -77,6 +78,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.getAllTrains();
+    this.getAllStations();
   }
 
   getAllTrains() {
@@ -84,6 +86,12 @@ export class AdminComponent implements OnInit {
       this.trainList = res.data;
       this.filteredTrains = this.trainList;
       this.loading = false;
+    });
+  }
+
+  getAllStations() {
+    this.ticketBookingService.getAllStations().subscribe((res: any) => {
+      this.stationList = res.data;
     });
   }
 
@@ -128,13 +136,18 @@ export class AdminComponent implements OnInit {
   applyFilter() {
     this.filteredTrains = this.trainList.filter(
       (train) =>
-        train.trainName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        train.departureStationName
-          .toLowerCase()
-          .includes(this.searchTerm.toLowerCase()) ||
-        train.arrivalStationName
-          .toLowerCase()
-          .includes(this.searchTerm.toLowerCase())
+        (train.trainName &&
+          train.trainName
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase())) ||
+        (train.departureStationName &&
+          train.departureStationName
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase())) ||
+        (train.arrivalStationName &&
+          train.arrivalStationName
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase()))
     );
   }
 
@@ -151,8 +164,23 @@ export class AdminComponent implements OnInit {
   }
 
   handleTrainAdded(newTrain: ITrain) {
-    this.trainList.push(newTrain);
-    this.filteredTrains = this.trainList;
-    this.showAddTrainPopup = false;
+    if (this.stationList) {
+      //The res we are getting after adding new train doesn't includes the departureStation.stationName and arrivalStation?.stationName, so we call another api stationList, and map stationId with departureStationId returned by res from new train api
+      const departureStation = this.stationList.find((station) => {
+        return station.stationID === newTrain.departureStationId;
+      });
+      const arrivalStation = this.stationList.find((station) => {
+        return station.stationID === newTrain.arrivalStationId;
+      });
+      newTrain.departureStationName = departureStation?.stationName || '';
+      newTrain.arrivalStationName = arrivalStation?.stationName || '';
+
+      this.trainList.push(newTrain);
+      // Sort the trainList by trainId in descending order to appear at top
+      this.trainList.sort((a, b) => b.trainId - a.trainId);
+      this.filteredTrains = this.trainList;
+      this.showAddTrainPopup = false;
+      this.toast.showToastPopup('Train Added Successfully', 'success');
+    }
   }
 }
