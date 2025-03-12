@@ -1,0 +1,34 @@
+.loader-container {
+  @apply flex justify-center items-center py-6 gap-2;
+}
+
+.loader-circle {
+  @apply w-7 h-7 rounded-full animate-bounce;
+  animation: wave 1s infinite ease-in-out;
+}
+
+.red {
+  @apply bg-gradient-to-r from-indigo-500 to-pink-500 shadow-lg [animation-delay:-0.3s];
+}
+
+.blue {
+  @apply bg-gradient-to-r from-yellow-400 to-red-600 shadow-lg [animation-delay:-0.15s];
+}
+
+.green {
+  @apply bg-gradient-to-r from-purple-400 to-blue-600;
+}
+
+.yellow {
+  @apply bg-gradient-to-r from-orange-500 to-lime-500 shadow-lg  [animation-delay:0.15s];
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25px);
+  }
+}

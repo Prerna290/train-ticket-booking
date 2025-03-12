@@ -1,4 +1,5 @@
 <app-toast #toast></app-toast>
+
 <div class="admin-section">
   <div class="search-container container">
     <div class="add-train">
@@ -16,8 +17,9 @@
     </div>
   </div>
 
+  <app-loader *ngIf="loading"></app-loader>
   <div
-    *ngIf="filteredTrains.length > 0"
+    *ngIf="filteredTrains.length > 0 && !loading"
     class="container train-details-container"
   >
     <div *ngFor="let train of filteredTrains" class="train-list">
@@ -59,7 +61,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="filteredTrains.length === 0" class="no-result-found">
+  <div *ngIf="filteredTrains.length === 0 && !loading" class="no-result-found">
     Oops! No Results Found. Try Searching With A Differennt Query.
   </div>
 </div>

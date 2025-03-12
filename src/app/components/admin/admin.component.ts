@@ -20,6 +20,7 @@ import moment from 'moment';
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { AdminAddTrainComponent } from '../admin-add-train/admin-add-train.component';
 import { ToastComponent } from '../toast/toast.component';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-admin',
@@ -31,6 +32,7 @@ import { ToastComponent } from '../toast/toast.component';
     AdminAddTrainComponent,
     ToastComponent,
     FormsModule,
+    LoaderComponent,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
@@ -45,6 +47,7 @@ export class AdminComponent implements OnInit {
   showDeleteConfirmation = false;
   trainToDelete!: number;
   searchTerm: string = '';
+  loading = true;
 
   private ticketBookingService = inject(TicketBookingService);
   private fb = inject(FormBuilder);
@@ -80,6 +83,7 @@ export class AdminComponent implements OnInit {
     this.ticketBookingService.getAllTrainAdmin().subscribe((res: any) => {
       this.trainList = res.data;
       this.filteredTrains = this.trainList;
+      this.loading = false;
     });
   }
 
