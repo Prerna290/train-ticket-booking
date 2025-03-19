@@ -1,5 +1,5 @@
 .alert-container {
-  @apply flex items-start border border-solid rounded-lg px-2 py-1 mt-2;
+  @apply flex items-start border border-solid rounded-lg px-2 py-1 mt-2 w-max;
 }
 .error {
   @apply border-red-500 text-red-500;

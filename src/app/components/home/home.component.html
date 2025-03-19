@@ -11,17 +11,27 @@
       <div class="from-and-to-container">
         <!-- From Location -->
         <div class="location">
-          <div class="location-select">
-            <fa-icon [icon]="faLocationDot"></fa-icon>
-            <select formControlName="fromStation">
-              <option value="" selected>FROM</option>
-              <option
-                *ngFor="let station of stationList"
-                [value]="station.stationID"
-              >
-                {{ station.stationName }}
-              </option>
-            </select>
+          <div class="arrival">
+            <div class="location-select">
+              <fa-icon [icon]="faLocationDot"></fa-icon>
+              <select formControlName="fromStation">
+                <option disabled value="" selected>FROM</option>
+                <option
+                  *ngFor="let station of stationList"
+                  [value]="station.stationID"
+                >
+                  {{ station.stationName }}
+                </option>
+              </select>
+            </div>
+            <app-alert
+              *ngIf="showSameLocationError"
+              [errorMessage]="'Source and Destination cannot be same'"
+            ></app-alert>
+            <app-alert
+              *ngIf="stationForm.get('fromStation')?.touched && stationForm.get('fromStation')?.errors?.['required']"
+              [errorMessage]="'Source cannot be empty'"
+            ></app-alert>
           </div>
 
           <!-- Arrow Icon -->
@@ -31,26 +41,28 @@
           </div>
 
           <!-- To Location -->
-          <div class="location-select">
-            <fa-icon [icon]="faLocationDot"></fa-icon>
-            <select formControlName="toStation">
-              <option value="" selected>TO</option>
-              <option
-                *ngFor="let station of stationList"
-                [value]="station.stationID"
-              >
-                {{ station.stationName }}
-              </option>
-            </select>
+          <div class="destination">
+            <div class="location-select">
+              <fa-icon [icon]="faLocationDot"></fa-icon>
+              <select formControlName="toStation">
+                <option disabled value="" selected>TO</option>
+                <option
+                  *ngFor="let station of stationList"
+                  [value]="station.stationID"
+                >
+                  {{ station.stationName }}
+                </option>
+              </select>
+            </div>
+            <app-alert
+              *ngIf="showSameLocationError"
+              [errorMessage]="'Source and Destination cannot be same'"
+            ></app-alert>
+            <app-alert
+              *ngIf="stationForm.get('toStation')?.touched && stationForm.get('toStation')?.errors?.['required']"
+              [errorMessage]="'Destination cannot be empty'"
+            ></app-alert>
           </div>
-          <p *ngIf="showSameLocationError" class="alert">
-            <fa-icon [icon]="faCircleInfo"></fa-icon>Source and Destination
-            cannot be same
-          </p>
-          <p *ngIf="showEmptyLocationError" class="alert">
-            <fa-icon [icon]="faCircleInfo"></fa-icon>Source or Destination
-            cannot be empty
-          </p>
         </div>
       </div>
 
@@ -61,9 +73,10 @@
       </div>
 
       <!-- Search Button -->
-      <button type="submit" class="submit-btn">SEARCH TRAINS</button>
+      <button type="submit" class="submit-btn" [disabled]="!stationForm.valid">
+        SEARCH TRAINS
+      </button>
     </form>
-    <!-- </div> -->
     <img
       src="https://t3.ftcdn.net/jpg/04/75/99/98/240_F_475999820_fU277meJh9CJdNmTdOQr6CyqYaM1U7XX.jpg"
       alt="Railway Booking Illustration"
