@@ -1,3 +1,5 @@
+<app-toast #toast></app-toast>
+
 <div id="myModal" class="book-ticket" *ngIf="openBookTicket">
   <div class="form">
     <!-- Header -->
@@ -51,15 +53,10 @@
             type="text"
             placeholder="Enter Passenger Name"
           />
-          <div
-            *ngIf="
-              passengerForm.get('passengerName')?.invalid &&
-              passengerForm.get('passengerName')?.touched
-            "
-            class="text-red-500 text-sm mt-1"
-          >
-            Passenger name is required.
-          </div>
+          <app-alert
+            *ngIf="passengerForm.get('passengerName')?.touched && passengerForm.get('passengerName')?.errors?.['required']"
+            [errorMessage]="'Passenger name is required.'"
+          ></app-alert>
         </div>
         <div class="form-group">
           <label for="age">Age</label>
@@ -71,26 +68,29 @@
             min="1"
             max="120"
           />
-          <div
-            *ngIf="
-              passengerForm.get('age')?.invalid &&
-              passengerForm.get('age')?.touched
-            "
-            class="text-red-500 text-sm mt-1"
-          >
-            Age is required and must be a valid number.
-          </div>
+          <app-alert
+            *ngIf="passengerForm.get('age')?.touched && passengerForm.get('age')?.errors?.['required']"
+            [errorMessage]="'Age is required and must be a valid number.'"
+          ></app-alert>
         </div>
         <button type="submit" class="add-btn" [disabled]="!passengerForm.valid">
           Add Passenger
         </button>
       </form>
 
-      <div *ngIf="passengersList.length > 0" class="passenger-list">
-        <div class="list-header sr-no">Sr</div>
-        <div class="list-header passenger-name">Passenger Name</div>
-        <div class="list-header age">Age</div>
-        <div class="list-header action">Action</div>
+      <div *ngIf="passengersList.length > 0">
+        <p class="passengers-list-heading">
+          Passengers List
+          <span
+            >&nbsp;(Please confirm name and age before booking the ticket)</span
+          >
+        </p>
+        <div class="passenger-list">
+          <div class="list-header sr-no">Sr</div>
+          <div class="list-header passenger-name">Passenger Name</div>
+          <div class="list-header age">Age</div>
+          <div class="list-header action">Action</div>
+        </div>
       </div>
 
       <div
@@ -119,7 +119,7 @@
         type="button"
         class="create-btn"
         (click)="bookTicket()"
-        [disabled]="!passengerForm.valid || passengersList.length === 0"
+        [disabled]="passengersList.length === 0"
       >
         Book Ticket
       </button>

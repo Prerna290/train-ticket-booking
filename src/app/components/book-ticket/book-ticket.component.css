@@ -54,7 +54,7 @@
           @apply flex flex-col;
 
           label {
-            @apply text-sm font-medium text-gray-700 dark:text-gray-200 mb-1;
+            @apply text-sm font-medium text-gray-700 dark:text-gray-200 mb-2;
           }
 
           input {
@@ -67,11 +67,19 @@
         }
       }
 
+      .passengers-list-heading {
+        @apply text-sm font-medium text-gray-900 dark:text-gray-200 py-2 flex items-center mb-3;
+
+        span {
+          @apply text-xs text-blue-600;
+        }
+      }
+
       .passenger-list {
-        @apply grid grid-cols-4 gap-4 mb-4;
+        @apply grid grid-cols-4 gap-4 mb-4 bg-gray-100 dark:bg-gray-600 rounded-md;
 
         .list-header {
-          @apply text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-md;
+          @apply text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-600 px-4 py-2 rounded-md;
         }
 
         .list-item {

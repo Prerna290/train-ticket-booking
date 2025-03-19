@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { IPassenger, ITrain, IUser } from '../../model/train';
@@ -11,16 +11,25 @@ import {
 } from '@angular/forms';
 import { TicketBookingService } from '../../services/ticket-booking.service';
 import moment from 'moment';
+import { AlertComponent } from '../alert/alert.component';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-book-ticket',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    FontAwesomeModule,
+    CommonModule,
+    ReactiveFormsModule,
+    AlertComponent,
+    ToastComponent,
+  ],
   templateUrl: './book-ticket.component.html',
   providers: [DatePipe],
   styleUrl: './book-ticket.component.css',
 })
 export class BookTicketComponent {
+  @ViewChild(ToastComponent) toast!: ToastComponent;
   @Input() selectedTrain!: ITrain;
   openBookTicket = true;
   faXmark = faXmark;
@@ -38,13 +47,12 @@ export class BookTicketComponent {
       age: [0, [Validators.required, Validators.maxLength(3)]],
     });
   }
-  //Make a passengerList and add that passenger, add validation on name and age
+
   ngOnInit() {
     const loggedInUser = localStorage.getItem('trainApp');
     if (loggedInUser !== null) {
       this.loggedInUserDetails = JSON.parse(loggedInUser);
     }
-    console.log(this.selectedTrain);
   }
 
   closePopup() {
@@ -54,7 +62,6 @@ export class BookTicketComponent {
   addPassenger() {
     this.passengersList.push(this.passengerForm.value);
     this.passengerForm.reset();
-    console.log(this.passengerForm.value);
   }
 
   bookTicket() {
@@ -74,14 +81,26 @@ export class BookTicketComponent {
     bookObj.TrainAppBookingPassengers = this.passengersList;
     bookObj.totalSeats = this.passengersList.length;
     this.ticketBookingService.bookTicket(bookObj).subscribe((data: any) => {
-      if (data.res) {
-        alert('Ticket Booked Successfuly');
+      if (data.result) {
+        this.showSuccessToast();
+        this.passengerForm.reset();
         this.openBookTicket = false;
-        console.log(data);
       } else {
-        alert(data.message);
+        this.showErrorToast(data.message);
       }
     });
+  }
+
+  showSuccessToast() {
+    if (this.toast) {
+      this.toast.showToastPopup('Train Ticket Booked Successfully', 'success');
+    }
+  }
+
+  showErrorToast(errorMessage: string) {
+    if (this.toast) {
+      this.toast.showToastPopup(errorMessage, 'error');
+    }
   }
 
   formatDate(departureTime: string) {

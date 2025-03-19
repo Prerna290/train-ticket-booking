@@ -11,7 +11,6 @@ import { faLocationDot, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { TicketBookingService } from '../../services/ticket-booking.service';
 import { IStation, ITrain } from '../../model/train';
 import { AlertComponent } from '../alert/alert.component';
-import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-admin-add-train',
@@ -21,7 +20,6 @@ import { ToastComponent } from '../toast/toast.component';
     ReactiveFormsModule,
     FontAwesomeModule,
     AlertComponent,
-    ToastComponent,
   ],
   templateUrl: './admin-add-train.component.html',
   styleUrl: './admin-add-train.component.css',
