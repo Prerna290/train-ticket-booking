@@ -17,6 +17,8 @@ export interface ITrain {
   bookedSeats: number;
   departureStationId: number;
   arrivalStationId: number;
+  arrivalDate: string;
+  journeyTime: string;
 }
 
 export interface ISearch {

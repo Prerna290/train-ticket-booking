@@ -3,7 +3,7 @@
     <!-- From Location -->
     <div class="location-select">
       <fa-icon [icon]="faLocationDot"></fa-icon>
-      <label for="fromStation" class="from-label">FROM- </label>
+      <label for="fromStation" class="from-label">FROM </label>
       <select
         id="fromStation"
         name="fromStation"
@@ -23,7 +23,7 @@
     <!-- To Location -->
     <div class="location-select">
       <fa-icon [icon]="faLocationDot"></fa-icon>
-      <label for="toStation" class="to-label">TO- </label>
+      <label for="toStation" class="to-label">TO </label>
       <select
         id="toStation"
         name="toStation"
@@ -38,7 +38,7 @@
     <!-- Date Picker -->
     <div class="date-picker">
       <fa-icon [icon]="faCalendarDays"></fa-icon>
-      <label for="datePicker" class="date-label">DATE- </label>
+      <label for="datePicker" class="date-label">DATE </label>
       <input
         type="date"
         id="datePicker"
@@ -83,15 +83,20 @@
       </div>
       <div class="arrival-departure-details">
         <p class="departure-details">
-          {{ train.departureTime }} |
           {{ train.departureDate | date : "dd MMMM yyyy" }} |
+          {{ train.departureTime }} |
           {{ train.departureStationName }}
         </p>
-        <p class="arival-details">
-          {{ train.arrivalTime }} | {{ train.arrivalTime }} |
-          {{ train.arrivalStationName }}
-        </p>
-        <!-- Total train Journey and Arrival date missing -->
+        <span class="value">
+          {{ train.arrivalDate }}
+          | {{ train.arrivalTime }}
+        </span>
+        <div class="timing">
+          <span class="label">Journey Time:</span>
+          <span class="value">
+            {{ train.journeyTime }}
+          </span>
+        </div>
       </div>
       <div class="book-ticket-availability">
         <div class="check-availability">

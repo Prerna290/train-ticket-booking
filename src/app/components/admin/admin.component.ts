@@ -17,7 +17,12 @@ import {
   Validators,
 } from '@angular/forms';
 import moment from 'moment';
-import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight,
+  faPlus,
+  faSearch,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { AdminAddTrainComponent } from '../admin-add-train/admin-add-train.component';
 import { ToastComponent } from '../toast/toast.component';
 import { LoaderComponent } from '../loader/loader.component';
@@ -42,7 +47,10 @@ export class AdminComponent implements OnInit {
   trainForm: FormGroup;
   trainList: ITrain[] = [];
   filteredTrains: ITrain[] = [];
-  faArrowRightArrowLeft = faArrowRightArrowLeft;
+  faArrowRight = faArrowRight;
+  faPlus = faPlus;
+  faTrash = faTrash;
+  faSearch = faSearch;
   showAddTrainPopup = false;
   showDeleteConfirmation = false;
   trainToDelete!: number;
@@ -79,6 +87,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.getAllTrains();
     this.getAllStations();
+    this.searchTerm = '';
   }
 
   getAllTrains() {
@@ -96,7 +105,7 @@ export class AdminComponent implements OnInit {
   }
 
   formatDepartureTime(departureTime: string) {
-    return moment(departureTime).format('MMMM Do YYYY, h:mm a');
+    return moment(departureTime).format('MMMM Do YYYY');
   }
 
   addTicketPopup() {
@@ -165,7 +174,7 @@ export class AdminComponent implements OnInit {
 
   handleTrainAdded(newTrain: ITrain) {
     if (this.stationList) {
-      //The res we are getting after adding new train doesn't includes the departureStation.stationName and arrivalStation?.stationName, so we call another api stationList, and map stationId with departureStationId returned by res from new train api
+      //The res we are getting after adding new train doesn't includes the departureStation.stationName and arrivalStation.stationName, so we call another api stationList, and map stationId with departureStationId returned by res from new train api
       const departureStation = this.stationList.find((station) => {
         return station.stationID === newTrain.departureStationId;
       });
@@ -181,6 +190,82 @@ export class AdminComponent implements OnInit {
       this.filteredTrains = this.trainList;
       this.showAddTrainPopup = false;
       this.toast.showToastPopup('Train Added Successfully', 'success');
+    }
+  }
+
+  calculateArrivalDate(
+    departureDate: string,
+    arrivalTime: string,
+    departureTime: string
+  ): string {
+    const departure = new Date(departureDate);
+    const arrival = new Date(departure);
+
+    const [departureHours, departureMinutes] =
+      this.formatTrainTime(departureTime);
+    departure.setHours(departureHours, departureMinutes);
+
+    const [arrivalHours, arrivalMinutes] = this.formatTrainTime(arrivalTime);
+    arrival.setHours(arrivalHours, arrivalMinutes);
+
+    // If arrival time is earlier than departure time, it means the train arrives the next day
+    if (arrival < departure) {
+      arrival.setDate(arrival.getDate() + 1);
+    }
+    return moment(arrival).format('MMMM Do YYYY');
+  }
+
+  formatTrainTime(time: string) {
+    // Remove all spaces and convert to lowercase eg. if time is 12 am it will be 12pm, removing all spaces
+    //   /: indicate the start and end of expression.
+    //  \s: This matches any whitespace character.
+    //  +: "one or more" of the element
+    //  g: "global," meaning that the replacement should occur for all matches
+    time = time.replace(/\s+/g, '').toLowerCase();
+    let hours: number;
+    let minutes: number = 0;
+
+    if (time.includes('am') || time.includes('pm')) {
+      let [timePart, period] = time.split(/(am|pm)/);
+
+      const timeParts = timePart.split(':').map(Number);
+      hours = Number(timeParts[0]);
+      minutes = timeParts[1] ? Number(timeParts[1]) : 0;
+      if (period === 'pm' && hours !== 12) {
+        hours += 12;
+      } else if (period === 'am' && hours === 12) {
+        hours = 0; // Midnight case
+      }
+    } else {
+      const timeParts = time.split(':').map(Number);
+      hours = Number(timeParts[0]);
+      minutes = timeParts[1] ? Number(timeParts[1]) : 0;
+    }
+    return [hours, minutes];
+  }
+
+  calculateTotalJourneyTime(departureTime: string, arrivalTime: string) {
+    const [depHours, depMinutes] = this.formatTrainTime(departureTime);
+    const [arrHours, arrMinutes] = this.formatTrainTime(arrivalTime);
+
+    const departureTotalMinutes = depHours * 60 + depMinutes;
+    const arrivalTotalMinutes = arrHours * 60 + arrMinutes;
+
+    let totalMinutesDifference = arrivalTotalMinutes - departureTotalMinutes;
+
+    // If arrival is earlier than departure, it means the train arrives the next day
+    if (totalMinutesDifference < 0) {
+      totalMinutesDifference += 24 * 60; // Add 24 hours in minutes
+    }
+
+    const hours = Math.floor(totalMinutesDifference / 60);
+    const minutes = totalMinutesDifference % 60;
+    if (hours === 0) {
+      return `${minutes} minutes`;
+    } else if (minutes === 0) {
+      return `${hours} hour${hours > 1 ? 's' : ''}`;
+    } else {
+      return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minutes`;
     }
   }
 }

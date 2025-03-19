@@ -10,11 +10,32 @@
 
     <!-- Body -->
     <div class="body">
-      <div class="train">
-        <p>
-          Train: {{ selectedTrain.trainName }} - {{ selectedTrain.trainNo }}
-        </p>
-        <p>Time: {{ selectedTrain.departureTime }}</p>
+      <div class="train-details">
+        <h6 class="train-title">
+          {{ selectedTrain.trainName }} - {{ selectedTrain.trainNo }}
+        </h6>
+        <div class="train-info">
+          <div class="info-item">
+            <span class="label">Departure:</span>
+            <span class="value"
+              >{{ selectedTrain.departureStationName }} at
+              {{ selectedTrain.departureTime }} on
+              {{ formatDate(selectedTrain.departureDate) }}</span
+            >
+          </div>
+          <div class="info-item">
+            <span class="label">Arrival:</span>
+            <span class="value"
+              >{{ selectedTrain.arrivalStationName }} at
+              {{ selectedTrain.arrivalTime }} on
+              {{ selectedTrain.arrivalDate }}</span
+            >
+          </div>
+          <div class="info-item">
+            <span class="label">Total Journey Time:</span>
+            <span class="value">{{ selectedTrain.journeyTime }}</span>
+          </div>
+        </div>
       </div>
 
       <form
@@ -22,67 +43,70 @@
         [formGroup]="passengerForm"
         (ngSubmit)="addPassenger()"
       >
-        <div class="name">
-          <label>Passenger Name</label>
-          <input formControlName="passengerName" type="text" />
+        <div class="form-group">
+          <label for="passengerName">Passenger Name</label>
+          <input
+            id="passengerName"
+            formControlName="passengerName"
+            type="text"
+            placeholder="Enter Passenger Name"
+          />
+          <div
+            *ngIf="
+              passengerForm.get('passengerName')?.invalid &&
+              passengerForm.get('passengerName')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Passenger name is required.
+          </div>
         </div>
-        <div class="age">
-          <label>Age</label>
-          <input formControlName="age" type="text" />
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input
+            id="age"
+            formControlName="age"
+            type="number"
+            placeholder="Enter age"
+            min="1"
+            max="120"
+          />
+          <div
+            *ngIf="
+              passengerForm.get('age')?.invalid &&
+              passengerForm.get('age')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Age is required and must be a valid number.
+          </div>
         </div>
-        <div class="add-btn">
-          <button type="submit">Add</button>
-        </div>
+        <button type="submit" class="add-btn" [disabled]="!passengerForm.valid">
+          Add Passenger
+        </button>
       </form>
 
       <div *ngIf="passengersList.length > 0" class="passenger-list">
-        <div class="list-header sr-no bg-gray-200">Sr</div>
-        <div class="list-header bg-gray-200 passenger-name">Passenger Name</div>
-        <div class="list-header bg-gray-200 age">Age</div>
-        <div class="list-header bg-gray-200 action">Action</div>
+        <div class="list-header sr-no">Sr</div>
+        <div class="list-header passenger-name">Passenger Name</div>
+        <div class="list-header age">Age</div>
+        <div class="list-header action">Action</div>
       </div>
 
       <div
         *ngFor="let passenger of passengersList; let i = index"
         class="passenger-list"
       >
-        <p class="list-header sr-no">{{ i + 1 }}</p>
-        <p class="list-header passenger-name">{{ passenger.passengerName }}</p>
-        <p class="list-header age">{{ passenger.age }}</p>
-        <p class="list-header action">Remove</p>
-        <!--
-            <tr class="">
-              <th class="px-4 py-2 border">Sr</th>
-              <th class="px-4 py-2 border">Passenger Name</th>
-              <th class="px-4 py-2 border">Age</th>
-              <th class="px-4 py-2 border">Action</th>
-            </tr>
-          <tbody class="text-sm">
-            <tr>
-              <td class="px-4 py-2 border text-center">1</td>
-              <td class="px-4 py-2 border text-center">Sachin</td>
-              <td class="px-4 py-2 border text-center">34</td>
-              <td class="px-4 py-2 border text-center">
-                <button
-                  class="bg-red-500 text-white text-sm px-2 py-1 rounded-md hover:bg-red-600"
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-4 py-2 border text-center">2</td>
-              <td class="px-4 py-2 border text-center">Rohit</td>
-              <td class="px-4 py-2 border text-center">34</td>
-              <td class="px-4 py-2 border text-center">
-                <button
-                  class="bg-red-500 text-white text-sm px-2 py-1 rounded-md hover:bg-red-600"
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          </tbody> -->
+        <div class="list-item sr-no">{{ i + 1 }}</div>
+        <div class="list-item passenger-name">
+          {{ passenger.passengerName }}
+        </div>
+        <div class="list-item age">{{ passenger.age }}</div>
+        <div class="list-item action">
+          <button class="remove-btn" (click)="removePassenger(i)">
+            Remove
+          </button>
+        </div>
       </div>
     </div>
 
@@ -91,7 +115,12 @@
       <button type="button" class="close-btn" (click)="closePopup()">
         Close
       </button>
-      <button type="button" class="create-btn" (click)="bookTicket()">
+      <button
+        type="button"
+        class="create-btn"
+        (click)="bookTicket()"
+        [disabled]="!passengerForm.valid || passengersList.length === 0"
+      >
         Book Ticket
       </button>
     </div>

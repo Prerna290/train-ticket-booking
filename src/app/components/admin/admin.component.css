@@ -3,118 +3,138 @@
 }
 
 button {
-  @apply rounded-xl shadow-md px-4 py-2 border-solid border font-medium;
-}
-
-.search-container {
-  @apply flex justify-between py-4 items-center;
+  @apply rounded-xl shadow-md px-4 py-2 border-solid border font-medium transition-all duration-200 ease-in-out;
 }
 
 .admin-section {
-  @apply dark:bg-gray-900 bg-indigo-50 md:px-0 px-3;
+  @apply dark:bg-gray-900 bg-indigo-50 min-h-screen py-8;
+}
 
-  .add-train {
-    .add-train-btn {
-      @apply py-3 px-4 bg-gray-50 text-green-700 dark:text-green-400 border-green-700 dark:border-green-400 dark:bg-gray-800 hover:border-yellow-600 hover:text-yellow-600 dark:hover:text-yellow-600 dark:hover:border-yellow-600;
-    }
-  }
+.search-container {
+  @apply flex justify-between py-6 items-center;
+}
+
+.add-train-btn {
+  @apply py-3 px-6 bg-white text-green-700 dark:text-green-400 border-2 border-green-600 dark:bg-gray-800 dark:border-green-400 hover:bg-green-700 hover:text-white dark:hover:border-green-700 dark:hover:text-white dark:hover:bg-green-700 flex items-center gap-2;
+}
+
+.search {
+  @apply p-3 text-base font-normal rounded-lg border-2 border-solid border-gray-300 dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 transition-all duration-200 ease-in-out w-full max-w-md;
 }
 
 .train-details-container {
   @apply grid grid-cols-1 md:grid-cols-2 gap-6;
-  .train-list {
-    @apply p-6 rounded-lg border border-solid border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white shadow-md hover:shadow-lg dark:hover:bg-gray-700;
-
-    .id-name {
-      @apply flex flex-row justify-between items-center mb-4;
-
-      .train-name {
-        @apply text-lg font-semibold text-gray-800 dark:text-gray-200;
-      }
-
-      .train-no {
-        @apply text-sm font-medium text-blue-600 dark:text-blue-400;
-      }
-    }
-
-    .train-id,
-    .arivial-time,
-    .departure-time,
-    .departure-details {
-      @apply text-sm font-medium text-gray-600 dark:text-gray-300;
-
-      span {
-        @apply text-sm font-medium text-gray-800 dark:text-gray-100;
-      }
-    }
-
-    .arival-departure-station {
-      @apply text-base font-medium text-gray-700 flex items-center mb-3 dark:text-gray-300;
-
-      span {
-        @apply font-semibold text-black dark:text-white;
-      }
-
-      fa-icon {
-        @apply mx-3 text-gray-500 dark:text-gray-400;
-      }
-    }
-
-    .seats {
-      @apply flex flex-row justify-between text-sm font-medium mt-4;
-
-      .total-seats {
-        @apply text-blue-600 dark:text-blue-400;
-      }
-
-      .booked-seats {
-        @apply text-red-500;
-      }
-
-      .reamining-seats {
-        @apply text-green-600 dark:text-green-400;
-      }
-    }
-
-    .card-action-btns {
-      @apply flex flex-row justify-end mx-auto pt-4;
-
-      .edit-train {
-        @apply text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400 hover:border-yellow-600 hover:text-yellow-600 dark:hover:text-yellow-600 dark:hover:border-yellow-600;
-      }
-
-      .delete-train {
-        @apply text-red-500 border-red-500 hover:border-yellow-600 hover:text-yellow-600;
-      }
-    }
-  }
 }
 
-.delete-popup {
-  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center;
-  .delete-popup-header {
-    @apply bg-white dark:bg-gray-800 p-6  rounded-lg shadow-lg;
-    p {
-      @apply text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4;
-    }
-    .action-button-popup {
-      @apply flex justify-between gap-4;
-
-      .cancel-delete {
-        @apply text-white bg-blue-500;
-      }
-
-      .confirm-delete {
-        @apply text-white bg-red-500;
-      }
-    }
-  }
+.train-list {
+  @apply p-6 rounded-lg border border-solid border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white shadow-md hover:shadow-lg transition-all duration-200 ease-in-out;
 }
 
-.search {
-  @apply p-3 text-base font-normal rounded-lg border-2 border-solid border-gray-400 dark:bg-gray-800 dark:text-white hover:border-yellow-600 hover:text-yellow-600 dark:hover:text-yellow-600 dark:hover:border-yellow-600;
+.train-header {
+  @apply flex justify-between items-center mb-4;
+}
+
+.train-info {
+  @apply flex items-center gap-2;
+}
+
+.train-name {
+  @apply text-lg font-bold text-gray-800 dark:text-gray-200;
+}
+
+.train-no {
+  @apply text-sm font-medium text-blue-600 dark:text-blue-400;
+}
+
+.train-id {
+  @apply text-sm text-gray-600 dark:text-gray-400;
+}
+
+.id-value {
+  @apply font-medium text-gray-800 dark:text-gray-200;
+}
+
+.route-details {
+  @apply flex items-center gap-4 mb-4;
+}
+
+.station {
+  @apply flex flex-row;
+}
+
+.label {
+  @apply text-sm text-gray-600 dark:text-gray-400;
+}
+
+.value {
+  @apply text-base font-medium text-gray-800 dark:text-gray-200;
+}
+
+.train-departure,
+.train-arrival {
+  @apply text-lg font-bold text-black dark:text-gray-200;
+}
+
+.arrow-icon {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+.timings {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-4;
+}
+
+.timing {
+  @apply flex flex-col;
+}
+
+.seats-info {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-4;
+}
+
+.seat {
+  @apply flex flex-col;
+}
+
+.actions {
+  @apply flex justify-end;
+}
+
+.delete-btn {
+  @apply text-red-500 border-red-500 hover:text-red-600 flex items-center gap-2;
 }
 
 .no-result-found {
-  @apply flex justify-center pt-6 pb-10 text-lg text-red-500 font-semibold;
+  @apply flex flex-col items-center justify-center py-10;
+}
+
+.no-result-found fa-icon {
+  @apply text-4xl text-gray-500 dark:text-gray-400 mb-4;
+}
+
+.no-result-found p {
+  @apply text-lg text-gray-600 dark:text-gray-400;
+}
+
+.delete-popup {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50;
+}
+
+.delete-popup-content {
+  @apply bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full;
+}
+
+.delete-popup-content p {
+  @apply text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4;
+}
+
+.delete-popup-content .actions {
+  @apply flex justify-end gap-4;
+}
+
+.cancel-btn {
+  @apply text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600;
+}
+
+.confirm-btn {
+  @apply text-white bg-red-500 hover:bg-red-600;
 }

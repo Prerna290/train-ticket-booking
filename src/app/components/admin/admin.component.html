@@ -4,68 +4,113 @@
   <div class="search-container container">
     <div class="add-train">
       <button class="add-train-btn" (click)="addTicketPopup()">
-        Add Train
+        <fa-icon [icon]="faPlus"></fa-icon> Add Train
       </button>
     </div>
-    <div class="search-container">
-      <input
-        class="search"
-        [(ngModel)]="searchTerm"
-        (input)="applyFilter()"
-        placeholder="Search Trains"
-      />
-    </div>
+    <input
+      class="search"
+      [(ngModel)]="searchTerm"
+      (input)="applyFilter()"
+      placeholder="Search Train"
+    />
   </div>
 
   <app-loader *ngIf="loading"></app-loader>
+
+  <!-- Train List -->
   <div
     *ngIf="filteredTrains.length > 0 && !loading"
     class="container train-details-container"
   >
     <div *ngFor="let train of filteredTrains" class="train-list">
-      <div class="id-name">
-        <p class="train-id">
-          Train Id: <span>{{ train.trainId }}</span>
-        </p>
-        <div>
-          <span class="train-name">{{ train.trainName }}</span
-          >&nbsp;<span class="train-no">({{ train.trainNo }})</span>
+      <!-- Train Header -->
+      <div class="train-header">
+        <div class="train-info">
+          <span class="train-name">{{ train.trainName }}</span>
+          <span class="train-no">({{ train.trainNo }})</span>
+        </div>
+        <div class="train-id">
+          <span>Train ID: </span>
+          <span class="id-value">{{ train.trainId }}</span>
         </div>
       </div>
-      <div class="arival-departure-station">
-        <span>{{ train.departureStationName }}</span
-        ><fa-icon [icon]="faArrowRightArrowLeft"></fa-icon
-        ><span>{{ train.arrivalStationName }}</span>
+
+      <!-- Route Details -->
+      <div class="route-details">
+        <div class="station">
+          <span class="train-departure">{{ train.departureStationName }}</span>
+        </div>
+        <fa-icon [icon]="faArrowRight" class="arrow-icon"></fa-icon>
+        <div class="station">
+          <span class="train-arrival">{{ train.arrivalStationName }}</span>
+        </div>
       </div>
-      <p class="departure-details">
-        Departure Details:
-        <span>{{ formatDepartureTime(train.departureDate) }}</span>
-      </p>
-      <p class="arivial-time">
-        Arrival Time: <span>{{ train.arrivalTime }}</span>
-      </p>
-      <p class="departure-time">
-        Departure Time: <span>{{ train.departureTime }}</span>
-      </p>
-      <div class="seats">
-        <p class="total-seats">Total Seats: {{ train.totalSeats }}</p>
-        <p class="booked-seats">Booked Seats: {{ train.bookedSeats }}</p>
-        <p class="reamining-seats">
-          Remaining Seats: {{ train.totalSeats - train.bookedSeats }}
-        </p>
+
+      <!-- Timings -->
+      <div class="timings">
+        <div class="timing">
+          <span class="label">Departure:</span>
+          <span class="value">
+            {{ formatDepartureTime(train.departureDate) }} |
+            {{ train.departureTime }}
+          </span>
+        </div>
+        <div class="timing">
+          <span class="label">Arrival:</span>
+          <span class="value">
+            {{
+              calculateArrivalDate(
+                train.departureDate,
+                train.arrivalTime,
+                train.departureTime
+              )
+            }}
+            | {{ train.arrivalTime }}
+          </span>
+        </div>
+        <div class="timing">
+          <span class="label">Journey Time:</span>
+          <span class="value">
+            {{
+              calculateTotalJourneyTime(train.departureTime, train.arrivalTime)
+            }}
+          </span>
+        </div>
       </div>
-      <div class="card-action-btns">
-        <button class="delete-train" (click)="deleteTrainPopup(train.trainId)">
-          Delete
+
+      <!-- Seats Information -->
+      <div class="seats-info">
+        <div class="seat">
+          <span class="label">Total Seats:</span>
+          <span class="value">{{ train.totalSeats }}</span>
+        </div>
+        <div class="seat">
+          <span class="label">Booked Seats:</span>
+          <span class="value">{{ train.bookedSeats }}</span>
+        </div>
+        <div class="seat">
+          <span class="label">Available Seats:</span>
+          <span class="value">{{ train.totalSeats - train.bookedSeats }}</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="delete-btn" (click)="deleteTrainPopup(train.trainId)">
+          <fa-icon [icon]="faTrash"></fa-icon> Delete
         </button>
       </div>
     </div>
   </div>
+
+  <!-- No Results Found -->
   <div *ngIf="filteredTrains.length === 0 && !loading" class="no-result-found">
-    Oops! No Results Found. Try Searching With A Differennt Query.
+    <fa-icon [icon]="faSearch"></fa-icon>
+    <p>No trains found. Try a different search term.</p>
   </div>
 </div>
 
+<!-- Add Train Popup -->
 <div *ngIf="showAddTrainPopup">
   <app-admin-add-train
     [showAddTrainPopup]="showAddTrainPopup"
@@ -76,13 +121,13 @@
 
 <!-- Delete Confirmation Popup -->
 <div *ngIf="showDeleteConfirmation" class="delete-popup">
-  <div class="delete-popup-header">
+  <div class="delete-popup-content">
     <p>Are you sure you want to delete this train?</p>
-    <div class="action-button-popup">
-      <button class="cancel-delete" (click)="showDeleteConfirmation = false">
+    <div class="actions">
+      <button class="cancel-btn" (click)="showDeleteConfirmation = false">
         Cancel
       </button>
-      <button class="confirm-delete" (click)="deleteTrain()">Delete</button>
+      <button class="confirm-btn" (click)="deleteTrain()">Delete</button>
     </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 .book-ticket {
-  @apply fixed inset-0 flex items-center justify-center;
+  @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50;
 
   .form {
-    @apply bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-2xl;
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl;
 
     .header {
       @apply flex items-center justify-between px-6 py-4 border-b border-gray-200;
@@ -12,7 +12,7 @@
       }
 
       button {
-        @apply text-gray-700 dark:text-gray-200;
+        @apply text-gray-700 dark:text-gray-200 hover:text-gray-900;
 
         fa-icon {
           @apply text-2xl;
@@ -23,54 +23,67 @@
     .body {
       @apply p-6;
 
-      .train {
-        @apply flex justify-between;
+      .train-details {
+        @apply mb-6;
 
-        p {
-          @apply m-0 text-right text-gray-700 dark:text-gray-200;
+        .train-title {
+          @apply text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2;
+        }
+
+        .train-info {
+          @apply space-y-2;
+
+          .info-item {
+            @apply flex items-center;
+
+            .label {
+              @apply text-sm font-normal text-gray-700 dark:text-gray-300;
+            }
+
+            .value {
+              @apply text-sm font-medium text-gray-800 dark:text-gray-200 ml-3;
+            }
+          }
         }
       }
 
       .passenger {
-        @apply grid grid-cols-[3fr_1fr_0.5fr] gap-4 my-4;
+        @apply grid grid-cols-2 gap-4 mb-6;
 
-        .name,
-        .age {
+        .form-group {
+          @apply flex flex-col;
+
           label {
-            @apply text-sm font-medium text-gray-700 dark:text-gray-200;
+            @apply text-sm font-medium text-gray-700 dark:text-gray-200 mb-1;
           }
 
           input {
-            @apply w-full px-3 py-2 mt-1 border rounded-md border-gray-300;
+            @apply w-full px-3 py-2 border rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200;
           }
         }
 
         .add-btn {
-          @apply flex items-end justify-center;
-
-          button {
-            @apply bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700;
-          }
+          @apply col-span-2 bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700;
         }
       }
 
       .passenger-list {
-        @apply grid grid-cols-7 w-full border border-gray-200 rounded-md bg-white;
+        @apply grid grid-cols-4 gap-4 mb-4;
 
         .list-header {
-          @apply text-sm px-4 py-2 flex items-center justify-center;
+          @apply text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-md;
         }
 
-        .sr-no,
-        .age {
-          @apply col-span-1;
-        }
-        .passenger-name {
-          @apply col-span-3;
+        .list-item {
+          @apply text-sm text-gray-700 dark:text-gray-200 px-4 py-2 flex items-center;
+
+          &.action {
+            @apply justify-center;
+          }
         }
 
-        .action {
-          @apply col-span-2;
+        .remove-btn {
+          @apply bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600;
         }
       }
     }
@@ -79,11 +92,11 @@
       @apply flex items-center justify-end px-6 py-4 border-t border-gray-200;
 
       .close-btn {
-        @apply bg-red-500 text-white text-sm px-3 py-2 rounded-md hover:bg-red-600 mr-2;
+        @apply bg-red-500 text-white text-sm px-4 py-2 rounded-md hover:bg-red-600 mr-2;
       }
 
       .create-btn {
-        @apply bg-green-600 text-white text-sm px-3 py-2 rounded-md hover:bg-green-700;
+        @apply bg-green-600 text-white text-sm px-4 py-2 rounded-md hover:bg-green-700;
       }
     }
   }

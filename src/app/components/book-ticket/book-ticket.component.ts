@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TicketBookingService } from '../../services/ticket-booking.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-book-ticket',
@@ -81,5 +82,13 @@ export class BookTicketComponent {
         alert(data.message);
       }
     });
+  }
+
+  formatDate(departureTime: string) {
+    return moment(departureTime).format('MMMM Do YYYY');
+  }
+
+  removePassenger(index: number) {
+    this.passengersList.splice(index, 1);
   }
 }

@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -42,6 +35,7 @@ export class AdminAddTrainComponent {
   faLocationDot = faLocationDot;
   stationList: IStation[] = [];
   showSameLocationError = false;
+  today!: string;
 
   private ticketBookingService = inject(TicketBookingService);
 
@@ -68,6 +62,8 @@ export class AdminAddTrainComponent {
 
   ngOnInit() {
     this.getAllStations();
+    //To disable past dates, while adding trains
+    this.today = new Date().toISOString().split('T')[0];
   }
 
   getAllStations() {
