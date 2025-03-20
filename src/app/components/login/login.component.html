@@ -1,188 +1,165 @@
-<app-toast *ngIf="showToast" [message]="message"></app-toast>
+<app-toast #toast></app-toast>
+
+<!-- Registration Form -->
 <form
   *ngIf="isRegisterPopupVisible"
-  class="login-container"
-  id="registerModel"
+  class="auth-container"
   [formGroup]="registerForm"
   (ngSubmit)="onSubmitRegister()"
 >
-  <div class="login">
+  <div class="auth-card">
     <div class="header">
-      <h4>Register</h4>
-      <button type="button" (click)="closePopup()">
-        <fa-icon [icon]="faXmark"></fa-icon>
-      </button>
+      <h4>Create Your Account</h4>
     </div>
     <div class="form">
-      <div class="first-last-name">
-        <div class="first-name">
-          <label for="first-name">First Name</label>
-          <input type="text" id="first-name" formControlName="firstName" />
-          <p
-            *ngIf="
-              registerForm.get('firstName')?.touched &&
-              registerForm.get('firstName')?.errors?.['required']
-            "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            First name is required.
-          </p>
-        </div>
-        <div class="last-name">
-          <label for="last-name">Last Name</label>
-          <input type="text" id="last-name" formControlName="lastName" />
-          <p
-            *ngIf="
-              registerForm.get('lastName')?.touched &&
-              registerForm.get('lastName')?.errors?.['required']
-            "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            Last name is required.
-          </p>
-        </div>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Enter your first name"
+        />
+        <app-alert
+          *ngIf="
+        registerForm.get('firstName')?.touched &&
+        registerForm.get('firstName')?.errors?.['required']
+      "
+          [errorMessage]="'First name is required.'"
+        ></app-alert>
       </div>
-      <div class="email-phone">
-        <div class="email">
-          <label for="email">Email</label>
-          <input type="text" id="email" formControlName="email" />
-          <p
-            *ngIf="
-              registerForm.get('email')?.touched &&
-              registerForm.get('email')?.errors?.['email']
-            "
-            class="alert-message"
-          >
-            Enter a valid email.
-          </p>
-          <p
-            *ngIf="
-              registerForm.get('email')?.touched &&
-              registerForm.get('email')?.errors?.['required']
-            "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            Email is required.
-          </p>
-        </div>
-        <div class="phone">
-          <label for="phone">Phone</label>
-          <input type="text" id="phone" formControlName="phone" />
-          <p
-            *ngIf="
-              registerForm.get('phone')?.touched &&
-              registerForm.get('phone')?.errors?.['pattern']
-            "
-            class="alert-message"
-          >
-            Enter a valid phone number
-          </p>
-          <p
-            *ngIf="
-              registerForm.get('phone')?.touched &&
-              registerForm.get('phone')?.errors?.['required']
-            "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            Phone number is required.
-          </p>
-        </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          placeholder="Enter your last name"
+        />
+        <app-alert
+          *ngIf="
+        registerForm.get('lastName')?.touched &&
+        registerForm.get('lastName')?.errors?.['required']
+      "
+          [errorMessage]="'Last name is required.'"
+        ></app-alert>
       </div>
-      <div class="password-container">
-        <div class="password">
-          <label for="password">Password</label>
-          <input type="password" id="password" formControlName="password" />
-          <p
-            *ngIf="
-              registerForm.get('password')?.touched &&
-              registerForm.get('password')?.errors?.['required']
-            "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            Password is required.
-          </p>
-        </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <app-alert
+          *ngIf="
+            registerForm.get('email')?.touched &&
+            registerForm.get('email')?.invalid
+          "
+          [errorMessage]="'Please enter a valid email.'"
+        ></app-alert>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input
+          type="text"
+          id="phone"
+          formControlName="phone"
+          placeholder="Enter your phone number"
+        />
+        <app-alert
+          *ngIf="
+            registerForm.get('phone')?.touched &&
+            registerForm.get('phone')?.invalid
+          "
+          [errorMessage]="'Please enter a valid 10-digit phone number.'"
+        ></app-alert>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <app-alert
+          *ngIf="
+            registerForm.get('password')?.touched &&
+            registerForm.get('password')?.errors?.['required']
+          "
+          [errorMessage]="'Password is required.'"
+        ></app-alert>
       </div>
     </div>
     <div class="action-btns">
-      <button type="button" class="close-btn" (click)="closePopup()">
-        Close
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="registerForm.invalid"
+      >
+        Register
       </button>
-      <button type="submit" class="register-btn">Register</button>
     </div>
-    <p class="toggle-login">
-      Already Have An Account? <a (click)="toggleLogin()">Click here</a> to
-      login
+    <p class="toggle-auth">
+      Already have an account?
+      <a (click)="toggleLogin()">Login here</a>
     </p>
   </div>
 </form>
 
+<!-- Login Form -->
 <form
   *ngIf="isLoginPopupVisible"
-  class="login-container"
-  id="registerModel"
+  class="auth-container"
   [formGroup]="loginForm"
   (ngSubmit)="onSubmitLogin()"
 >
-  <div class="login">
+  <div class="auth-card">
     <div class="header">
-      <h4>Login</h4>
-      <button type="button" (click)="closePopup()">
-        <fa-icon [icon]="faXmark"></fa-icon>
-      </button>
+      <h4>Welcome Back</h4>
     </div>
     <div class="form">
-      <div class="phone-password">
-        <div class="phone">
-          <label for="phone">Phone</label>
-          <input type="text" id="phone" formControlName="phone" />
-          <p
-            *ngIf="
-          loginForm.get('phone')?.touched &&
-          loginForm.get('phone')?.errors?.['pattern']
-        "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            Enter a valid password
-          </p>
-          <p
-            *ngIf="
-            loginForm.get('phone')?.touched &&
-            loginForm.get('phone')?.errors?.['required']
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input
+          type="text"
+          id="phone"
+          formControlName="phone"
+          placeholder="Enter your phone number"
+        />
+        <app-alert
+          *ngIf="
+        loginForm.get('phone')?.touched &&
+        loginForm.get('phone')?.errors?.['pattern']
+      "
+          [errorMessage]="'Please enter a valid 10-digit phone number.'"
+        ></app-alert>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <app-alert
+          *ngIf="
+            loginForm.get('password')?.touched &&
+            loginForm.get('password')?.invalid
           "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            Phone number is required.
-          </p>
-        </div>
-        <div class="password">
-          <label for="password">Password</label>
-          <input type="password" id="password" formControlName="password" />
-          <p
-            *ngIf="
-          loginForm.get('password')?.touched &&
-          loginForm.get('password')?.errors?.['required']
-        "
-            class="alert-message"
-          >
-            <fa-icon [icon]="faCircleExclamation"></fa-icon>
-            Password is required.
-          </p>
-        </div>
+          [errorMessage]="'Password is required.'"
+        ></app-alert>
       </div>
     </div>
     <div class="action-btns">
-      <button type="button" class="close-btn" (click)="closePopup()">
-        Close
-      </button>
-      <button type="submit" class="register-btn">Login</button>
+      <button type="submit" class="primary-btn">Login</button>
     </div>
+    <p class="toggle-auth">
+      Don't have an account?
+      <a (click)="toggleLogin()">Register here</a>
+    </p>
   </div>
 </form>

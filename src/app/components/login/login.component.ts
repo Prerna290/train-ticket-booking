@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +14,8 @@ import {
 import { TicketBookingService } from '../../services/ticket-booking.service';
 import { IUser } from '../../model/train';
 import { ToastComponent } from '../toast/toast.component';
+import { AlertComponent } from '../alert/alert.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,13 +25,14 @@ import { ToastComponent } from '../toast/toast.component';
     FontAwesomeModule,
     ReactiveFormsModule,
     ToastComponent,
+    AlertComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  @Input() isRegisterPopupVisible = false;
-  @Output() isRegisterPopupVisibleChange = new EventEmitter<boolean>();
+  isRegisterPopupVisible = true;
+  @ViewChild(ToastComponent) toast!: ToastComponent;
 
   private ticketBookingService = inject(TicketBookingService);
 
@@ -38,34 +41,33 @@ export class LoginComponent {
   registerForm: FormGroup;
   loginForm: FormGroup;
   isLoginPopupVisible = false;
-  message = '';
   showToast = false;
+  isUserLoggedIn = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
       passengerID: [0],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]{10}$'), // Ensures exactly 10 digits, only numbers
-        ],
-      ],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: ['', Validators.required],
     });
 
     this.loginForm = this.fb.group({
-      phone: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]{10}$'), // Ensures exactly 10 digits, only numbers
-        ],
-      ],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: ['', [Validators.required, Validators.required]],
+    });
+  }
+
+  ngOnInit() {
+    this.ticketBookingService.userLoggedIn$.subscribe((res) => {
+      if (res) {
+        this.isUserLoggedIn = true;
+        this.router.navigate(['/home']);
+      } else {
+        this.isUserLoggedIn = false;
+      }
     });
   }
 
@@ -73,23 +75,22 @@ export class LoginComponent {
     this.resetForms();
     this.isRegisterPopupVisible = false;
     this.isLoginPopupVisible = false;
-    this.isRegisterPopupVisibleChange.emit(false);
   }
 
   onSubmitRegister() {
-    this.message = 'Yay, Registration Successful';
     if (this.registerForm.valid) {
       const user: IUser = this.registerForm.value;
-      this.ticketBookingService.addUsers(user).subscribe((data: any) => {
-        if (data.result) {
-          this.showToast = true;
-          this.message = 'Yay, Registration Successful';
+      this.ticketBookingService.addUsers(user).subscribe((res: any) => {
+        if (res.result) {
+          this.showToastMessage(
+            'Registration Successful. Welcome To Our Platform!',
+            'success'
+          );
           this.resetForms();
-          this.isRegisterPopupVisible = false;
-          this.isRegisterPopupVisibleChange.emit(false);
+          this.ticketBookingService.loginDetails(res.data);
+          this.router.navigate(['/home']);
         } else {
-          this.showToast = true;
-          this.message = data.message;
+          this.showToastMessage(res.message, 'error');
         }
       });
     }
@@ -97,15 +98,15 @@ export class LoginComponent {
 
   onSubmitLogin() {
     if (this.loginForm.valid) {
-      const loginUser: any = this.loginForm.value;
+      const loginUser: IUser = this.loginForm.value;
       this.ticketBookingService.loginUser(loginUser).subscribe((res) => {
         if (res.result) {
-          this.message = 'Yay, Login Successful';
+          this.showToastMessage('Login Successful. Welcome Back!', 'success');
           this.resetForms();
           this.ticketBookingService.loginDetails(res.data);
-          this.isLoginPopupVisible = false;
+          this.router.navigate(['/home']);
         } else {
-          this.message = res.message;
+          this.showToastMessage(res.message, 'error');
         }
       });
     }
@@ -117,16 +118,18 @@ export class LoginComponent {
   }
 
   toggleLogin() {
-    this.isRegisterPopupVisible = false;
-    this.isRegisterPopupVisibleChange.emit(false);
-    this.isLoginPopupVisible = true;
+    if (this.isRegisterPopupVisible) {
+      this.isRegisterPopupVisible = false;
+      this.isLoginPopupVisible = true;
+    } else {
+      this.isRegisterPopupVisible = true;
+      this.isLoginPopupVisible = false;
+    }
   }
 
-  //Login Details
-  // email: 'prerna123@gmail.com';
-  // firstName: 'prerna';
-  // lastName: 'test';
-  // passengerID: 980;
-  // password: '123@123';
-  // phone: '9000000089';
+  showToastMessage(message: string, messageType: any) {
+    if (this.toast) {
+      this.toast.showToastPopup(message, messageType);
+    }
+  }
 }
