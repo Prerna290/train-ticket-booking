@@ -28,4 +28,8 @@ export const routes: Routes = [
     path: 'bookings',
     component: MyBookingsComponent,
   },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
 ];

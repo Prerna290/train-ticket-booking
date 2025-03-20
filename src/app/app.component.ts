@@ -50,29 +50,33 @@ export class AppComponent {
   faUser = faUser;
   faEnvelope = faEnvelope;
 
-  isRegisterPopupVisible = false;
   isUserLoggedIn$ = this.ticketBookingService.userLoggedIn$;
   userData!: IUser;
   isDropdownOpen = false;
 
   isDarkMode = false;
   userTheme = '';
+  isUserLoggedIn = false;
 
   constructor() {
-    this.isUserLoggedIn$ = this.ticketBookingService.userLoggedIn$;
-    console.log(this.isUserLoggedIn$);
+    // this.ticketBookingService.userLoggedIn$.subscribe((res) => {
+    //   if (res) {
+    //     // this.loggedInUserDetails = JSON.parse(loggedInUser);
+    //     this.isUserLoggedIn = true;
+    //     console.log('if');
+    //   } else {
+    //     this.isUserLoggedIn = false;
+    //   }
+    // });
+    // this.isUserLoggedIn$ = this.ticketBookingService.userLoggedIn$;
+    // console.log(this.isUserLoggedIn$);
   }
 
   ngOnInit() {
     this.checkTheme();
-    const user = localStorage.getItem('trainApp');
-    if (user) {
-      this.userData = JSON.parse(user);
-    }
-  }
-
-  openPopup() {
-    this.isRegisterPopupVisible = true;
+    this.ticketBookingService.userData$.subscribe((userData) => {
+      this.userData = userData;
+    });
   }
 
   logoutProfile() {
@@ -91,10 +95,6 @@ export class AppComponent {
     if (!this.dropdownContainer?.nativeElement.contains(event.target)) {
       this.isDropdownOpen = false;
     }
-  }
-
-  handleRegisterPopupChange(value: boolean) {
-    this.isRegisterPopupVisible = value;
   }
 
   checkTheme() {

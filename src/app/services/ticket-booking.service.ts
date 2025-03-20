@@ -19,10 +19,14 @@ export class TicketBookingService {
   private isUserLoggedIn = new BehaviorSubject<boolean>(false);
   userLoggedIn$ = this.isUserLoggedIn.asObservable();
 
+  private userData = new BehaviorSubject<any>(null);
+  userData$ = this.userData.asObservable();
+
   constructor(private httpClient: HttpClient) {
     const userData = localStorage.getItem('trainApp');
     if (userData) {
       this.isUserLoggedIn.next(true);
+      this.userData.next(JSON.parse(userData));
     }
   }
 
@@ -59,11 +63,13 @@ export class TicketBookingService {
   loginDetails(userData: IUser) {
     localStorage.setItem('trainApp', JSON.stringify(userData));
     this.isUserLoggedIn.next(true);
+    this.userData.next(userData);
   }
 
   logout() {
     localStorage.removeItem('trainApp');
     this.isUserLoggedIn.next(false);
+    this.userData.next(null);
   }
 
   // getUserData() {

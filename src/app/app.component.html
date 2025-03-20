@@ -13,9 +13,7 @@
           <fa-icon [icon]="faSun"></fa-icon>
         </button>
 
-        <ng-container
-          *ngIf="(isUserLoggedIn$ | async) && userData; else loggedOutTemplate"
-        >
+        <ng-container *ngIf="userData; else loggedOutTemplate">
           <div
             *ngIf="userData"
             class="user-icon"
@@ -55,7 +53,7 @@
         </ng-container>
 
         <ng-template #loggedOutTemplate>
-          <button (click)="openPopup()" class="register-btn">
+          <button routerLink="/login" class="register-btn">
             <fa-icon [icon]="faUserPlus"></fa-icon>
             <span>Sign Up</span>
           </button>
@@ -78,10 +76,6 @@
 <!-- Search Section -->
 
 <router-outlet></router-outlet>
-<app-login
-  [isRegisterPopupVisible]="isRegisterPopupVisible"
-  (isRegisterPopupVisibleChange)="handleRegisterPopupChange($event)"
-></app-login>
 <!-- Train button functionality -->
 <!-- validation of required field not working on email -->
 <!-- If i type email already register then -->

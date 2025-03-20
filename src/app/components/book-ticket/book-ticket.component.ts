@@ -13,6 +13,7 @@ import { TicketBookingService } from '../../services/ticket-booking.service';
 import moment from 'moment';
 import { AlertComponent } from '../alert/alert.component';
 import { ToastComponent } from '../toast/toast.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-ticket',
@@ -40,7 +41,8 @@ export class BookTicketComponent {
   constructor(
     private fb: FormBuilder,
     private ticketBookingService: TicketBookingService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {
     this.passengerForm = this.fb.group({
       passengerName: ['', Validators.required],
@@ -65,6 +67,11 @@ export class BookTicketComponent {
   }
 
   bookTicket() {
+    if (!this.loggedInUserDetails) {
+      this.showErrorToast('Please log in to book a ticket');
+      this.router.navigate(['/login']);
+      return;
+    }
     const bookObj = {
       bookingId: 0,
       trainId: this.selectedTrain.trainId,
