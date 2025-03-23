@@ -3,7 +3,7 @@
     <!-- From Location -->
     <div class="location-select">
       <fa-icon [icon]="faLocationDot"></fa-icon>
-      <label for="fromStation" class="from-label">FROM </label>
+      <label for="fromStation" class="from-label">From:</label>
       <select
         id="fromStation"
         name="fromStation"
@@ -23,7 +23,7 @@
     <!-- To Location -->
     <div class="location-select">
       <fa-icon [icon]="faLocationDot"></fa-icon>
-      <label for="toStation" class="to-label">TO </label>
+      <label for="toStation" class="to-label">To:</label>
       <select
         id="toStation"
         name="toStation"
@@ -38,7 +38,7 @@
     <!-- Date Picker -->
     <div class="date-picker">
       <fa-icon [icon]="faCalendarDays"></fa-icon>
-      <label for="datePicker" class="date-label">DATE </label>
+      <label for="datePicker" class="date-label">Date:</label>
       <input
         type="date"
         id="datePicker"
@@ -53,12 +53,19 @@
     </button>
   </form>
 
-  <div *ngIf="trainSearchResults.length > 0" class="total-results">
+  <div *ngIf="trainSearchResults.length === 0 && isLoading" class="loader">
+    <app-loader></app-loader>
+  </div>
+
+  <div
+    *ngIf="trainSearchResults.length > 0 && !isLoading"
+    class="total-results"
+  >
     <span>{{ trainSearchResults.length }}</span> result{{
       trainSearchResults.length > 1 ? "s" : ""
     }}
     found on
-    <span>{{ searchData.dateOfTravel }}</span>
+    <span>{{ searchData.dateOfTravel | date : "fullDate" }}</span>
   </div>
 
   <div *ngIf="trainSearchResults.length === 0 && !isLoading" class="no-results">
@@ -81,20 +88,33 @@
           ><span>{{ train.arrivalStationName }}</span>
         </div>
       </div>
-      <div class="arrival-departure-details">
-        <p class="departure-details">
-          {{ train.departureDate | date : "dd MMMM yyyy" }} |
-          {{ train.departureTime }} |
-          {{ train.departureStationName }}
-        </p>
-        <span class="value">
-          {{ train.arrivalDate }}
-          | {{ train.arrivalTime }}
-        </span>
+      <div class="timings">
+        <div class="timing">
+          <span class="label">Departure:</span>
+          <span class="value">
+            {{ formatDepartureTime(train.departureDate) }} |
+            {{ train.departureTime }}
+          </span>
+        </div>
+        <div class="timing">
+          <span class="label">Arrival:</span>
+          <span class="value">
+            {{
+              calculateArrivalDate(
+                train.departureDate,
+                train.arrivalTime,
+                train.departureTime
+              )
+            }}
+            | {{ train.arrivalTime }}
+          </span>
+        </div>
         <div class="timing">
           <span class="label">Journey Time:</span>
           <span class="value">
-            {{ train.journeyTime }}
+            {{
+              calculateTotalJourneyTime(train.departureTime, train.arrivalTime)
+            }}
           </span>
         </div>
       </div>
@@ -122,10 +142,3 @@
     </div>
   </div>
 </div>
-<!-- <div class="seats">
-      <p class="total-seats">Total Seats: {{ train.totalSeats }}</p>
-      <p class="booked-seats">Booked Seats: {{ train.bookedSeats }}</p>
-      <p class="reamining-seats">
-        Remaining Seats: {{ train.totalSeats - train.bookedSeats }}
-      </p>
-    </div> -->

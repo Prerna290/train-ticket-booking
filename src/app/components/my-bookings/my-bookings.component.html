@@ -46,7 +46,7 @@
             <div class="timing">
               <span class="label">Departure:</span>
               <span class="value">
-                {{ booking.departureDate | date }} |
+                {{ formatDepartureTime(booking.departureDate) }} |
                 {{ booking.departureTime }}
               </span>
             </div>

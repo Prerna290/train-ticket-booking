@@ -3,19 +3,19 @@
 }
 
 .total-results {
-  @apply p-5 text-lg font-medium bg-blue-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200;
+  @apply py-5 px-10 text-lg font-medium bg-blue-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200;
 
   span {
-    @apply font-bold text-black dark:text-white;
+    @apply font-bold text-gray-700 dark:text-white;
   }
 }
 
 .no-results {
-  @apply p-5 text-lg font-medium text-center text-gray-600 dark:text-gray-300;
+  @apply p-5 text-lg font-medium text-center text-red-500 dark:text-gray-300;
 }
 
 .train-details-container {
-  @apply mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 my-10;
+  @apply mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 my-10;
 
   .train-list {
     @apply pb-4 rounded-lg border border-solid border-gray-200 bg-white  dark:bg-gray-800;
@@ -40,45 +40,30 @@
       }
     }
 
-    .train-id,
-    .arivial-time,
-    .departure-details,
-    .arival-details {
-      @apply text-sm font-medium text-gray-600 dark:text-white;
+    .label {
+      @apply text-xs text-gray-600 dark:text-gray-400;
+    }
 
-      span {
-        @apply text-sm font-medium text-black dark:text-white;
-      }
+    .value {
+      @apply text-sm font-medium text-gray-800 dark:text-gray-200;
+    }
+
+    .timings {
+      @apply grid grid-cols-1 md:grid-cols-3 gap-4 py-4 px-6;
+    }
+
+    .timing {
+      @apply flex flex-col;
     }
 
     .train-no {
       @apply text-sm font-medium text-blue-700 dark:text-blue-500 mb-2;
     }
-
-    .arrival-departure-details {
-      @apply flex flex-col md:flex-row items-start md:items-center justify-between px-6 py-4;
-    }
-
-    .seats {
-      @apply flex flex-row justify-between text-sm font-medium mt-2  px-6;
-
-      .total-seats {
-        @apply text-gray-600 dark:text-gray-300;
-      }
-
-      .booked-seats {
-        @apply text-red-500 dark:text-red-300;
-      }
-
-      .reamining-seats {
-        @apply text-green-600 dark:text-green-300;
-      }
-    }
   }
 }
 
 .book-ticket-availability {
-  @apply flex justify-between px-6 pt-2;
+  @apply flex justify-between px-6;
   .book-train {
     @apply py-1 px-3 bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors duration-300 rounded-md text-white text-xs;
   }
@@ -113,12 +98,12 @@
     .from-label,
     .to-label,
     .date-label {
-      @apply text-gray-700;
+      @apply text-base text-gray-700 mr-2;
     }
 
     select,
     input {
-      @apply bg-transparent focus:outline-none w-full  text-black font-medium;
+      @apply bg-transparent focus:outline-none w-full text-black;
     }
   }
 
@@ -130,15 +115,11 @@
     @apply flex flex-row justify-center w-fit text-xl text-black dark:text-white;
   }
 
-  .alert {
-    @apply text-red-500 text-sm m-0 py-3 flex justify-start w-full;
-
-    fa-icon {
-      @apply mx-2;
-    }
-  }
-
   .submit-btn {
     @apply bg-yellow-500 text-white font-medium text-lg p-4 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 text-nowrap;
   }
+}
+
+.loader {
+  @apply my-14;
 }

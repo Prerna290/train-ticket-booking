@@ -1,18 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ISearch, IStation, ITrain } from '../../model/train';
 import { TicketBookingService } from '../../services/ticket-booking.service';
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   faCalendarDays,
   faCircleInfo,
@@ -20,6 +14,7 @@ import {
   faTrain,
 } from '@fortawesome/free-solid-svg-icons';
 import { BookTicketComponent } from '../book-ticket/book-ticket.component';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-search',
@@ -30,17 +25,16 @@ import { BookTicketComponent } from '../book-ticket/book-ticket.component';
     ReactiveFormsModule,
     FormsModule,
     BookTicketComponent,
+    LoaderComponent,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
 export class SearchComponent {
-  //searchData is not initalized when declared to it is showing error ! indicates that searchData will always be inisalized before use
   searchData!: ISearch;
   trainSearchResults: ITrain[] = [];
   stationList: IStation[] = [];
   showTicketAvailability = [false];
-  // stationForm: FormGroup;
 
   activatedRoute = inject(ActivatedRoute);
 
@@ -54,7 +48,7 @@ export class SearchComponent {
   isLoading = false;
 
   private ticketBookingService = inject(TicketBookingService);
-  private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   constructor() {}
 
@@ -93,6 +87,12 @@ export class SearchComponent {
             train.arrivalTime
           );
         });
+        this.router.navigate([
+          '/search',
+          this.searchData.fromStationId,
+          this.searchData.toStationId,
+          this.searchData.dateOfTravel,
+        ]);
         this.isLoading = false;
       });
   }
@@ -130,7 +130,7 @@ export class SearchComponent {
     if (arrival < departure) {
       arrival.setDate(arrival.getDate() + 1);
     }
-    return moment(arrival).format('MMMM Do YYYY');
+    return moment(arrival).format('MMM Do YYYY');
   }
 
   formatTrainTime(time: string) {
@@ -185,5 +185,9 @@ export class SearchComponent {
     } else {
       return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minutes`;
     }
+  }
+
+  formatDepartureTime(departureTime: string) {
+    return moment(departureTime).format('MMM Do YYYY');
   }
 }
