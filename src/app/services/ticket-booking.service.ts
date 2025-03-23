@@ -72,21 +72,19 @@ export class TicketBookingService {
     this.userData.next(null);
   }
 
-  // getUserData() {
-  //   const userData = localStorage.getItem('userData');
-  //   return userData ? JSON.parse(userData) : null;
-  // }
-
-  loginUser(user: any): Observable<any> {
+  loginUser(user: IUser): Observable<IUser> {
     const requestBody = {
       phone: user.phone,
       password: user.password,
     };
-    return this.httpClient.post<any>(this.apiRoute + 'Login', requestBody);
+    return this.httpClient.post<IUser>(this.apiRoute + 'Login', requestBody);
   }
 
-  bookTicket(bookingData: any): Observable<IBookTicket> {
-    return this.httpClient.post<any>(this.apiRoute + 'BookTrain', bookingData);
+  bookTicket(bookingData: IBookTicket): Observable<IBookTicket> {
+    return this.httpClient.post<IBookTicket>(
+      this.apiRoute + 'BookTrain',
+      bookingData
+    );
   }
 
   getBookedTrainData(passengerId: number): Observable<ITrain> {
