@@ -1,3 +1,4 @@
+<app-toast #toast></app-toast>
 <div class="booking-container">
   <div class="container">
     <div class="header">
@@ -11,28 +12,69 @@
       </div>
     </div>
     <!-- Booking Cards -->
-    <div class="bookings-container">
-      <div
-        *ngFor="let booking of groupedMyBookings"
-        class="break-inside-avoid-column"
-      >
+    <app-loader *ngIf="loadingBookings"></app-loader>
+    <div
+      class="bookings-container"
+      *ngIf="!loadingBookings && groupedMyBookings.length > 0"
+    >
+      <div *ngFor="let booking of groupedMyBookings" class="bookings">
         <div class="booking">
-          <div class="booking-header">
-            <h3 class="train-name">
-              {{ booking.trainName }} ({{ booking.trainNo }})
-            </h3>
+          <div class="train-header">
+            <div class="train-info">
+              <span class="train-name">{{ booking.trainName }}</span>
+              <span class="train-no">({{ booking.trainNo }})</span>
+            </div>
           </div>
-          <p class="departure">
-            Departure:
-            <span>{{ booking.departureStationName }}</span> at
-            <span>{{ booking.departureTime }}</span> on
-            <span>{{ booking.departureDate | date }}</span>
-          </p>
-          <p class="arrival">
-            Arrival:
-            <span>{{ booking.arrivalStationName }}</span> at
-            <span>{{ booking.arrivalTime }}</span>
-          </p>
+
+          <!-- Route Details -->
+          <div class="route-details">
+            <div class="station">
+              <span class="train-departure">{{
+                booking.departureStationName
+              }}</span>
+            </div>
+            <fa-icon [icon]="faArrowRight" class="arrow-icon"></fa-icon>
+            <div class="station">
+              <span class="train-arrival">{{
+                booking.arrivalStationName
+              }}</span>
+            </div>
+          </div>
+
+          <!-- Timings -->
+          <div class="timings">
+            <div class="timing">
+              <span class="label">Departure:</span>
+              <span class="value">
+                {{ booking.departureDate | date }} |
+                {{ booking.departureTime }}
+              </span>
+            </div>
+            <div class="timing">
+              <span class="label">Arrival:</span>
+              <span class="value">
+                {{
+                  calculateArrivalDate(
+                    booking.departureDate,
+                    booking.arrivalTime,
+                    booking.departureTime
+                  )
+                }}
+                | {{ booking.arrivalTime }}
+              </span>
+            </div>
+            <div class="timing">
+              <span class="label">Journey Time:</span>
+              <span class="value">
+                {{
+                  calculateTotalJourneyTime(
+                    booking.departureTime,
+                    booking.arrivalTime
+                  )
+                }}
+              </span>
+            </div>
+          </div>
           <hr class="horizontal-line" />
           <div class="passengers-section">
             <h4 class="passengers-list-heading">
@@ -69,6 +111,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div *ngIf="!loadingBookings && groupedMyBookings.length === 0">
+      <p class="no-bookings">No Bookings Available, Book Your Tickets Now!</p>
     </div>
   </div>
 </div>

@@ -100,7 +100,6 @@ export class TicketBookingService {
   }
 
   addNewTrain(trainDetail: ITrain): Observable<ITrain> {
-    console.log(trainDetail);
     return this.httpClient.post<ITrain>(
       this.apiRoute + 'AddNewTrain',
       trainDetail

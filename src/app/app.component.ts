@@ -82,6 +82,7 @@ export class AppComponent {
   logoutProfile() {
     this.ticketBookingService.logout();
     alert('Logout Successful');
+    //When logout redirect to login page, causing problem if booking page is opened and then logout
     this.isDropdownOpen = false;
   }
 
