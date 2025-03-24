@@ -1,5 +1,5 @@
 section {
-  @apply bg-indigo-50 dark:bg-gray-900 py-20;
+  @apply bg-indigo-50 dark:bg-gray-900 py-20 min-h-[100dvh];
 
   .header {
     @apply mx-auto text-center mb-16;

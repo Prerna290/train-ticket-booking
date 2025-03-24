@@ -44,7 +44,7 @@ export interface IPassenger {
 export interface IBookTicket {
   bookingId: number;
   passengerId: number;
-  travelDate: string;
+  travelDate: string | null;
   bookingDate: string;
   totalSeats: 0;
   TrainAppBookingPassengers: ITrainBookingPassengers;

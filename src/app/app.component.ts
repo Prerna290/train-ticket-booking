@@ -23,6 +23,7 @@ import {
 import { LoginComponent } from './components/login/login.component';
 import { TicketBookingService } from './services/ticket-booking.service';
 import { IUser } from './model/train';
+import { ToastComponent } from './components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ import { IUser } from './model/train';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  @ViewChild('dropdownContainer', { static: false })
+  @ViewChild('dropdownContainer', { static: false });
+  @ViewChild(ToastComponent) toast!: ToastComponent;
   dropdownContainer!: ElementRef;
 
   title = 'train-ticket-booking';
@@ -58,19 +60,7 @@ export class AppComponent {
   userTheme = '';
   isUserLoggedIn = false;
 
-  constructor() {
-    // this.ticketBookingService.userLoggedIn$.subscribe((res) => {
-    //   if (res) {
-    //     // this.loggedInUserDetails = JSON.parse(loggedInUser);
-    //     this.isUserLoggedIn = true;
-    //     console.log('if');
-    //   } else {
-    //     this.isUserLoggedIn = false;
-    //   }
-    // });
-    // this.isUserLoggedIn$ = this.ticketBookingService.userLoggedIn$;
-    // console.log(this.isUserLoggedIn$);
-  }
+  constructor() {}
 
   ngOnInit() {
     this.checkTheme();
@@ -81,9 +71,14 @@ export class AppComponent {
 
   logoutProfile() {
     this.ticketBookingService.logout();
-    alert('Logout Successful');
-    //When logout redirect to login page, causing problem if booking page is opened and then logout
+    this.showSuccessToast();
     this.isDropdownOpen = false;
+  }
+
+  showSuccessToast() {
+    if (this.toast) {
+      this.toast.showToastPopup('Logout Successfully', 'success');
+    }
   }
 
   toggleDropdown() {
@@ -103,8 +98,7 @@ export class AppComponent {
     const systemPreference = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
-
-    // Apply dark mode if user preference is 'dark' or system prefers dark
+    
     if (userTheme === 'dark' || (!userTheme && systemPreference)) {
       this.enableDarkMode();
     } else {

@@ -16,7 +16,6 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    //when we will click on search, new component will be rendered, so to fetch data we need parametrized routes
     path: 'search/:fromStationId/:toStationId/:dateOfTravel',
     component: SearchComponent,
   },

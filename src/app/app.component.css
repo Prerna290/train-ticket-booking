@@ -30,7 +30,7 @@ nav {
       li {
         @apply text-gray-600 dark:text-gray-100 p-2 hover:bg-gray-200 dark:hover:text-gray-600 rounded-md flex flex-row items-center;
         fa-icon {
-          @apply mr-2 text-lg;
+          @apply mr-2 text-lg h-5 w-5 flex items-center justify-center;
         }
       }
 
@@ -64,8 +64,3 @@ nav {
     }
   }
 }
-
-/* ogout-btn, logon-btn amd registration btn pending
-when login after register then why refresh */
-/* when adding passengers book-ticket, age canot be 0
-Add button should be disabled, if no name, and age is added */
