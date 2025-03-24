@@ -6,7 +6,7 @@ import {
   inject,
   ViewChild,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faMoon,
@@ -20,7 +20,6 @@ import {
   faUser,
   faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
-import { LoginComponent } from './components/login/login.component';
 import { TicketBookingService } from './services/ticket-booking.service';
 import { IUser } from './model/train';
 import { ToastComponent } from './components/toast/toast.component';
@@ -28,14 +27,15 @@ import { ToastComponent } from './components/toast/toast.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, RouterModule, LoginComponent],
+  imports: [CommonModule, FontAwesomeModule, RouterModule, ToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  @ViewChild('dropdownContainer', { static: false });
-  @ViewChild(ToastComponent) toast!: ToastComponent;
+  @ViewChild('dropdownContainer', { static: false })
   dropdownContainer!: ElementRef;
+  @ViewChild(ToastComponent)
+  toast!: ToastComponent;
 
   title = 'train-ticket-booking';
 
@@ -60,7 +60,7 @@ export class AppComponent {
   userTheme = '';
   isUserLoggedIn = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.checkTheme();
@@ -73,6 +73,7 @@ export class AppComponent {
     this.ticketBookingService.logout();
     this.showSuccessToast();
     this.isDropdownOpen = false;
+    this.router.navigate(['/login']);
   }
 
   showSuccessToast() {
@@ -98,7 +99,7 @@ export class AppComponent {
     const systemPreference = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
-    
+
     if (userTheme === 'dark' || (!userTheme && systemPreference)) {
       this.enableDarkMode();
     } else {
