@@ -1,0 +1,26 @@
+<div class="not-found-container">
+  <div class="not-found-content">
+    <div class="not-found-header">
+      <h1 class="not-found-code">404</h1>
+      <p class="not-found-title">Page Not Found</p>
+      <p class="not-found-description">
+        Oops! The page you're looking for doesn't exist.
+      </p>
+    </div>
+
+    <div class="not-found-links-container">
+      <h2 class="not-found-links-title">You might want to check:</h2>
+      <div class="not-found-links">
+        <a routerLink="/home" class="not-found-link"
+          ><fa-icon [icon]="faHouse"></fa-icon>Home Page
+        </a>
+        <a *ngIf="isUserLoggedIn" routerLink="/bookings" class="not-found-link">
+          <fa-icon [icon]="faClipboardList"></fa-icon>My Bookings
+        </a>
+        <a *ngIf="!isUserLoggedIn" routerLink="/login" class="not-found-link"
+          ><fa-icon [icon]="faUserPlus">Login</fa-icon></a
+        >
+      </div>
+    </div>
+  </div>
+</div>

@@ -52,13 +52,11 @@ export class AppComponent {
   faUser = faUser;
   faEnvelope = faEnvelope;
 
-  isUserLoggedIn$ = this.ticketBookingService.userLoggedIn$;
   userData!: IUser;
   isDropdownOpen = false;
 
   isDarkMode = false;
   userTheme = '';
-  isUserLoggedIn = false;
 
   constructor(private router: Router) {}
 
