@@ -1,40 +1,40 @@
-.not-found-container {
+.page-not-found-container {
   @apply min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 px-4;
 }
 
-.not-found-content {
+.page-not-found-content {
   @apply text-center max-w-md w-full;
 }
 
-.not-found-header {
+.page-not-found-header {
   @apply mb-8;
 }
 
-.not-found-code {
+.page-not-found-code {
   @apply text-9xl font-bold text-blue-500 mb-4;
 }
 
-.not-found-title {
+.page-not-found-title {
   @apply text-2xl font-semibold text-gray-800 mb-4;
 }
 
-.not-found-description {
+.page-not-found-description {
   @apply text-gray-600 mb-8;
 }
 
-.not-found-links-container {
+.page-not-found-links-container {
   @apply bg-white shadow-lg rounded-lg p-6;
 }
 
-.not-found-links-title {
+.page-not-found-links-title {
   @apply text-xl font-bold text-gray-800 mb-4;
 }
 
-.not-found-links {
+.page-not-found-links {
   @apply flex flex-col gap-3 cursor-pointer;
 }
 
-.not-found-link {
+.page-not-found-link {
   @apply block bg-blue-50 hover:bg-blue-100 transition-colors rounded-md p-3 text-blue-700 font-medium;
 
   fa-icon {

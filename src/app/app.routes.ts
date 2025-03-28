@@ -5,7 +5,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
 import { AuthGuard } from './auth.guard';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -34,5 +34,6 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  { path: '**', component: NotFoundComponent },
+  { path: '**', redirectTo: '404' },
+  { path: '404', component: PageNotFoundComponent },
 ];

@@ -23,11 +23,19 @@ import {
 import { TicketBookingService } from './services/ticket-booking.service';
 import { IUser } from './model/train';
 import { ToastComponent } from './components/toast/toast.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, RouterModule, ToastComponent],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    RouterModule,
+    ToastComponent,
+    FooterComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -40,6 +48,8 @@ export class AppComponent {
   title = 'train-ticket-booking';
 
   private ticketBookingService = inject(TicketBookingService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   faTrain = faTrain;
   faUserCircle = faUserCircle;
@@ -57,13 +67,15 @@ export class AppComponent {
 
   isDarkMode = false;
   userTheme = '';
+  isAdmin = false;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit() {
     this.checkTheme();
     this.ticketBookingService.userData$.subscribe((userData) => {
       this.userData = userData;
+      this.isAdmin = this.authService.checkIsAdmin();
     });
   }
 

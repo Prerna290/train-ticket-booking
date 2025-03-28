@@ -46,6 +46,9 @@
               <li [routerLink]="'/bookings'">
                 <fa-icon [icon]="faClipboardList"></fa-icon>My Bookings
               </li>
+              <li *ngIf="isAdmin" [routerLink]="'/admin'">
+                <fa-icon [icon]="faUserCircle"></fa-icon>Admin
+              </li>
               <li (click)="logoutProfile()">
                 <fa-icon [icon]="faSignOutAlt"></fa-icon>Sign Out
               </li>
@@ -65,3 +68,4 @@
 </div>
 
 <router-outlet></router-outlet>
+<app-footer></app-footer>

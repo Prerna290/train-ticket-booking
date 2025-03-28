@@ -1,5 +1,5 @@
 .container-div {
-  @apply bg-white dark:bg-gray-900 pb-6;
+  @apply bg-white dark:bg-gray-900 pb-6 min-h-[85dvh];
 }
 
 .total-results {

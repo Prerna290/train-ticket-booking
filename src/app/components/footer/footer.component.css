@@ -1,0 +1,19 @@
+.footer-container {
+  @apply bg-slate-800 text-gray-100 py-3 text-sm;
+}
+
+.footer-content {
+  @apply mx-auto px-6 flex flex-col items-center;
+}
+
+.footer-links {
+  @apply flex flex-wrap justify-center gap-6 mb-2;
+}
+
+.footer-link {
+  @apply text-gray-100 no-underline transition-colors duration-200 ease-in-out hover:text-[#3498db] cursor-pointer;
+}
+
+.footer-copyright {
+  @apply text-center text-gray-400 text-xs;
+}

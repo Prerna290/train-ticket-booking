@@ -1,5 +1,5 @@
 .booking-container {
-  @apply bg-indigo-50 dark:bg-Charleston-Green min-h-[1000px] pb-10;
+  @apply bg-indigo-50 dark:bg-Charleston-Green min-h-[85dvh] pb-10;
 
   .container {
     @apply mx-auto;
