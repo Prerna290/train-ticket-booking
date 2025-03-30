@@ -22,7 +22,6 @@ import {
   faPlus,
   faSearch,
   faTrash,
-  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { AdminAddTrainComponent } from '../admin-add-train/admin-add-train.component';
 import { ToastComponent } from '../toast/toast.component';
@@ -52,7 +51,6 @@ export class AdminComponent implements OnInit {
   faPlus = faPlus;
   faTrash = faTrash;
   faSearch = faSearch;
-  faChevronDown = faChevronDown;
   showAddTrainPopup = false;
   showDeleteConfirmation = false;
   trainToDelete!: number;

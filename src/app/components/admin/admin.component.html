@@ -124,9 +124,9 @@
 
   <!-- No Results Found -->
   <div *ngIf="filteredTrains.length === 0 && !loading" class="no-result-found">
-    <fa-icon [icon]="faSearch"></fa-icon>
+    <img src="images/empty-state.png" alt="No Results Found" />
     <h3>No trains found</h3>
-    <p>Try a different search term.</p>
+    <p>Try a different search term</p>
   </div>
 </div>
 

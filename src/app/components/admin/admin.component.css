@@ -11,7 +11,7 @@ button {
 }
 
 .input-container {
-  @apply relative;
+  @apply relative w-full;
 
   fa-icon {
     @apply absolute left-3 top-[14px] text-gray-400 dark:text-gray-500;
@@ -23,23 +23,23 @@ button {
 }
 
 .search-sort {
-  @apply flex md:flex-row flex-col gap-4 items-center;
+  @apply flex md:flex-row flex-col gap-4 items-center md:w-auto w-full;
 }
 
 .sort-controls {
-  @apply pl-3 pr-8 py-2 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-gray-400  focus:border-transparent cursor-pointer shadow-sm transition-all duration-150;
+  @apply pl-3 pr-8 py-2 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-gray-400  focus:border-transparent cursor-pointer shadow-sm transition-all duration-150 w-full;
 }
 
 select {
-  @apply text-sm py-1 pl-2 pr-6 text-gray-500 dark:text-gray-200 focus:outline-none focus:ring-0 bg-transparent;
+  @apply text-sm py-1 pl-2 pr-6 text-gray-500 dark:text-gray-200 focus:outline-none focus:ring-0 bg-transparent w-full;
 }
 
 .search-container {
-  @apply flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-6 cursor-pointer;
+  @apply flex flex-col md:flex-row justify-between items-center gap-4 pb-6 pt-0 md:pt-6 md:px-0 px-3 cursor-pointer;
 }
 
 .add-train-btn {
-  @apply flex items-center gap-2 py-10px px-5 bg-primary-500 text-white border border-primary-500 transition-all duration-200 ease-in-out hover:bg-white hover:border-primary-500 hover:text-primary-500;
+  @apply flex items-center gap-2 py-10px px-5 bg-primary-500 text-white border border-primary-500 transition-all duration-200 ease-in-out hover:bg-white hover:border-primary-500 hover:text-primary-500 md:w-max w-full;
   @apply dark:bg-primary-400 dark:border-primary-400 dark:hover:bg-background-secondary hover:border-primary-500 hover:text-primary-500;
 }
 
@@ -48,7 +48,7 @@ select {
 }
 
 .train-list {
-  @apply p-5 rounded-lg border border-solid border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white shadow-sm hover:shadow-md transition-all duration-200 ease-in-out;
+  @apply p-5 rounded-lg border border-solid border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white shadow-sm hover:shadow-md transition-all duration-200 ease-in-out  md:mx-0 mx-3;
 }
 
 .train-header {
@@ -94,7 +94,7 @@ select {
 
 .train-departure,
 .train-arrival {
-  @apply text-lg font-semibold text-gray-800 dark:text-gray-200;
+  @apply text-base font-semibold text-gray-800 dark:text-gray-200;
 }
 
 .arrow-icon {
@@ -127,19 +127,19 @@ select {
 }
 
 .no-result-found {
-  @apply flex flex-col items-center justify-center py-12 text-center;
-}
-
-.no-result-found fa-icon {
-  @apply text-5xl text-gray-400 dark:text-gray-600 mb-4;
+  @apply flex flex-col items-center justify-center py-10 text-center;
 }
 
 .no-result-found p {
-  @apply text-lg text-gray-500 dark:text-gray-400;
+  @apply text-xl text-gray-500 dark:text-gray-400;
 }
 
 .no-result-found h3 {
-  @apply text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2;
+  @apply text-2xl font-semibold text-gray-700 dark:text-gray-300 mt-4 mb-2;
+}
+
+.no-result-found img {
+  @apply md:w-96 w-full h-full;
 }
 
 .delete-popup {
@@ -147,7 +147,7 @@ select {
 }
 
 .delete-popup-content {
-  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-md w-full;
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-md w-full md:mx-0 mx-3;
 }
 
 .delete-popup-content p {
