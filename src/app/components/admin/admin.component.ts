@@ -22,6 +22,7 @@ import {
   faPlus,
   faSearch,
   faTrash,
+  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { AdminAddTrainComponent } from '../admin-add-train/admin-add-train.component';
 import { ToastComponent } from '../toast/toast.component';
@@ -51,12 +52,14 @@ export class AdminComponent implements OnInit {
   faPlus = faPlus;
   faTrash = faTrash;
   faSearch = faSearch;
+  faChevronDown = faChevronDown;
   showAddTrainPopup = false;
   showDeleteConfirmation = false;
   trainToDelete!: number;
-  searchTerm: string = '';
+  searchTerm = '';
   loading = true;
   stationList: IStation[] = [];
+  selectedSortOption = '';
 
   private ticketBookingService = inject(TicketBookingService);
   private fb = inject(FormBuilder);
@@ -158,6 +161,32 @@ export class AdminComponent implements OnInit {
             .toLowerCase()
             .includes(this.searchTerm.toLowerCase()))
     );
+  }
+
+  applySorting() {
+    this.filteredTrains.sort((a, b) => {
+      let dateA, dateB;
+      switch (this.selectedSortOption) {
+        case 'name-asc':
+          return a.trainName.localeCompare(b.trainName);
+        case 'name-desc':
+          return b.trainName.localeCompare(a.trainName);
+        case 'departure-asc':
+          dateA = new Date(a.departureDate);
+          dateB = new Date(b.departureDate);
+          return dateA.getTime() - dateB.getTime();
+        case 'departure-desc':
+          dateA = new Date(a.departureDate);
+          dateB = new Date(b.departureDate);
+          return dateB.getTime() - dateA.getTime();
+        case 'seats-asc':
+          return a.totalSeats - a.bookedSeats - (b.totalSeats - b.bookedSeats);
+        case 'seats-desc':
+          return b.totalSeats - b.bookedSeats - (a.totalSeats - a.bookedSeats);
+        default:
+          return 0;
+      }
+    });
   }
 
   showSuccessToast() {

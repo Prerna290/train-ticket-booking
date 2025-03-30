@@ -2,17 +2,35 @@
 
 <div class="admin-section">
   <div class="search-container container">
-    <div class="add-train">
-      <button class="add-train-btn" (click)="addTicketPopup()">
-        <fa-icon [icon]="faPlus"></fa-icon> Add Train
-      </button>
+    <button class="add-train-btn" (click)="addTicketPopup()">
+      <fa-icon [icon]="faPlus"></fa-icon> Add Train
+    </button>
+    <div class="search-sort">
+      <div class="input-container">
+        <fa-icon [icon]="faSearch" class=""></fa-icon>
+        <input
+          class="search"
+          [(ngModel)]="searchTerm"
+          (input)="applyFilter()"
+          placeholder="Search by train name or station name"
+        />
+      </div>
+      <div class="sort-controls">
+        <select
+          [(ngModel)]="selectedSortOption"
+          (change)="applySorting()"
+          class="sort-select"
+        >
+          <option value="" selected disabled>Sort</option>
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="departure-asc">Departure (Earliest)</option>
+          <option value="departure-desc">Departure (Latest)</option>
+          <option value="seats-asc">Available Seats (Fewest)</option>
+          <option value="seats-desc">Available Seats (Most)</option>
+        </select>
+      </div>
     </div>
-    <input
-      class="search"
-      [(ngModel)]="searchTerm"
-      (input)="applyFilter()"
-      placeholder="Search Train"
-    />
   </div>
 
   <app-loader *ngIf="loading"></app-loader>
@@ -29,20 +47,21 @@
           <span class="train-name">{{ train.trainName }}</span>
           <span class="train-no">({{ train.trainNo }})</span>
         </div>
-        <div class="train-id">
-          <span>Train ID: </span>
-          <span class="id-value">{{ train.trainId }}</span>
-        </div>
+        <span class="train-id">Train ID: {{ train.trainId }}</span>
       </div>
+
+      <div class="divider"></div>
 
       <!-- Route Details -->
       <div class="route-details">
         <div class="station">
-          <span class="train-departure">{{ train.departureStationName }}</span>
+          <div class="station-label">From:</div>
+          <div class="train-departure">{{ train.departureStationName }}</div>
         </div>
         <fa-icon [icon]="faArrowRight" class="arrow-icon"></fa-icon>
         <div class="station">
-          <span class="train-arrival">{{ train.arrivalStationName }}</span>
+          <div class="station-label">To:</div>
+          <div class="train-arrival">{{ train.arrivalStationName }}</div>
         </div>
       </div>
 
@@ -106,7 +125,8 @@
   <!-- No Results Found -->
   <div *ngIf="filteredTrains.length === 0 && !loading" class="no-result-found">
     <fa-icon [icon]="faSearch"></fa-icon>
-    <p>No trains found. Try a different search term.</p>
+    <h3>No trains found</h3>
+    <p>Try a different search term.</p>
   </div>
 </div>
 

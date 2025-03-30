@@ -7,19 +7,40 @@ button {
 }
 
 .admin-section {
-  @apply dark:bg-gray-900 bg-indigo-50 py-8 min-h-[85dvh];
+  @apply bg-background-secondary dark:bg-background-dark-secondary py-8 min-h-[85dvh];
+}
+
+.input-container {
+  @apply relative;
+
+  fa-icon {
+    @apply absolute left-3 top-[14px] text-gray-400 dark:text-gray-500;
+  }
+
+  .search {
+    @apply pl-10 pr-4 py-3 text-base font-normal rounded-lg border border-solid border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 ease-in-out md:w-[340px] w-full shadow-sm;
+  }
+}
+
+.search-sort {
+  @apply flex md:flex-row flex-col gap-4 items-center;
+}
+
+.sort-controls {
+  @apply pl-3 pr-8 py-2 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-gray-400  focus:border-transparent cursor-pointer shadow-sm transition-all duration-150;
+}
+
+select {
+  @apply text-sm py-1 pl-2 pr-6 text-gray-500 dark:text-gray-200 focus:outline-none focus:ring-0 bg-transparent;
 }
 
 .search-container {
-  @apply flex justify-between py-6 items-center;
+  @apply flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-6 cursor-pointer;
 }
 
 .add-train-btn {
-  @apply py-3 px-6 bg-white text-green-700 dark:text-green-400 border-2 border-green-600 dark:bg-gray-800 dark:border-green-400 hover:bg-green-700 hover:text-white dark:hover:border-green-700 dark:hover:text-white dark:hover:bg-green-700 flex items-center gap-2;
-}
-
-.search {
-  @apply p-3 text-base font-normal rounded-lg border-2 border-solid border-gray-300 dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 transition-all duration-200 ease-in-out w-full max-w-md;
+  @apply flex items-center gap-2 py-10px px-5 bg-primary-500 text-white border border-primary-500 transition-all duration-200 ease-in-out hover:bg-white hover:border-primary-500 hover:text-primary-500;
+  @apply dark:bg-primary-400 dark:border-primary-400 dark:hover:bg-background-secondary hover:border-primary-500 hover:text-primary-500;
 }
 
 .train-details-container {
@@ -27,7 +48,7 @@ button {
 }
 
 .train-list {
-  @apply p-6 rounded-lg border border-solid border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white shadow-md hover:shadow-lg transition-all duration-200 ease-in-out;
+  @apply p-5 rounded-lg border border-solid border-gray-200 dark:border-gray-700 dark:bg-gray-800 bg-white shadow-sm hover:shadow-md transition-all duration-200 ease-in-out;
 }
 
 .train-header {
@@ -39,19 +60,19 @@ button {
 }
 
 .train-name {
-  @apply text-lg font-bold text-gray-800 dark:text-gray-200;
+  @apply text-lg font-bold text-primary-500 dark:text-primary-400;
 }
 
 .train-no {
-  @apply text-sm font-medium text-blue-600 dark:text-blue-400;
+  @apply text-sm font-medium text-gray-600 dark:text-gray-400;
+}
+
+.divider {
+  @apply border-t border-gray-200 dark:border-gray-700 my-4;
 }
 
 .train-id {
-  @apply text-sm text-gray-600 dark:text-gray-400;
-}
-
-.id-value {
-  @apply font-medium text-gray-800 dark:text-gray-200;
+  @apply text-sm font-medium px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300;
 }
 
 .route-details {
@@ -59,11 +80,12 @@ button {
 }
 
 .station {
-  @apply flex flex-row;
+  @apply flex flex-row items-center;
 }
 
+.station-label,
 .label {
-  @apply text-sm text-gray-600 dark:text-gray-400;
+  @apply text-sm text-gray-500 dark:text-gray-400 mr-2;
 }
 
 .value {
@@ -72,18 +94,19 @@ button {
 
 .train-departure,
 .train-arrival {
-  @apply text-lg font-bold text-black dark:text-gray-200;
+  @apply text-lg font-semibold text-gray-800 dark:text-gray-200;
 }
 
 .arrow-icon {
-  @apply text-gray-500 dark:text-gray-400;
+  @apply text-gray-400 dark:text-gray-500 mx-2;
 }
 
 .timings {
   @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-4;
 }
 
-.timing {
+.timing,
+.seat {
   @apply flex flex-col;
 }
 
@@ -91,28 +114,32 @@ button {
   @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-4;
 }
 
-.seat {
-  @apply flex flex-col;
-}
-
-.actions {
-  @apply flex justify-end;
-}
-
 .delete-btn {
   @apply text-red-500 border-red-500 hover:text-red-600 flex items-center gap-2;
 }
 
+.actions {
+  @apply flex justify-end pt-3 border-t border-gray-100 dark:border-gray-700;
+}
+
+.delete-btn {
+  @apply px-4 py-2 text-sm font-medium rounded-lg text-red-600 dark:text-red-600 hover:text-white border border-red-200 dark:border-red-800 hover:border-red-600 bg-red-50 dark:bg-red-200 hover:bg-red-600 dark:hover:bg-red-700 dark:hover:text-red-200 transition-all duration-200 ease-in-out flex items-center;
+}
+
 .no-result-found {
-  @apply flex flex-col items-center justify-center py-10;
+  @apply flex flex-col items-center justify-center py-12 text-center;
 }
 
 .no-result-found fa-icon {
-  @apply text-4xl text-gray-500 dark:text-gray-400 mb-4;
+  @apply text-5xl text-gray-400 dark:text-gray-600 mb-4;
 }
 
 .no-result-found p {
-  @apply text-lg text-gray-600 dark:text-gray-400;
+  @apply text-lg text-gray-500 dark:text-gray-400;
+}
+
+.no-result-found h3 {
+  @apply text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2;
 }
 
 .delete-popup {
@@ -120,11 +147,11 @@ button {
 }
 
 .delete-popup-content {
-  @apply bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full;
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-md w-full;
 }
 
 .delete-popup-content p {
-  @apply text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4;
+  @apply text-base font-semibold text-gray-600 dark:text-gray-300 mb-4;
 }
 
 .delete-popup-content .actions {
@@ -136,5 +163,9 @@ button {
 }
 
 .confirm-btn {
-  @apply text-white bg-red-500 hover:bg-red-600;
+  @apply px-4 py-2 text-sm font-medium rounded-lg text-white bg-red-500 hover:bg-red-600;
+}
+
+.cancel-btn {
+  @apply px-4 py-2 text-sm font-medium rounded-lg text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600;
 }
