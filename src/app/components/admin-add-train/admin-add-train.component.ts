@@ -34,6 +34,7 @@ export class AdminAddTrainComponent {
   stationList: IStation[] = [];
   showSameLocationError = false;
   today!: string;
+  isLoading = false;
 
   private ticketBookingService = inject(TicketBookingService);
 
@@ -46,14 +47,23 @@ export class AdminAddTrainComponent {
           Validators.required,
           Validators.pattern('^[0-9]+$'),
           Validators.minLength(3),
+          Validators.maxLength(10),
         ],
       ],
-      trainName: ['', Validators.required],
+      trainName: ['', Validators.required, Validators.maxLength(100)],
       departureStationId: ['', Validators.required],
       arrivalStationId: ['', Validators.required],
       departureTime: ['', Validators.required],
       arrivalTime: ['', Validators.required],
-      totalSeats: [0, [Validators.required, Validators.pattern('^[0-9]+$')]],
+      totalSeats: [
+        0,
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]+$'),
+          Validators.min(1),
+          Validators.max(1000),
+        ],
+      ],
       departureDate: ['', Validators.required],
     });
   }
@@ -65,8 +75,10 @@ export class AdminAddTrainComponent {
   }
 
   getAllStations() {
+    this.isLoading = true;
     this.ticketBookingService.getAllStations().subscribe((res: any) => {
       this.stationList = res.data;
+      this.isLoading = false;
     });
   }
 
@@ -76,6 +88,10 @@ export class AdminAddTrainComponent {
   }
 
   addTrain() {
+    if (this.addTrainForm.invalid) {
+      this.addTrainForm.markAllAsTouched();
+      return;
+    }
     if (
       this.addTrainForm.value.departureStationId ===
       this.addTrainForm.value.arrivalStationId
@@ -83,10 +99,13 @@ export class AdminAddTrainComponent {
       this.showSameLocationError = true;
       return;
     }
+
+    this.isLoading = true;
     this.ticketBookingService
       .addNewTrain(this.addTrainForm.value)
       .subscribe((res: any) => {
         if (res) {
+          this.isLoading = false;
           this.trainAddedEvent.emit(res.data);
           this.showAddTrainPopup = false;
           this.closePopupEvent.emit();

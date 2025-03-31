@@ -1,35 +1,67 @@
 <div class="add-train" *ngIf="showAddTrainPopup">
-  <div class="form">
+  <div class="form-container">
     <div class="header">
-      <h5>Add Train</h5>
-      <button type="button" (click)="closePopup()">
-        <fa-icon [icon]="faXmark"></fa-icon>
+      <h5 class="form-title">Add Train</h5>
+      <button class="close-btn" type="button" (click)="closePopup()">
+        <fa-icon [icon]="faXmark" class="close-icon"></fa-icon>
       </button>
     </div>
-    <form [formGroup]="addTrainForm" (ngSubmit)="addTrain()">
-      <div class="train-no-name">
-        <div class="train-number">
-          <label>Train No</label>
-          <input formControlName="trainNo" type="number" />
-          <app-alert
-            *ngIf="addTrainForm.get('trainNo')?.touched && addTrainForm.get('trainNo')?.errors?.['required']"
+    <form [formGroup]="addTrainForm" (ngSubmit)="addTrain()" class="form-content">
+      <div class="form-grid">
+        <!-- Train Number -->
+        <div class="form-group">
+          <label for="trainNo" class="form-label">Train Number</label>
+          <input
+            id="trainNo"
+            formControlName="trainNo"
+            type="text"
+            class="form-input"
+            placeholder="e.g. 12345"
+          />
+          <div *ngIf="addTrainForm.get('trainNo')?.touched && addTrainForm.get('trainNo')?.errors">
+            <app-alert
+            *ngIf="addTrainForm.get('trainNo')?.errors?.['required']"
+            [errorMessage]="'Train number is required'"
           ></app-alert>
+          <app-alert
+          *ngIf="addTrainForm.get('trainNo')?.errors?.['pattern']"
+            [errorMessage]="'Must be a valid number'"
+          ></app-alert>
+          <app-alert
+          *ngIf="addTrainForm.get('trainNo')?.errors?.['minlength']"
+            [errorMessage]="'Minimum 3 characters required'"
+          ></app-alert>
+          </div>
         </div>
-        <div class="name">
-          <label>Train Name</label>
-          <input formControlName="trainName" type="text" />
+
+        <!-- Train Name -->
+        <div class="form-group">
+          <label for="trainName" class="form-label">Train Name</label>
+          <input
+            id="trainName"
+            formControlName="trainName"
+            type="text"
+            class="form-input"
+            placeholder="e.g. Rajdhani Express"
+          />
           <app-alert
             *ngIf="addTrainForm.get('trainName')?.touched && addTrainForm.get('trainName')?.errors?.['required']"
+            [errorMessage]="'Train name is required'"
           ></app-alert>
         </div>
       </div>
-      <div class="departure-arrival-station">
-        <div class="departure-station">
-          <label>Departure Station Name</label>
-          <div class="location-select">
-            <fa-icon [icon]="faLocationDot"></fa-icon>
-            <select formControlName="departureStationId">
-              <option value="" selected>FROM</option>
+
+      <div class="form-grid">
+        <!-- Departure Station -->
+        <div class="form-group">
+          <label class="form-label">Departure Station</label>
+          <div class="select-wrapper">
+            <fa-icon [icon]="faLocationDot" class="select-icon"></fa-icon>
+            <select 
+              formControlName="departureStationId"
+              class="form-input form-select"
+            >
+              <option value="" disabled selected>Select departure station</option>
               <option
                 *ngFor="let station of stationList"
                 [value]="station.stationID"
@@ -38,20 +70,22 @@
               </option>
             </select>
           </div>
-          <app-alert
-            *ngIf="showSameLocationError"
-            [errorMessage]="'Source and Destination cannot be same'"
-          ></app-alert>
           <app-alert
             *ngIf="addTrainForm.get('departureStationId')?.touched && addTrainForm.get('departureStationId')?.errors?.['required']"
+            [errorMessage]="'Departure station is required'"
           ></app-alert>
         </div>
-        <div class="arrival-station">
-          <label>Arrival Station Name</label>
-          <div class="location-select">
-            <fa-icon [icon]="faLocationDot"></fa-icon>
-            <select formControlName="arrivalStationId">
-              <option value="" selected>TO</option>
+
+        <!-- Arrival Station -->
+        <div class="form-group">
+          <label class="form-label">Arrival Station</label>
+          <div class="select-wrapper">
+            <fa-icon [icon]="faLocationDot" class="select-icon"></fa-icon>
+            <select 
+              formControlName="arrivalStationId"
+              class="form-input form-select"
+            >
+              <option value="" disabled selected>Select arrival station</option>
               <option
                 *ngFor="let station of stationList"
                 [value]="station.stationID"
@@ -61,56 +95,97 @@
             </select>
           </div>
           <app-alert
-            *ngIf="showSameLocationError"
-            [errorMessage]="'Source and Destination cannot be same'"
+            *ngIf="addTrainForm.get('arrivalStationId')?.touched && addTrainForm.get('arrivalStationId')?.errors?.['required']"
+            [errorMessage]="'Arrival station is required'"
           ></app-alert>
           <app-alert
-            *ngIf="addTrainForm.get('arrivalStationId')?.touched && addTrainForm.get('arrivalStationId')?.errors?.['required']"
+            *ngIf="showSameLocationError"
+            [errorMessage]="'Departure and arrival stations cannot be the same'"
           ></app-alert>
         </div>
       </div>
-      <div class="arrival-departure-time">
-        <div class="arrival-time">
-          <label>Arrival Time</label>
-          <input formControlName="arrivalTime" type="time" />
-          <app-alert
-            *ngIf="addTrainForm.get('arrivalTime')?.touched && addTrainForm.get('arrivalTime')?.errors?.['required']"
-          ></app-alert>
-        </div>
-        <div class="departure-time">
-          <label>Departure Time</label>
-          <input formControlName="departureTime" type="time" />
+
+      <div class="form-grid">
+        <!-- Departure Time -->
+        <div class="form-group">
+          <label for="departureTime" class="form-label">Departure Time</label>
+          <input
+            id="departureTime"
+            formControlName="departureTime"
+            type="time"
+            class="form-input"
+          />
           <app-alert
             *ngIf="addTrainForm.get('departureTime')?.touched && addTrainForm.get('departureTime')?.errors?.['required']"
+            [errorMessage]="'Departure time is required'"
           ></app-alert>
         </div>
-      </div>
-      <div class="departure-date">
-        <label for="departureDate">Departure Date</label>
-        <input
-          id="departureDate"
-          formControlName="departureDate"
-          type="date"
-          [min]="today"
-        />
-        <app-alert
-          *ngIf="addTrainForm.get('departureDate')?.touched && addTrainForm.get('departureDate')?.errors?.['required']"
-        ></app-alert>
-      </div>
-      <div class="seats">
-        <div class="total-seats">
-          <label>Total Seats</label>
-          <input formControlName="totalSeats" type="number" />
+
+        <div class="form-group">
+          <label for="arrivalTime" class="form-label">Arrival Time</label>
+          <input
+            id="arrivalTime"
+            formControlName="arrivalTime"
+            type="time"
+            class="form-input"
+          />
           <app-alert
-            *ngIf="addTrainForm.get('totalSeats')?.touched && addTrainForm.get('totalSeats')?.errors?.['required']"
+            *ngIf="addTrainForm.get('arrivalTime')?.touched && addTrainForm.get('arrivalTime')?.errors?.['required']"
+            [errorMessage]="'Arrival time is required'"
           ></app-alert>
         </div>
       </div>
+
+      <div class="form-grid">
+        <!-- Departure Date -->
+        <div class="form-group">
+          <label for="departureDate" class="form-label">Departure Date</label>
+          <input
+            id="departureDate"
+            formControlName="departureDate"
+            type="date"
+            [min]="today"
+            class="form-input"
+          />
+          <app-alert
+          *ngIf="addTrainForm.get('departureDate')?.touched && addTrainForm.get('departureDate')?.errors?.['required']"
+          [errorMessage]="'Departure date is required'"
+        ></app-alert>
+        </div>
+
+        <!-- Total Seats -->
+        <div class="form-group">
+          <label for="totalSeats" class="form-label">Total Seats</label>
+          <input
+            id="totalSeats"
+            formControlName="totalSeats"
+            type="number"
+            class="form-input"
+            min="1"
+            max="1000"
+          />
+          <div *ngIf="addTrainForm.get('totalSeats')?.touched && addTrainForm.get('totalSeats')?.errors">
+            <app-alert
+            *ngIf="addTrainForm.get('totalSeats')?.errors?.['required']"
+            [errorMessage]="'Total seats is required'"
+          ></app-alert>
+          <app-alert
+          *ngIf="addTrainForm.get('totalSeats')?.errors?.['min']"
+            [errorMessage]="'Minimum 1 seat required'"
+          ></app-alert>
+          <app-alert
+          *ngIf="addTrainForm.get('totalSeats')?.errors?.['max']"
+            [errorMessage]="'Maximum 1000 seats allowed'"
+          ></app-alert>
+          </div>
+        </div>
+      </div>
+      
       <div class="footer">
-        <button type="button" class="close-btn" (click)="closePopup()">
-          Close
+        <button type="button" class="action-btn cancel-btn" [disabled]="isLoading" (click)="closePopup()">
+          Cancel
         </button>
-        <button type="submit" class="create-btn">Add Train</button>
+        <button type="submit" class="action-btn submit-btn" [disabled]="addTrainForm.invalid || isLoading">Add Train</button>
       </div>
     </form>
   </div>

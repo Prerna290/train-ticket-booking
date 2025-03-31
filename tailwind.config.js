@@ -12,6 +12,13 @@ module.exports = {
         "yellow-500": "#00A896",
         "orange-500": "#00A896",
         "yellow-600": "#00A896",
+        //From Here
+        "light-primary": "#2D3748", // Light Mode Primary Text
+        secondary: "#4A5568", // Light Mode Secondary Text
+        muted: "#718096", // Light Mode Muted Text
+        "dark-primary": "#F8FAFC", // Dark Mode Primary Text
+        "dark-secondary": "#D1D5DB", // Dark Mode Secondary Text
+        "dark-muted": "#94A3B8", // Dark Mode Muted Text
         primary: {
           500: "#1A365D", // Main Brand
           400: "#3B82F6", // Dark Mode Brand
@@ -23,16 +30,8 @@ module.exports = {
           // "dark-secondary": "#1E293B",
           "dark-secondary": "#121926", // Dark Mode Secondary Background
         },
-        text: {
-          primary: "#2D3748", // Light Mode Primary Text
-          secondary: "#4A5568", // Light Mode Secondary Text
-          muted: "#718096", // Light Mode Muted Text
-          "dark-primary": "#F8FAFC", // Dark Mode Primary Text
-          "dark-secondary": "#D1D5DB", // Dark Mode Secondary Text
-          "dark-muted": "#94A3B8", // Dark Mode Muted Text
-        },
-        border: {
-          DEFAULT: "#CBD5E1", // Light Mode Border
+        borderColor: {
+          light: "#CBD5E1", // Light Mode Border
           dark: "#334155", // Dark Mode Border
         },
         success: "#10B981",
@@ -59,7 +58,7 @@ module.exports = {
 // gray-600: #7D7D7D;
 // gray-700: #4B4B4B;
 // gray-800: #2D2D2D;
-// primary-500: #1A365D;
+// primary-500: #1A365D; (Also bg-primary-500/90)
 // Primary-400: #3B82F6;
 // red-200: #FCA5A5;
 // red-500: #EF4444;
@@ -68,3 +67,14 @@ module.exports = {
 // background-secondary: #F3F4F6;
 // background-dark-secondary: #1F2937;
 // white: #FFFFFF;
+// background-default: "#F7FAFC";
+// background-dark: "#111827";
+// secondary: "#4A5568";
+// dark-secondary: "#D1D5DB";
+// muted: "#718096";
+// light-primary: "#2D3748";
+// dark-primary: "#F8FAFC"
+// borderColor-light: "#CBD5E1";
+// borderColor-dark: #334155";
+// highlight-blue: #3182CE";
+// highlight-dark-blue: "#2C7A7B";
