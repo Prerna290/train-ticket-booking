@@ -17,6 +17,7 @@ export class AlertComponent {
   @Input() messageType: 'error' | 'info' = 'error';
   @Input() errorMessage = 'Required Field';
   @Input() infoMessage!: string;
+
   faCircleExclamation = faCircleExclamation;
   faCircleInfo = faCircleInfo;
 }

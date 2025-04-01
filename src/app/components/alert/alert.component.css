@@ -1,26 +1,21 @@
 .alert-container {
-  @apply flex items-start border border-solid rounded-lg px-2 py-1 mt-2 w-max;
+  @apply flex items-start gap-2 border border-solid rounded-lg mt-2 w-max px-3 py-2 border-l-[4px] dark:bg-opacity-10;
 }
-.error {
-  @apply border-red-500 text-red-500;
+
+.alert-container.error {
+  @apply bg-red-50 border-red-500 text-red-600;
+  @apply dark:bg-red-900/20 dark:border-red-400 dark:text-red-100;
+}
+
+.alert-container.info {
+  @apply bg-blue-50 border-blue-500 text-blue-600;
+  @apply dark:bg-blue-900/20 dark:border-blue-400 dark:text-blue-100;
 }
 
 fa-icon {
-  @apply text-sm mr-2;
-}
-
-.info {
-  @apply border-blue-500 text-blue-500;
+  @apply text-base flex mt-[2px] flex-shrink-0;
 }
 
 .message {
   @apply text-sm font-medium m-0;
-}
-
-.error-message {
-  @apply text-red-500;
-}
-
-.info-message {
-  @apply text-blue-500;
 }
