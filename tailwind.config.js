@@ -94,6 +94,7 @@ module.exports = {
 // secondary: "#4A5568";
 // dark-secondary: "#D1D5DB";
 // muted: "#718096";
+// "dark-muted": "#94A3B8",
 // light-primary: "#2D3748";
 // dark-primary: "#F8FAFC"
 // borderColor-light: "#CBD5E1";
