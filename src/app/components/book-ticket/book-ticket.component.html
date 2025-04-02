@@ -1,111 +1,128 @@
 <app-toast #toast></app-toast>
 
-<div id="myModal" class="book-ticket" *ngIf="openBookTicket">
-  <div class="form">
+<div class="book-ticket" *ngIf="openBookTicket">
+  <div class="modal-container">
     <!-- Header -->
     <div class="header">
-      <h5>Book Ticket</h5>
-      <button type="button" (click)="closePopup()">
-        <fa-icon [icon]="faXmark"></fa-icon>
+      <h5 class="modal-title">Book Your Journey</h5>
+      <button type="button" class="close-button" (click)="closePopup()">
+        <fa-icon [icon]="faXmark" class="close-icon"></fa-icon>
       </button>
     </div>
 
     <!-- Body -->
-    <div class="body">
-      <div class="train-details">
-        <h6 class="train-title">
-          {{ selectedTrain.trainName }} - {{ selectedTrain.trainNo }}
-        </h6>
-        <div class="train-info">
-          <div class="info-item">
-            <span class="label">Departure:</span>
-            <span class="value"
-              >{{ selectedTrain.departureStationName }} at
-              {{ selectedTrain.departureTime }} on
-              {{ formatDate(selectedTrain.departureDate) }}</span
-            >
-          </div>
-          <div class="info-item">
-            <span class="label">Arrival:</span>
-            <span class="value"
-              >{{ selectedTrain.arrivalStationName }} at
-              {{ selectedTrain.arrivalTime }} on
-              {{ selectedTrain.arrivalDate }}</span
-            >
-          </div>
-          <div class="info-item">
-            <span class="label">Total Journey Time:</span>
-            <span class="value">{{ selectedTrain.journeyTime }}</span>
+    <div class="modal-body">
+      <div class="train-summary">
+        <div class="train-badge">
+          <span class="train-number">{{ selectedTrain.trainNo }}</span>
+        </div>
+        <div class="train-details">
+          <h4 class="train-name">{{ selectedTrain.trainName }}</h4>
+          <div class="journey-details">
+            <div class="station">
+              <span class="name">{{ selectedTrain.departureStationName }}</span>
+              <span class="date">{{
+                formatDate(selectedTrain.departureDate)
+              }}</span>
+              <span class="time">{{ selectedTrain.departureTime }}</span>
+            </div>
+
+            <div class="duration">
+              <div class="line"></div>
+              <span class="time-taken">{{ selectedTrain.journeyTime }}</span>
+              <div class="line"></div>
+            </div>
+
+            <div class="station arrival">
+              <span class="name">{{ selectedTrain.arrivalStationName }}</span>
+              <span class="date">{{ selectedTrain.arrivalDate }}</span>
+              <span class="time">{{ selectedTrain.arrivalTime }}</span>
+            </div>
           </div>
         </div>
       </div>
 
       <form
-        class="passenger"
+        class="passenger-form"
         [formGroup]="passengerForm"
         (ngSubmit)="addPassenger()"
       >
-        <div class="form-group">
-          <label for="passengerName">Passenger Name</label>
-          <input
-            id="passengerName"
-            formControlName="passengerName"
-            type="text"
-            placeholder="Enter Passenger Name"
-          />
-          <app-alert
-            *ngIf="passengerForm.get('passengerName')?.touched && passengerForm.get('passengerName')?.errors?.['required']"
-            [errorMessage]="'Passenger name is required.'"
-          ></app-alert>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="passengerName">Passenger Name</label>
+            <input
+              id="passengerName"
+              type="text"
+              formControlName="passengerName"
+              placeholder="Full name"
+            />
+            <app-alert
+              *ngIf="passengerForm.get('passengerName')?.touched && passengerForm.get('passengerName')?.errors?.['required']"
+              [errorMessage]="'Passenger name is required'"
+            ></app-alert>
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input
+              id="age"
+              type="number"
+              formControlName="age"
+              placeholder="Age"
+              min="1"
+              max="120"
+            />
+            <app-alert
+              *ngIf="passengerForm.get('age')?.touched && passengerForm.get('age')?.errors?.['required']"
+              [errorMessage]="'Age is required'"
+            ></app-alert>
+            <app-alert
+              *ngIf="passengerForm.get('age')?.touched && passengerForm.get('age')?.errors?.['max']"
+              [errorMessage]="'Age must not exceed 120'"
+            ></app-alert>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="age">Age</label>
-          <input
-            id="age"
-            formControlName="age"
-            type="number"
-            placeholder="Enter age"
-            min="1"
-            max="120"
-          />
-          <app-alert
-            *ngIf="passengerForm.get('age')?.touched && passengerForm.get('age')?.errors?.['required']"
-            [errorMessage]="'Age is required and must be a valid number.'"
-          ></app-alert>
-        </div>
-        <button type="submit" class="add-btn" [disabled]="!passengerForm.valid">
+
+        <button
+          type="submit"
+          class="add-button"
+          [disabled]="!passengerForm.valid"
+        >
           Add Passenger
         </button>
       </form>
 
-      <div *ngIf="passengersList.length > 0">
-        <p class="passengers-list-heading">
-          Passengers List
-          <span
-            >&nbsp;(Please confirm name and age before booking the ticket)</span
-          >
-        </p>
-        <div class="passenger-list">
-          <div class="list-header sr-no">Sr</div>
-          <div class="list-header passenger-name">Passenger Name</div>
-          <div class="list-header age">Age</div>
-          <div class="list-header action">Action</div>
+      <!-- Passengers List -->
+      <div class="passengers-list" *ngIf="passengersList.length > 0">
+        <div class="list-header">
+          <h4>Passengers</h4>
+          <app-alert
+            [messageType]="'info'"
+            [infoMessage]="'Confirm details before booking'"
+          ></app-alert>
         </div>
-      </div>
 
-      <div
-        *ngFor="let passenger of passengersList; let i = index"
-        class="passenger-list"
-      >
-        <div class="list-item sr-no">{{ i + 1 }}</div>
-        <div class="list-item passenger-name">
-          {{ passenger.passengerName }}
-        </div>
-        <div class="list-item age">{{ passenger.age }}</div>
-        <div class="list-item action">
-          <button class="remove-btn" (click)="removePassenger(i)">
-            Remove
-          </button>
+        <div class="passenger-table">
+          <div class="table-header">
+            <div class="header-cell">Sno.</div>
+            <div class="header-cell">Name</div>
+            <div class="header-cell">Age</div>
+            <div class="header-cell">Action</div>
+          </div>
+
+          <div
+            class="table-row"
+            *ngFor="let passenger of passengersList; let i = index"
+          >
+            <div class="table-cell">{{ i + 1 }}</div>
+            <div class="table-cell name">{{ passenger.passengerName }}</div>
+            <div class="table-cell">{{ passenger.age }}</div>
+            <div class="table-cell">
+              <button class="remove-button" (click)="removePassenger(i)">
+                Remove
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -113,15 +130,15 @@
     <!-- Footer -->
     <div class="footer">
       <button type="button" class="close-btn" (click)="closePopup()">
-        Close
+        Cancel
       </button>
       <button
         type="button"
-        class="create-btn"
+        class="confirm-btn"
         (click)="bookTicket()"
         [disabled]="passengersList.length === 0"
       >
-        Book Ticket
+        Confirm Booking
       </button>
     </div>
   </div>

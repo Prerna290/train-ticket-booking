@@ -1,111 +1,161 @@
 .book-ticket {
-  @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50;
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+}
 
-  .form {
-    @apply bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl;
+.modal-container {
+  @apply relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full md:max-w-[40dvw] max-w-[80dvw] max-h-[90dvh] overflow-y-auto border border-borderColor-light dark:border-borderColor-dark;
+}
 
-    .header {
-      @apply flex items-center justify-between px-6 py-4 border-b border-gray-200;
+.header {
+  @apply flex items-center justify-between sticky top-0 px-6 py-4 border-b border-borderColor-light dark:border-borderColor-dark bg-white dark:bg-gray-800;
+}
 
-      h5 {
-        @apply text-xl font-semibold text-gray-700 dark:text-gray-200;
-      }
+.modal-title {
+  @apply text-xl font-semibold text-primary-500 dark:text-white;
+}
 
-      button {
-        @apply text-gray-700 dark:text-gray-200 hover:text-gray-900;
+.close-button {
+  @apply px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
+}
 
-        fa-icon {
-          @apply text-2xl;
-        }
-      }
-    }
+.close-icon {
+  @apply w-6 h-6 text-gray-500 dark:text-gray-400;
+}
 
-    .body {
-      @apply p-6;
+.modal-body {
+  @apply p-6;
+}
 
-      .train-details {
-        @apply mb-6;
+.train-summary {
+  @apply flex gap-4 p-4 rounded-lg bg-gray-100 dark:bg-gray-600;
+}
 
-        .train-title {
-          @apply text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2;
-        }
+.train-badge {
+  @apply flex flex-shrink-0 w-auto h-12 bg-primary-500 text-white rounded-xl items-center justify-center p-2;
+}
 
-        .train-info {
-          @apply space-y-2;
+.train-number {
+  @apply font-bold text-sm;
+}
 
-          .info-item {
-            @apply flex items-center;
+.train-name {
+  @apply text-lg font-medium text-gray-900 dark:text-white mb-2;
+}
 
-            .label {
-              @apply text-sm font-normal text-gray-700 dark:text-gray-300;
-            }
+.train-details {
+  @apply w-full;
+}
 
-            .value {
-              @apply text-sm font-medium text-gray-800 dark:text-gray-200 ml-3;
-            }
-          }
-        }
-      }
+.journey-details {
+  @apply grid grid-cols-1 md:grid-cols-3 items-center gap-4 w-full;
+}
 
-      .passenger {
-        @apply grid grid-cols-2 gap-4 mb-6;
+.station {
+  @apply flex flex-col;
+}
 
-        .form-group {
-          @apply flex flex-col;
+.departure {
+  @apply items-start text-left;
+}
 
-          label {
-            @apply text-sm font-medium text-gray-700 dark:text-gray-200 mb-2;
-          }
+.arrival {
+  @apply items-end md:text-right text-left;
+}
 
-          input {
-            @apply w-full px-3 py-2 border rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200;
-          }
-        }
+.name {
+  @apply text-sm font-semibold text-gray-800 dark:text-white;
+}
 
-        .add-btn {
-          @apply col-span-2 bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700;
-        }
-      }
+.date {
+  @apply text-sm font-semibold text-gray-700 dark:text-gray-300;
+}
 
-      .passengers-list-heading {
-        @apply text-sm font-medium text-gray-900 dark:text-gray-200 py-2 flex items-center mb-3;
+.time {
+  @apply text-sm font-semibold text-gray-700  dark:text-gray-300;
+}
 
-        span {
-          @apply text-xs text-blue-600;
-        }
-      }
+.duration {
+  @apply flex items-center justify-start md:justify-center py-2 md:py-0;
+}
 
-      .passenger-list {
-        @apply grid grid-cols-4 gap-4 mb-4 bg-gray-100 dark:bg-gray-600 rounded-md;
+.line {
+  @apply h-1px w-5 bg-gray-400;
+}
 
-        .list-header {
-          @apply text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-600 px-4 py-2 rounded-md;
-        }
+.time-taken {
+  @apply text-sm text-gray-600 dark:text-gray-300 px-1 whitespace-nowrap;
+}
 
-        .list-item {
-          @apply text-sm text-gray-700 dark:text-gray-200 px-4 py-2 flex items-center;
+.passenger-form {
+  @apply py-4;
+}
 
-          &.action {
-            @apply justify-center;
-          }
-        }
+.form-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 mb-4;
+}
 
-        .remove-btn {
-          @apply bg-red-500 text-white text-sm px-3 py-1 rounded-md hover:bg-red-600;
-        }
-      }
-    }
+label {
+  @apply text-sm font-medium text-gray-700 dark:text-gray-300;
+}
 
-    .footer {
-      @apply flex items-center justify-end px-6 py-4 border-t border-gray-200;
+input {
+  @apply w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-highlight-blue focus:border-highlight-blue border-borderColor-light dark:border-borderColor-dark dark:bg-gray-700 dark:text-white dark:focus:ring-highlight-dark-blue;
+}
 
-      .close-btn {
-        @apply bg-red-500 text-white text-sm px-4 py-2 rounded-md hover:bg-red-600 mr-2;
-      }
+.add-button {
+  @apply flex items-center justify-center w-full py-2 px-4 bg-primary-500 hover:bg-gray-700 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
 
-      .create-btn {
-        @apply bg-green-600 text-white text-sm px-4 py-2 rounded-md hover:bg-green-700;
-      }
-    }
+.plus-icon {
+  @apply w-5 h-5 mr-2;
+}
+
+.list-header {
+  @apply flex flex-col;
+
+  h4 {
+    @apply text-gray-700 dark:text-gray-300;
   }
+}
+
+.passenger-table {
+  @apply border rounded-lg overflow-hidden border-borderColor-light dark:border-borderColor-dark mt-4;
+}
+
+.table-header {
+  @apply grid grid-cols-4 bg-gray-200 dark:bg-gray-700;
+}
+
+.header-cell {
+  @apply px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300;
+}
+
+.table-row {
+  @apply grid grid-cols-4 border-t border-borderColor-light dark:border-borderColor-dark;
+  &:nth-child(even) {
+    @apply bg-gray-100 dark:bg-gray-600;
+  }
+}
+
+.table-cell {
+  @apply px-4 py-3 text-sm text-gray-800 dark:text-gray-200;
+  &.name {
+    @apply font-medium;
+  }
+}
+
+.remove-button {
+  @apply text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-medium;
+}
+
+.footer {
+  @apply flex justify-end gap-4 px-6 py-4 border-t border-borderColor-light dark:border-borderColor-dark sticky bottom-0 bg-white dark:bg-gray-800;
+}
+
+.close-btn {
+  @apply px-4 py-2 border border-borderColor-light dark:border-borderColor-dark rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
+}
+
+.confirm-btn {
+  @apply px-4 py-2 bg-primary-500 hover:bg-gray-900 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
 }

@@ -46,7 +46,7 @@ export class BookTicketComponent {
   ) {
     this.passengerForm = this.fb.group({
       passengerName: ['', Validators.required],
-      age: [0, [Validators.required, Validators.maxLength(3)]],
+      age: [0, [Validators.required, Validators.max(120)]],
     });
   }
 
