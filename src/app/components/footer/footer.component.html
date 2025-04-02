@@ -1,12 +1,16 @@
 <footer *ngIf="showFooter" class="footer-container">
-  <div class="footer-content">
+  <div class="footer-content container">
+    <div class="footer-brand">
+      <h2 class="footer-logo">RailConnect</h2>
+      <p class="footer-tagline">Your journey starts here</p>
+    </div>
     <div class="footer-links">
-      <li routerLink="/home" class="footer-link">Home Page</li>
-      <li *ngIf="userData" routerLink="/bookings" class="footer-link">
-        My Bookings
-      </li>
-      <li *ngIf="isAdmin" routerLink="/admin" class="footer-link">Admin</li>
-      <li *ngIf="!userData" routerLink="/login" class="footer-link">Login</li>
+      <a routerLink="/home" class="footer-link">Home</a>
+      <a *ngIf="userData" routerLink="/bookings" class="footer-link"
+        >My Bookings</a
+      >
+      <a *ngIf="isAdmin" routerLink="/admin" class="footer-link">Admin</a>
+      <a *ngIf="!userData" routerLink="/login" class="footer-link">Login</a>
     </div>
     <div class="footer-copyright">
       <p>&copy; {{ currentYear }} RailConnect. All rights reserved.</p>

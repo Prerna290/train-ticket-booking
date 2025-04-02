@@ -28,7 +28,8 @@ export class FooterComponent {
       this.isAdmin = this.authService.checkIsAdmin();
     });
     this.router.events.subscribe(() => {
-      this.showFooter = this.router.url !== '/404';
+      this.showFooter =
+        this.router.url !== '/404' && this.router.url !== 'login';
     });
   }
 }

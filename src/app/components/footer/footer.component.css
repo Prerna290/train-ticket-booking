@@ -1,19 +1,31 @@
 .footer-container {
-  @apply bg-slate-800 text-gray-100 py-3 text-sm;
+  @apply w-full bg-background-secondary text-primary-500 border-t border-borderColor-light dark:border-borderColor-dark dark:bg-background-dark-secondary dark:text-dark-primary transition-colors duration-200;
 }
 
 .footer-content {
-  @apply mx-auto px-6 flex flex-col items-center;
+  @apply mx-auto px-4 py-3 flex flex-col items-center md:flex-row md:justify-between;
+}
+
+.footer-logo {
+  @apply text-xl font-bold text-primary-500 dark:text-primary-400;
+}
+
+.footer-tagline {
+  @apply text-sm text-muted dark:text-dark-muted;
 }
 
 .footer-links {
-  @apply flex flex-wrap justify-center gap-6 mb-2;
+  @apply flex flex-wrap justify-center gap-6;
 }
 
 .footer-link {
-  @apply text-gray-100 no-underline transition-colors duration-200 ease-in-out hover:text-[#3498db] cursor-pointer;
+  @apply text-sm font-medium text-gray-700 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400 no-underline transition-colors duration-200 ease-in-out cursor-pointer;
 }
 
 .footer-copyright {
-  @apply text-center text-gray-400 text-xs;
+  @apply text-xs text-center text-muted dark:text-dark-muted;
+}
+
+.footer-brand {
+  @apply mb-4 md:mb-0;
 }
