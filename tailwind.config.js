@@ -36,7 +36,7 @@ module.exports = {
         },
         success: "#10B981",
         error: "#E53E3E",
-        yellow: "#D69E2E",
+        yellow: "#FFC107",
         highlight: {
           blue: "#3182CE", // Light Mode
           "dark-blue": "#2C7A7B", // Dark Mode
@@ -101,3 +101,4 @@ module.exports = {
 // borderColor-dark: #334155";
 // highlight-blue: #3182CE";
 // highlight-dark-blue: "#2C7A7B";
+// yellow: "#FFC107";

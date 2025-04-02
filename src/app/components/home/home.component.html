@@ -1,85 +1,128 @@
-<section>
+<section class="home-section">
   <div class="container header">
-    <h1 class="heading">Railway Ticket Booking</h1>
-    <p class="sub-heading">
+    <h1 class="main-heading">Railway Ticket Booking</h1>
+    <p class="subheading">
       Plan your journey and book your tickets quickly and easily!
     </p>
   </div>
 
   <div class="search container">
-    <form [formGroup]="stationForm" (ngSubmit)="onSubmit()">
-      <div class="from-and-to-container">
-        <!-- From Location -->
-        <div class="location">
-          <div class="arrival">
-            <div class="location-select">
-              <fa-icon [icon]="faLocationDot"></fa-icon>
-              <select formControlName="fromStation">
-                <option disabled value="" selected>FROM</option>
-                <option
-                  *ngFor="let station of stationList"
-                  [value]="station.stationID"
-                >
-                  {{ station.stationName }}
-                </option>
-              </select>
-            </div>
-            <app-alert
-              *ngIf="showSameLocationError"
-              [errorMessage]="'Source and Destination cannot be same'"
-            ></app-alert>
-            <app-alert
-              *ngIf="stationForm.get('fromStation')?.touched && stationForm.get('fromStation')?.errors?.['required']"
-              [errorMessage]="'Source cannot be empty'"
-            ></app-alert>
+    <form [formGroup]="stationForm" (ngSubmit)="onSubmit()" class="search-form">
+      <!-- From Location -->
+      <div class="location">
+        <div class="arrival">
+          <div class="select-wrapper">
+            <fa-icon [icon]="faLocationDot" class="input-icon"></fa-icon>
+            <select formControlName="fromStation" class="station-select">
+              <option disabled value="" selected>Departure Station</option>
+              <option
+                *ngFor="let station of stationList"
+                [value]="station.stationID"
+              >
+                {{ station.stationName }}
+              </option>
+            </select>
           </div>
+          <app-alert
+            *ngIf="showSameLocationError"
+            [errorMessage]="'Source and Destination cannot be same'"
+          ></app-alert>
+          <app-alert
+            *ngIf="stationForm.get('fromStation')?.touched && stationForm.get('fromStation')?.errors?.['required']"
+            [errorMessage]="'Please select departure station'"
+          ></app-alert>
+        </div>
 
-          <!-- Arrow Icon -->
-          <div class="arrow-icon">
-            <fa-icon [icon]="faArrowUp"></fa-icon>
-            <fa-icon [icon]="faArrowDown"></fa-icon>
-          </div>
+        <!-- Arrow Icon -->
+        <button type="button" class="swap-button" (click)="swapStations()">
+          <fa-icon [icon]="faArrowUp"></fa-icon>
+          <fa-icon [icon]="faArrowDown"></fa-icon>
+        </button>
 
-          <!-- To Location -->
-          <div class="destination">
-            <div class="location-select">
-              <fa-icon [icon]="faLocationDot"></fa-icon>
-              <select formControlName="toStation">
-                <option disabled value="" selected>TO</option>
-                <option
-                  *ngFor="let station of stationList"
-                  [value]="station.stationID"
-                >
-                  {{ station.stationName }}
-                </option>
-              </select>
-            </div>
-            <app-alert
-              *ngIf="showSameLocationError"
-              [errorMessage]="'Source and Destination cannot be same'"
-            ></app-alert>
-            <app-alert
-              *ngIf="stationForm.get('toStation')?.touched && stationForm.get('toStation')?.errors?.['required']"
-              [errorMessage]="'Destination cannot be empty'"
-            ></app-alert>
+        <!-- To Location -->
+        <div class="destination">
+          <div class="select-wrapper">
+            <fa-icon [icon]="faLocationDot" class="input-icon"></fa-icon>
+            <select formControlName="toStation" class="station-select">
+              <option disabled value="" selected>Arrival Station</option>
+              <option
+                *ngFor="let station of stationList"
+                [value]="station.stationID"
+              >
+                {{ station.stationName }}
+              </option>
+            </select>
           </div>
+          <app-alert
+            *ngIf="showSameLocationError"
+            [errorMessage]="'Source and Destination cannot be same'"
+          ></app-alert>
+          <app-alert
+            *ngIf="stationForm.get('toStation')?.touched && stationForm.get('toStation')?.errors?.['required']"
+            [errorMessage]="'Please select arrival station'"
+          ></app-alert>
         </div>
       </div>
 
       <!-- Date Picker -->
-      <div class="date-picker">
-        <fa-icon [icon]="faCalendarDays"></fa-icon>
-        <input type="date" formControlName="date" />
+      <div class="date">
+        <div class="select-wrapper">
+          <fa-icon [icon]="faCalendarDays" class="input-icon"></fa-icon>
+          <input
+            type="date"
+            formControlName="date"
+            [min]="minDate"
+            class="date-picker"
+          />
+        </div>
       </div>
 
       <!-- Search Button -->
-      <button type="submit" class="submit-btn" [disabled]="!stationForm.valid">
-        SEARCH TRAINS
+      <button type="submit" class="submit-btn" [disabled]="stationForm.invalid">
+        Search Trains
       </button>
     </form>
-    <img
-      src="https://t3.ftcdn.net/jpg/04/75/99/98/240_F_475999820_fU277meJh9CJdNmTdOQr6CyqYaM1U7XX.jpg"
-      alt="Railway Booking Illustration"
-    />
+
+    <div class="illustration">
+      <img
+        src="images/homepage-illustration.png"
+        alt="Train journey illustration"
+        class="illustration-image"
+      />
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features container">
+    <div class="feature-card">
+      <div class="feature-header">
+        <fa-icon [icon]="faTrain" class="feature-icon"></fa-icon>
+        <h3 class="feature-title">Extensive Network</h3>
+      </div>
+      <p class="feature-description">
+        Access to thousands of routes across the country with multiple train
+        options.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-header">
+        <fa-icon [icon]="faTicket" class="feature-icon"></fa-icon>
+        <h3 class="feature-title">Easy Booking</h3>
+      </div>
+      <p class="feature-description">
+        Simple and intuitive interface for quick ticket reservations.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-header">
+        <fa-icon [icon]="faClock" class="feature-icon"></fa-icon>
+        <h3 class="feature-title">Real-time Updates</h3>
+      </div>
+      <p class="feature-description">
+        Get instant notifications about train schedules and platform changes.
+      </p>
+    </div>
   </div>
 </section>

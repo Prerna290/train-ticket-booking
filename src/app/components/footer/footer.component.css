@@ -2,12 +2,16 @@
   @apply w-full bg-background-secondary text-primary-500 border-t border-borderColor-light dark:border-borderColor-dark dark:bg-background-dark-secondary dark:text-dark-primary transition-colors duration-200;
 }
 
+.container {
+  @apply max-w-7xl mx-auto;
+}
+
 .footer-content {
   @apply mx-auto px-4 py-3 flex flex-col items-center md:flex-row md:justify-between;
 }
 
 .footer-logo {
-  @apply text-xl font-bold text-primary-500 dark:text-primary-400;
+  @apply text-xl font-bold text-primary-500 dark:text-primary-400 hover:text-primary-400 dark:hover:text-gray-200 cursor-pointer;
 }
 
 .footer-tagline {
@@ -15,7 +19,7 @@
 }
 
 .footer-links {
-  @apply flex flex-wrap justify-center gap-6;
+  @apply flex flex-wrap justify-center gap-6 md:mb-0 mb-3;
 }
 
 .footer-link {
@@ -27,5 +31,5 @@
 }
 
 .footer-brand {
-  @apply mb-4 md:mb-0;
+  @apply text-center md:text-start mb-3 md:mb-0;
 }

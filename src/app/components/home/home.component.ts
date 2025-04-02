@@ -7,7 +7,9 @@ import {
   faArrowUp,
   faCalendarDays,
   faCircleInfo,
+  faClock,
   faLocationDot,
+  faTicket,
   faTrain,
 } from '@fortawesome/free-solid-svg-icons';
 import { TicketBookingService } from '../../services/ticket-booking.service';
@@ -39,8 +41,10 @@ export class HomeComponent {
   faArrowDown = faArrowDown;
   faLocationDot = faLocationDot;
   faCalendarDays = faCalendarDays;
-  faCircleInfo = faCircleInfo;
-  moment = moment;
+  faTicket = faTicket;
+  faClock = faClock;
+
+  minDate = moment().format('YYYY-MM-DD');
 
   stationList: IStation[] = [];
   stationForm: FormGroup;
@@ -51,11 +55,10 @@ export class HomeComponent {
   private router = inject(Router);
 
   constructor() {
-    const presentDate = moment().format('YYYY-MM-DD');
     this.stationForm = this.fb.group({
       fromStation: ['', Validators.required],
       toStation: ['', Validators.required],
-      date: [presentDate, Validators.required],
+      date: [this.minDate, Validators.required],
     });
   }
 
@@ -70,6 +73,7 @@ export class HomeComponent {
   }
 
   onSubmit() {
+    if (this.stationForm.invalid) return;
     if (
       this.stationForm.value.fromStation === this.stationForm.value.toStation
     ) {
@@ -82,5 +86,14 @@ export class HomeComponent {
       this.stationForm.value.toStation,
       this.stationForm.value.date,
     ]);
+  }
+
+  swapStations() {
+    const { fromStation, toStation } = this.stationForm.value;
+    this.stationForm.patchValue({
+      fromStation: toStation,
+      toStation: fromStation,
+    });
+    this.showSameLocationError = false;
   }
 }

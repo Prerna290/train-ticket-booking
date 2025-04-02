@@ -1,9 +1,9 @@
 .book-ticket {
-  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  @apply fixed inset-0 z-50 flex items-center justify-center md:p-4 p-0;
 }
 
 .modal-container {
-  @apply relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full md:max-w-[40dvw] max-w-[80dvw] max-h-[90dvh] overflow-y-auto border border-borderColor-light dark:border-borderColor-dark;
+  @apply relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full md:max-w-[40dvw] max-w-[100dvw] max-h-[90dvh] overflow-y-auto border border-borderColor-light dark:border-borderColor-dark;
 }
 
 .header {
@@ -59,7 +59,7 @@
 }
 
 .arrival {
-  @apply items-end md:text-right text-left;
+  @apply md:items-end items-start md:text-right text-left;
 }
 
 .name {
