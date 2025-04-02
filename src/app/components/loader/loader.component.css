@@ -3,24 +3,24 @@
 }
 
 .loader-circle {
-  @apply w-7 h-7 rounded-full animate-bounce;
-  animation: wave 1s infinite ease-in-out;
+  @apply w-6 h-6 rounded-full animate-bounce;
+  animation: wave 1.5s infinite ease-in-out;
 }
 
-.red {
-  @apply bg-gradient-to-r from-indigo-500 to-pink-500 shadow-lg [animation-delay:-0.3s];
+.primary {
+  @apply bg-gradient-to-r from-red-500 to-blue-800 shadow-lg [animation-delay:-0.3s];
 }
 
-.blue {
-  @apply bg-gradient-to-r from-yellow-400 to-red-600 shadow-lg [animation-delay:-0.15s];
+.secondary {
+  @apply bg-gradient-to-r from-yellow to-red-600 shadow-lg [animation-delay:-0.15s];
 }
 
-.green {
-  @apply bg-gradient-to-r from-purple-400 to-blue-600;
+.accent {
+  @apply bg-gradient-to-r from-gray-400 to-highlight-blue;
 }
 
-.yellow {
-  @apply bg-gradient-to-r from-orange-500 to-lime-500 shadow-lg  [animation-delay:0.15s];
+.warning {
+  @apply bg-gradient-to-r from-red-600 to-yellow shadow-lg  [animation-delay:0.15s];
 }
 
 @keyframes wave {
@@ -29,6 +29,6 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-25px);
+    transform: translateY(-20px);
   }
 }
