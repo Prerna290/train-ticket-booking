@@ -1,36 +1,36 @@
 .booking-container {
-  @apply bg-indigo-50 dark:bg-Charleston-Green min-h-[85dvh] pb-10;
+  @apply bg-background-secondary dark:bg-background-dark-secondary min-h-[85dvh] pb-10 md:px-0 px-2;
 
   .container {
     @apply mx-auto;
   }
 
   .header {
-    @apply flex items-center py-8 dark:text-Persian-Green text-Dark-Cyan;
+    @apply flex md:flex-row flex-col items-center md:justify-between md:py-8 py-6 text-primary-500 dark:text-primary-400 md:gap-0 gap-4;
     .heading {
       @apply flex text-3xl font-bold;
     }
+  }
 
-    .sort {
-      @apply flex ml-auto p-3 border-2 dark:border-Persian-Green border-Dark-Cyan border-solid rounded-md font-semibold;
+  .sort {
+    @apply ml-0 md:w-auto w-full;
+  }
 
-      select {
-        @apply bg-transparent outline-none;
-      }
-    }
+  .sort-select {
+    @apply p-2 border-2 rounded-md font-medium border-borderColor-light dark:border-borderColor-dark bg-transparent outline-none text-primary-500 dark:text-primary-400 md:w-auto w-full;
   }
 
   .bookings-container {
-    @apply columns-2 gap-6 mb-6;
-    .bookings {
+    @apply md:columns-2 columns-1 mb-6;
+    .booking-card {
       @apply break-inside-avoid mb-6;
     }
 
     .booking {
-      @apply bg-white dark:bg-gray-700 shadow-md rounded-xl p-6 hover:shadow-xl border border-solid border-Dark-Cyan dark:border-Persian-Green;
+      @apply bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl border border-solid border-borderColor-light dark:border-borderColor-dark transition-all duration-300;
 
       .train-header {
-        @apply flex justify-between items-center mb-3;
+        @apply mb-4;
       }
 
       .train-info {
@@ -38,11 +38,11 @@
       }
 
       .train-name {
-        @apply text-base font-semibold text-gray-800 dark:text-gray-200;
+        @apply text-base font-semibold text-light-primary dark:text-dark-primary;
       }
 
       .train-no {
-        @apply text-xs font-medium text-blue-600 dark:text-blue-400;
+        @apply text-sm font-medium text-highlight-blue;
       }
 
       .id-value {
@@ -50,7 +50,7 @@
       }
 
       .route-details {
-        @apply flex items-center gap-4 mb-3;
+        @apply flex items-center gap-3 mb-3;
       }
 
       .station {
@@ -58,16 +58,15 @@
       }
 
       .label {
-        @apply text-xs text-gray-600 dark:text-gray-400;
+        @apply text-xs text-secondary dark:text-dark-secondary;
       }
 
       .value {
-        @apply text-sm font-medium text-gray-800 dark:text-gray-200;
+        @apply text-sm font-medium text-light-primary dark:text-dark-primary;
       }
 
-      .train-departure,
-      .train-arrival {
-        @apply text-sm font-semibold text-gray-800 dark:text-gray-200;
+      .station-name {
+        @apply text-base font-medium text-light-primary dark:text-dark-primary;
       }
 
       .arrow-icon {
@@ -75,47 +74,47 @@
       }
 
       .timings {
-        @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-3;
+        @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-4;
       }
 
       .timing {
         @apply flex flex-col;
       }
 
-      .horizontal-line {
-        @apply mt-2;
+      .divider {
+        @apply my-4 h-px bg-borderColor-light dark:bg-borderColor-dark;
       }
 
       .passengers-section {
-        @apply flex flex-col gap-4 mt-3;
+        @apply flex flex-col gap-4;
 
         .passengers-list-heading {
-          @apply text-gray-500 dark:text-gray-300 text-sm tracking-wide font-medium;
+          @apply text-muted dark:text-dark-muted text-sm tracking-wide font-medium;
         }
 
         .passenger-card {
-          @apply bg-gray-50 dark:bg-gray-600 rounded-lg p-3 flex flex-col gap-2 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 hover:-translate-y-1;
+          @apply bg-gray-100 dark:bg-gray-700 rounded-lg p-3 transition-all duration-200 flex flex-col gap-2 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-600 hover:-translate-y-1;
 
           .detail-label {
-            @apply text-xs dark:text-gray-200 text-gray-500;
+            @apply text-xs text-secondary dark:text-dark-secondary;
           }
 
           .detail-value {
-            @apply text-sm font-medium text-gray-800 dark:text-gray-100;
+            @apply text-sm font-medium text-light-primary dark:text-dark-primary;
           }
 
           .passenger-header {
-            @apply flex flex-row justify-between;
+            @apply flex md:flex-row flex-col justify-between gap-1;
           }
 
           .name,
           .age,
           .booking-id {
-            @apply flex flex-row items-center;
+            @apply flex items-center gap-1;
           }
 
           .seat-no {
-            @apply text-blue-600 dark:text-blue-400 font-medium inline-flex items-center gap-1 text-sm;
+            @apply text-highlight-blue font-medium items-center gap-1 text-sm;
           }
         }
       }
@@ -123,6 +122,14 @@
   }
 }
 
-.no-bookings {
-  @apply flex justify-center text-lg font-semibold text-red-500;
+.no-result-found {
+  @apply flex flex-col items-center justify-center py-10 text-center;
+}
+
+.no-result-found h3 {
+  @apply text-2xl font-semibold text-gray-700 dark:text-gray-300 mt-4 mb-2;
+}
+
+.no-result-found img {
+  @apply md:w-96 w-full h-full;
 }

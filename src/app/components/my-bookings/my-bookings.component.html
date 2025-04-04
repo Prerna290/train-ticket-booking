@@ -4,7 +4,11 @@
     <div class="header">
       <h2 class="heading">My Bookings</h2>
       <div class="sort">
-        <select [(ngModel)]="sortType" (change)="sortBookings()">
+        <select
+          [(ngModel)]="sortType"
+          (change)="sortBookings()"
+          class="sort-select"
+        >
           <option value="" disabled>SORT BY DEPARTURE DATE</option>
           <option value="latest">LATEST</option>
           <option value="oldest">OLDEST</option>
@@ -17,7 +21,7 @@
       class="bookings-container"
       *ngIf="!loadingBookings && groupedMyBookings.length > 0"
     >
-      <div *ngFor="let booking of groupedMyBookings" class="bookings">
+      <div *ngFor="let booking of groupedMyBookings" class="booking-card">
         <div class="booking">
           <div class="train-header">
             <div class="train-info">
@@ -29,15 +33,13 @@
           <!-- Route Details -->
           <div class="route-details">
             <div class="station">
-              <span class="train-departure">{{
+              <span class="station-name">{{
                 booking.departureStationName
               }}</span>
             </div>
             <fa-icon [icon]="faArrowRight" class="arrow-icon"></fa-icon>
             <div class="station">
-              <span class="train-arrival">{{
-                booking.arrivalStationName
-              }}</span>
+              <span class="station-name">{{ booking.arrivalStationName }}</span>
             </div>
           </div>
 
@@ -75,7 +77,7 @@
               </span>
             </div>
           </div>
-          <hr class="horizontal-line" />
+          <div class="divider"></div>
           <div class="passengers-section">
             <h4 class="passengers-list-heading">
               PASSENGERS ({{ booking.passengers.length }})
@@ -87,33 +89,39 @@
             >
               <div class="passenger-header">
                 <div class="name">
-                  <p class="detail-label">Passenger Name: &nbsp;</p>
-                  <p class="detail-value">{{ passenger.passengerName }}</p>
+                  <span class="detail-label">Passenger Name: &nbsp;</span>
+                  <span class="detail-value">{{
+                    passenger.passengerName
+                  }}</span>
                 </div>
                 <div class="age">
                   <p class="detail-label">Age: &nbsp;</p>
-                  <p class="detail-value">
+                  <span class="detail-value">
                     {{ passenger.age }} year{{ passenger.age > 1 ? "s" : "" }}
-                  </p>
+                  </span>
                 </div>
               </div>
 
               <div class="passenger-header">
-                <div class="seat-no">Seat {{ passenger.seatNo }}</div>
                 <div class="booking-id">
                   <div class="detail-label">Booking ID: &nbsp;</div>
                   <div class="detail-value">
                     {{ passenger.bookingPassengerId }}
                   </div>
                 </div>
+                <div class="seat-no">Seat {{ passenger.seatNo }}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="!loadingBookings && groupedMyBookings.length === 0">
-      <p class="no-bookings">No Bookings Available, Book Your Tickets Now!</p>
+    <div
+      *ngIf="!loadingBookings && groupedMyBookings.length === 0"
+      class="no-result-found"
+    >
+      <img src="images/empty-state.png" alt="No Results Found" />
+      <h3>No Bookings Available, Book Your Tickets Now!</h3>
     </div>
   </div>
 </div>
