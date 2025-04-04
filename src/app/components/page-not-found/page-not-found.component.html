@@ -1,33 +1,26 @@
 <div class="page-not-found-container">
-  <div class="page-not-found-content">
-    <div class="page-not-found-header">
-      <h1 class="page-not-found-code">404</h1>
-      <p class="page-not-found-title">Page Not Found</p>
-      <p class="page-not-found-description">
+  <div class="content">
+    <div class="header">
+      <h1 class="code">404</h1>
+      <p class="title">Page Not Found</p>
+      <p class="description">
         Oops! The page you're looking for doesn't exist.
       </p>
     </div>
 
-    <div class="page-not-found-links-container">
-      <h2 class="page-not-found-links-title">You might want to check:</h2>
-      <div class="page-not-found-links">
-        <a routerLink="/home" class="page-not-found-link"
+    <div class="actions">
+      <h2 class="actions-title">You might want to check:</h2>
+      <div class="action-links">
+        <a routerLink="/home" class="action-link"
           ><fa-icon [icon]="faHouse"></fa-icon>Home Page
         </a>
-        <a
-          *ngIf="isUserLoggedIn"
-          routerLink="/bookings"
-          class="page-not-found-link"
-        >
+        <a *ngIf="isUserLoggedIn" routerLink="/bookings" class="action-link">
           <fa-icon [icon]="faClipboardList"></fa-icon>My Bookings
         </a>
-        <a *ngIf="isAdmin" routerLink="/admin" class="page-not-found-link"
+        <a *ngIf="isAdmin" routerLink="/admin" class="action-link"
           ><fa-icon [icon]="faUserCircle"></fa-icon>Admin</a
         >
-        <a
-          *ngIf="!isUserLoggedIn"
-          routerLink="/login"
-          class="page-not-found-link"
+        <a *ngIf="!isUserLoggedIn" routerLink="/login" class="action-link"
           ><fa-icon [icon]="faUserPlus">Login</fa-icon></a
         >
       </div>

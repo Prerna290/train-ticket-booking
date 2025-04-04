@@ -1,43 +1,54 @@
 .page-not-found-container {
-  @apply min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 px-4;
+  @apply min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-blue-100 to-blue-400 dark:from-gray-700 dark:to-gray-900 p-4 transition-colors duration-300;
 }
 
-.page-not-found-content {
+.content {
   @apply text-center max-w-md w-full;
 }
 
-.page-not-found-header {
+.header {
   @apply mb-8;
 }
 
-.page-not-found-code {
-  @apply text-9xl font-bold text-blue-500 mb-4;
+.code {
+  @apply text-9xl font-bold text-primary-500 dark:text-primary-400 mb-4;
+  animation: bounce 1s infinite;
 }
 
-.page-not-found-title {
-  @apply text-2xl font-semibold text-gray-800 mb-4;
+.title {
+  @apply text-2xl font-semibold text-light-primary dark:text-dark-primary mb-3;
 }
 
-.page-not-found-description {
-  @apply text-gray-600 mb-8;
+.description {
+  @apply text-muted dark:text-dark-muted mb-6;
 }
 
-.page-not-found-links-container {
-  @apply bg-white shadow-lg rounded-lg p-6;
+.actions {
+  @apply bg-background-secondary dark:bg-background-dark-secondary shadow-lg rounded-lg p-6 border border-borderColor-light dark:border-borderColor-dark;
 }
 
-.page-not-found-links-title {
-  @apply text-xl font-bold text-gray-800 mb-4;
+.actions-title {
+  @apply text-xl font-semibold text-light-primary dark:text-dark-primary mb-4;
 }
 
-.page-not-found-links {
-  @apply flex flex-col gap-3 cursor-pointer;
+.action-links {
+  @apply flex flex-col gap-4 cursor-pointer;
 }
 
-.page-not-found-link {
-  @apply block bg-blue-50 hover:bg-blue-100 transition-colors rounded-md p-3 text-blue-700 font-medium;
+.action-link {
+  @apply flex items-center gap-3 p-3 rounded-lg text-primary-500 dark:text-primary-400 font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 border border-transparent border-borderColor-light dark:border-borderColor-dark;
 
   fa-icon {
-    @apply text-blue-500 mr-3;
+    @apply text-lg;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
   }
 }
