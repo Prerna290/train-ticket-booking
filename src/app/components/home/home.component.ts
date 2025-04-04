@@ -22,6 +22,7 @@ import {
 } from '@angular/forms';
 import moment from 'moment';
 import { AlertComponent } from '../alert/alert.component';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,7 @@ import { AlertComponent } from '../alert/alert.component';
     FontAwesomeModule,
     ReactiveFormsModule,
     AlertComponent,
+    LoaderComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -49,6 +51,7 @@ export class HomeComponent {
   stationList: IStation[] = [];
   stationForm: FormGroup;
   showSameLocationError = false;
+  imageLoaded = false;
 
   private ticketBookingService = inject(TicketBookingService);
   private fb = inject(FormBuilder);
@@ -95,5 +98,9 @@ export class HomeComponent {
       toStation: fromStation,
     });
     this.showSameLocationError = false;
+  }
+
+  onImageLoad() {
+    this.imageLoaded = true;
   }
 }

@@ -7,7 +7,12 @@
   </div>
 
   <div class="search container">
-    <form [formGroup]="stationForm" (ngSubmit)="onSubmit()" class="search-form">
+    <form
+      [formGroup]="stationForm"
+      (ngSubmit)="onSubmit()"
+      class="search-form"
+      *ngIf="imageLoaded"
+    >
       <!-- From Location -->
       <div class="location">
         <div class="arrival">
@@ -83,9 +88,12 @@
       </button>
     </form>
 
+    <app-loader *ngIf="!imageLoaded"></app-loader>
     <div class="illustration">
       <img
         src="images/homepage-illustration.png"
+        (load)="onImageLoad()"
+        [ngClass]="{ hidden: !imageLoaded }"
         alt="Train journey illustration"
         class="illustration-image"
       />

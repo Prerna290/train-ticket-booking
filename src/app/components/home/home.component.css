@@ -96,3 +96,7 @@
 .feature-description {
   @apply text-muted dark:text-dark-muted;
 }
+
+app-loader {
+  @apply flex justify-center py-20 w-full;
+}
