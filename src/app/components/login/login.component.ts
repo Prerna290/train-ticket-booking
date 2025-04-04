@@ -31,43 +31,40 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  isRegisterPopupVisible = true;
   @ViewChild(ToastComponent) toast!: ToastComponent;
 
-  private ticketBookingService = inject(TicketBookingService);
-
   faXmark = faXmark;
-  faCircleExclamation = faCircleExclamation;
+  isRegisterPopupVisible = true;
   registerForm: FormGroup;
   loginForm: FormGroup;
   isLoginPopupVisible = false;
-  showToast = false;
   isUserLoggedIn = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private ticketBookingService: TicketBookingService
+  ) {
     this.registerForm = this.fb.group({
       passengerID: [0],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
     this.loginForm = this.fb.group({
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      password: ['', [Validators.required, Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
   ngOnInit() {
     this.ticketBookingService.userLoggedIn$.subscribe((res) => {
-      if (res) {
-        this.isUserLoggedIn = true;
-        this.router.navigate(['/home']);
-      } else {
-        this.isUserLoggedIn = false;
-      }
+      // !! operator is used to convert the value of res to a boolean. If res is truthy,isUserLoggedIn will be set to true.
+      this.isUserLoggedIn = !!res;
+      if (res) this.router.navigate(['/home']);
     });
   }
 
@@ -75,40 +72,43 @@ export class LoginComponent {
     this.resetForms();
     this.isRegisterPopupVisible = false;
     this.isLoginPopupVisible = false;
+    this.router.navigate(['/home']);
   }
 
   onSubmitRegister() {
     if (this.registerForm.valid) {
-      const user: IUser = this.registerForm.value;
-      this.ticketBookingService.addUsers(user).subscribe((res: any) => {
-        if (res.result) {
-          this.showToastMessage(
-            'Registration Successful. Welcome To Our Platform!',
-            'success'
-          );
-          this.resetForms();
-          this.ticketBookingService.loginDetails(res.data);
-          this.router.navigate(['/home']);
-        } else {
-          this.showToastMessage(res.message, 'error');
-        }
-      });
+      this.ticketBookingService
+        .addUsers(this.registerForm.value)
+        .subscribe((res: any) => {
+          if (res.result) {
+            this.showToastMessage(
+              'Registration Successful. Welcome To Our Platform!',
+              'success'
+            );
+            this.resetForms();
+            this.ticketBookingService.loginDetails(res.data);
+            this.router.navigate(['/home']);
+          } else {
+            this.showToastMessage(res.message, 'error');
+          }
+        });
     }
   }
 
   onSubmitLogin() {
     if (this.loginForm.valid) {
-      const loginUser: IUser = this.loginForm.value;
-      this.ticketBookingService.loginUser(loginUser).subscribe((res) => {
-        if (res.result) {
-          this.showToastMessage('Login Successful. Welcome Back!', 'success');
-          this.resetForms();
-          this.ticketBookingService.loginDetails(res.data);
-          this.router.navigate(['/home']);
-        } else {
-          this.showToastMessage(res.message, 'error');
-        }
-      });
+      this.ticketBookingService
+        .loginUser(this.loginForm.value)
+        .subscribe((res) => {
+          if (res.result) {
+            this.showToastMessage('Login Successful. Welcome Back!', 'success');
+            this.resetForms();
+            this.ticketBookingService.loginDetails(res.data);
+            this.router.navigate(['/home']);
+          } else {
+            this.showToastMessage(res.message, 'error');
+          }
+        });
     }
   }
 
@@ -118,13 +118,8 @@ export class LoginComponent {
   }
 
   toggleLogin() {
-    if (this.isRegisterPopupVisible) {
-      this.isRegisterPopupVisible = false;
-      this.isLoginPopupVisible = true;
-    } else {
-      this.isRegisterPopupVisible = true;
-      this.isLoginPopupVisible = false;
-    }
+    this.isRegisterPopupVisible = !this.isRegisterPopupVisible;
+    this.isLoginPopupVisible = !this.isLoginPopupVisible;
   }
 
   showToastMessage(message: string, messageType: any) {

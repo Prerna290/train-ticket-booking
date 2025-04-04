@@ -1,165 +1,186 @@
 <app-toast #toast></app-toast>
 
-<!-- Registration Form -->
-<form
-  *ngIf="isRegisterPopupVisible"
-  class="auth-container"
-  [formGroup]="registerForm"
-  (ngSubmit)="onSubmitRegister()"
->
-  <div class="auth-card">
-    <div class="header">
-      <h4>Create Your Account</h4>
-    </div>
-    <div class="form">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input
-          type="text"
-          id="firstName"
-          formControlName="firstName"
-          placeholder="Enter your first name"
-        />
-        <app-alert
-          *ngIf="
+<div class="auth-overlay">
+  <!-- Registration Form -->
+  <form
+    *ngIf="isRegisterPopupVisible"
+    class="auth-form"
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmitRegister()"
+  >
+    <div class="auth-card">
+      <div class="header">
+        <h4 class="auth-title">Create Your Account</h4>
+        <button type="button" class="auth-close" (click)="closePopup()">
+          <fa-icon [icon]="faXmark"></fa-icon>
+        </button>
+      </div>
+      <div class="auth-body">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            class="form-input"
+            formControlName="firstName"
+            placeholder="Enter your first name"
+          />
+          <app-alert
+            *ngIf="
         registerForm.get('firstName')?.touched &&
         registerForm.get('firstName')?.errors?.['required']
       "
-          [errorMessage]="'First name is required.'"
-        ></app-alert>
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          formControlName="lastName"
-          placeholder="Enter your last name"
-        />
-        <app-alert
-          *ngIf="
+            [errorMessage]="'First name is required.'"
+          ></app-alert>
+        </div>
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            class="form-input"
+            formControlName="lastName"
+            placeholder="Enter your last name"
+          />
+          <app-alert
+            *ngIf="
         registerForm.get('lastName')?.touched &&
         registerForm.get('lastName')?.errors?.['required']
       "
-          [errorMessage]="'Last name is required.'"
-        ></app-alert>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          formControlName="email"
-          placeholder="Enter your email"
-        />
-        <app-alert
-          *ngIf="
-            registerForm.get('email')?.touched &&
-            registerForm.get('email')?.invalid
-          "
-          [errorMessage]="'Please enter a valid email.'"
-        ></app-alert>
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input
-          type="text"
-          id="phone"
-          formControlName="phone"
-          placeholder="Enter your phone number"
-        />
-        <app-alert
-          *ngIf="
-            registerForm.get('phone')?.touched &&
-            registerForm.get('phone')?.invalid
-          "
-          [errorMessage]="'Please enter a valid 10-digit phone number.'"
-        ></app-alert>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          placeholder="Enter your password"
-        />
-        <app-alert
-          *ngIf="
+            [errorMessage]="'Last name is required.'"
+          ></app-alert>
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            formControlName="email"
+            placeholder="Enter your email"
+          />
+          <app-alert
+            *ngIf="
+              registerForm.get('email')?.touched &&
+              registerForm.get('email')?.invalid
+            "
+            [errorMessage]="'Please enter a valid email.'"
+          ></app-alert>
+        </div>
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone</label>
+          <input
+            type="text"
+            id="phone"
+            class="form-input"
+            formControlName="phone"
+            placeholder="Enter your phone number"
+          />
+          <app-alert
+            *ngIf="
+              registerForm.get('phone')?.touched &&
+              registerForm.get('phone')?.invalid
+            "
+            [errorMessage]="'Please enter a valid 10-digit phone number.'"
+          ></app-alert>
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          <app-alert
+            *ngIf="
             registerForm.get('password')?.touched &&
             registerForm.get('password')?.errors?.['required']
           "
-          [errorMessage]="'Password is required.'"
-        ></app-alert>
+            [errorMessage]="'Password must be at least 6 characters'"
+          ></app-alert>
+        </div>
+      </div>
+      <div class="action-btns">
+        <button
+          type="submit"
+          class="auth-button primary"
+          [disabled]="registerForm.invalid"
+        >
+          Register
+        </button>
+        <p class="auth-toggle">
+          Already have an account?
+          <a class="auth-toggle-link" (click)="toggleLogin()">Login here</a>
+        </p>
       </div>
     </div>
-    <div class="action-btns">
-      <button
-        type="submit"
-        class="primary-btn"
-        [disabled]="registerForm.invalid"
-      >
-        Register
-      </button>
-    </div>
-    <p class="toggle-auth">
-      Already have an account?
-      <a (click)="toggleLogin()">Login here</a>
-    </p>
-  </div>
-</form>
+  </form>
 
-<!-- Login Form -->
-<form
-  *ngIf="isLoginPopupVisible"
-  class="auth-container"
-  [formGroup]="loginForm"
-  (ngSubmit)="onSubmitLogin()"
->
-  <div class="auth-card">
-    <div class="header">
-      <h4>Welcome Back</h4>
-    </div>
-    <div class="form">
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input
-          type="text"
-          id="phone"
-          formControlName="phone"
-          placeholder="Enter your phone number"
-        />
-        <app-alert
-          *ngIf="
+  <!-- Login Form -->
+  <form
+    *ngIf="isLoginPopupVisible"
+    class="auth-form"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmitLogin()"
+  >
+    <div class="auth-card">
+      <div class="header">
+        <h4 class="auth-title">Welcome Back</h4>
+        <button type="button" class="auth-close" (click)="closePopup()">
+          <fa-icon [icon]="faXmark"></fa-icon>
+        </button>
+      </div>
+      <div class="auth-body">
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone</label>
+          <input
+            type="tel"
+            id="phone"
+            class="form-input"
+            formControlName="phone"
+            placeholder="Enter your phone number"
+          />
+          <app-alert
+            *ngIf="
         loginForm.get('phone')?.touched &&
         loginForm.get('phone')?.errors?.['pattern']
       "
-          [errorMessage]="'Please enter a valid 10-digit phone number.'"
-        ></app-alert>
+            [errorMessage]="'Please enter a valid 10-digit phone number.'"
+          ></app-alert>
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          <app-alert
+            *ngIf="
+              loginForm.get('password')?.touched &&
+              loginForm.get('password')?.invalid
+            "
+            [errorMessage]="'Password is required'"
+          ></app-alert>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          placeholder="Enter your password"
-        />
-        <app-alert
-          *ngIf="
-            loginForm.get('password')?.touched &&
-            loginForm.get('password')?.invalid
-          "
-          [errorMessage]="'Password is required.'"
-        ></app-alert>
+      <div class="action-btns">
+        <button
+          type="submit"
+          class="auth-button primary"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+        <p class="auth-toggle">
+          Don't have an account?
+          <a class="auth-toggle-link" (click)="toggleLogin()">Register here</a>
+        </p>
       </div>
     </div>
-    <div class="action-btns">
-      <button type="submit" class="primary-btn">Login</button>
-    </div>
-    <p class="toggle-auth">
-      Don't have an account?
-      <a (click)="toggleLogin()">Register here</a>
-    </p>
-  </div>
-</form>
+  </form>
+</div>

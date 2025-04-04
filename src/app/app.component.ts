@@ -88,7 +88,10 @@ export class AppComponent {
 
   showSuccessToast() {
     if (this.toast) {
-      this.toast.showToastPopup('Logout Successfully', 'success');
+      this.toast.showToastPopup(
+        'Logout Successful. We hope to see you again!',
+        'success'
+      );
     }
   }
 

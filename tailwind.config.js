@@ -62,7 +62,7 @@ module.exports = {
 // gray-600: #7D7D7D;
 // gray-700: #374151;
 // gray-800: #1F2937;
-// gray-900: "#111827";
+// gray-900: "#111827"; (Also gray-900/90 gray-900/70)
 
 // red-50: "#FEF2F2";
 // red-100: "#FEE2E2";
