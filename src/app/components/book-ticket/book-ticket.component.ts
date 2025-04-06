@@ -68,8 +68,10 @@ export class BookTicketComponent {
 
   bookTicket() {
     if (!this.loggedInUserDetails) {
-      this.showErrorToast('Please log in to book a ticket');
-      this.router.navigate(['/login']);
+      this.toast?.showToastPopup('Please log in to book a ticket', 'error');
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 3000);
       return;
     }
     const bookObj = {
@@ -89,25 +91,16 @@ export class BookTicketComponent {
     bookObj.totalSeats = this.passengersList.length;
     this.ticketBookingService.bookTicket(bookObj).subscribe((data: any) => {
       if (data.result) {
-        this.showSuccessToast();
+        this.toast?.showToastPopup(
+          'Train Ticket Booked Successfully',
+          'success'
+        );
         this.passengerForm.reset();
         this.openBookTicket = false;
       } else {
-        this.showErrorToast(data.message);
+        this.toast?.showToastPopup(data.message, 'error');
       }
     });
-  }
-
-  showSuccessToast() {
-    if (this.toast) {
-      this.toast.showToastPopup('Train Ticket Booked Successfully', 'success');
-    }
-  }
-
-  showErrorToast(errorMessage: string) {
-    if (this.toast) {
-      this.toast.showToastPopup(errorMessage, 'error');
-    }
   }
 
   formatDate(departureTime: string) {

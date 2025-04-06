@@ -38,7 +38,6 @@ export class LoginComponent {
   registerForm: FormGroup;
   loginForm: FormGroup;
   isLoginPopupVisible = false;
-  isUserLoggedIn = false;
 
   constructor(
     private fb: FormBuilder,
@@ -60,13 +59,7 @@ export class LoginComponent {
     });
   }
 
-  ngOnInit() {
-    this.ticketBookingService.userLoggedIn$.subscribe((res) => {
-      // !! operator is used to convert the value of res to a boolean. If res is truthy,isUserLoggedIn will be set to true.
-      this.isUserLoggedIn = !!res;
-      if (res) this.router.navigate(['/home']);
-    });
-  }
+  ngOnInit() {}
 
   closePopup() {
     this.resetForms();
@@ -81,15 +74,17 @@ export class LoginComponent {
         .addUsers(this.registerForm.value)
         .subscribe((res: any) => {
           if (res.result) {
-            this.showToastMessage(
+            this.toast?.showToastPopup(
               'Registration Successful. Welcome To Our Platform!',
               'success'
             );
             this.resetForms();
             this.ticketBookingService.loginDetails(res.data);
-            this.router.navigate(['/home']);
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 3000);
           } else {
-            this.showToastMessage(res.message, 'error');
+            this.toast?.showToastPopup(res.message, 'error');
           }
         });
     }
@@ -101,12 +96,17 @@ export class LoginComponent {
         .loginUser(this.loginForm.value)
         .subscribe((res) => {
           if (res.result) {
-            this.showToastMessage('Login Successful. Welcome Back!', 'success');
+            this.toast?.showToastPopup(
+              'Login Successful. Welcome Back!',
+              'success'
+            );
             this.resetForms();
             this.ticketBookingService.loginDetails(res.data);
-            this.router.navigate(['/home']);
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 3000);
           } else {
-            this.showToastMessage(res.message, 'error');
+            this.toast?.showToastPopup(res.message, 'error');
           }
         });
     }
@@ -120,11 +120,5 @@ export class LoginComponent {
   toggleLogin() {
     this.isRegisterPopupVisible = !this.isRegisterPopupVisible;
     this.isLoginPopupVisible = !this.isLoginPopupVisible;
-  }
-
-  showToastMessage(message: string, messageType: any) {
-    if (this.toast) {
-      this.toast.showToastPopup(message, messageType);
-    }
   }
 }

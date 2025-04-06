@@ -81,18 +81,14 @@ export class AppComponent {
 
   logoutProfile() {
     this.ticketBookingService.logout();
-    this.showSuccessToast();
+    this.toast?.showToastPopup(
+      'Logout Successful. We hope to see you again!',
+      'success'
+    );
     this.isDropdownOpen = false;
-    this.router.navigate(['/login']);
-  }
-
-  showSuccessToast() {
-    if (this.toast) {
-      this.toast.showToastPopup(
-        'Logout Successful. We hope to see you again!',
-        'success'
-      );
-    }
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    }, 3000);
   }
 
   toggleDropdown() {

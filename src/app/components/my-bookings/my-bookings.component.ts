@@ -39,12 +39,16 @@ export class MyBookingsComponent {
     this.ticketBookingService.userData$.subscribe((data) => {
       this.userData = data;
     });
+  }
+
+  ngAfterViewInit() {
     if (this.userData) {
       this.getMyBookings();
     } else {
-      this.showErrorToast('Please log in to see your bookings');
-      this.router.navigate(['/login']);
-      return;
+      this.toast?.showToastPopup('Please log in to see your bookings', 'error');
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 3000);
     }
   }
 
@@ -104,12 +108,6 @@ export class MyBookingsComponent {
         ? dateB.getTime() - dateA.getTime()
         : dateA.getTime() - dateB.getTime();
     });
-  }
-
-  showErrorToast(errorMessage: string) {
-    if (this.toast) {
-      this.toast.showToastPopup(errorMessage, 'error');
-    }
   }
 
   formatDepartureTime(departureTime: string) {

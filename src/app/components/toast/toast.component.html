@@ -1,25 +1,17 @@
-<div *ngIf="showToast" [ngSwitch]="messageType">
-  <!-- Success Toast -->
-  <div *ngSwitchCase="'success'" class="toast-success toast">
-    <fa-icon [icon]="faCircleCheck" class="success-icon"></fa-icon>
-    <p class="toast-message">{{ message }}</p>
+<div *ngIf="showToast" class="toast" [class]="messageType">
+  <div class="icon-container">
+    <fa-icon [icon]="icons[messageType]"></fa-icon>
   </div>
 
-  <!-- Error Toast -->
-  <div *ngSwitchCase="'error'" class="toast-error toast">
-    <fa-icon [icon]="faCircleExclamation" class="error-icon"></fa-icon>
-    <p class="toast-message">{{ message }}</p>
-  </div>
+  <p class="message">{{ message }}</p>
 
-  <!-- Warning Toast -->
-  <div *ngSwitchCase="'warning'" class="toast-warning toast">
-    <fa-icon [icon]="faTriangleExclamation" class="warning-icon"></fa-icon>
-    <p class="toast-message">{{ message }}</p>
-  </div>
+  <button *ngIf="dismissible" class="dismiss-button" (click)="dismiss()">
+    <fa-icon [icon]="faXmark"></fa-icon>
+  </button>
 
-  <!-- Info Toast -->
-  <div *ngSwitchCase="'info'" class="toast-info toast">
-    <fa-icon [icon]="faCircleInfo" class="info-icon"></fa-icon>
-    <p class="toast-message">{{ message }}</p>
-  </div>
+  <div
+    *ngIf="duration > 0"
+    class="progress-bar"
+    [style.animation-duration]="duration + 'ms'"
+  ></div>
 </div>

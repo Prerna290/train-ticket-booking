@@ -1,43 +1,42 @@
 .toast {
-  @apply flex items-center px-4 py-2 rounded-lg shadow-lg border-2 border-solid fixed top-4 right-12 z-50 space-y-4 m-0 bg-white;
+  @apply flex items-center gap-3 md:p-4 p-3 rounded-lg shadow-lg border-2 border-solid border-t-8 fixed top-4 md:right-12 right-3 z-50 m-0 transition-all duration-300 ease-out;
 }
 
-.toast-success {
-  @apply border-green-600 shadow-md shadow-green-600;
+.toast.success {
+  @apply bg-green-50 border-green-600 text-green-800 dark:bg-green-950 dark:border-green-700 dark:text-green-100;
 }
 
-.toast-error {
-  @apply border-red-500 shadow-md shadow-red-500;
+.toast.error {
+  @apply bg-red-50 border-red-600 text-red-800 dark:bg-red-950 dark:border-red-700 dark:text-red-100;
 }
 
-.toast-warning {
-  @apply border-yellow-500 shadow-md shadow-yellow-500;
+.icon-container {
+  @apply flex-shrink-0;
 }
 
-.toast-info {
-  @apply border-blue-500 shadow-md shadow-blue-500;
-}
-
-fa-icon {
-  @apply flex flex-shrink-0 mr-2 h-6 w-6 items-center justify-center;
-}
-
-.success-icon {
-  @apply text-green-600;
-}
-
-.error-icon {
-  @apply text-red-500;
-}
-
-.warning-icon {
-  @apply text-yellow-500;
-}
-
-.info-icon {
-  @apply text-blue-500;
+.icon-container fa-icon {
+  @apply text-lg;
 }
 
 .toast-message {
   @apply text-sm font-normal m-0 !important;
+}
+
+.dismiss-button {
+  @apply flex-shrink-0 p-1 -m-1 rounded-full hover:bg-opacity-10 hover:bg-current focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current transition-colors duration-150;
+}
+
+.progress-bar {
+  @apply absolute bottom-0 left-0 h-1 w-full bg-current opacity-20;
+  @apply origin-left;
+  animation: progress linear forwards;
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
 }

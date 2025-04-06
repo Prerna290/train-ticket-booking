@@ -135,9 +135,9 @@ export class AdminComponent implements OnInit {
             this.filteredTrains = this.trainList;
             this.cdr.detectChanges();
             this.showDeleteConfirmation = false;
-            this.showSuccessToast();
+            this.toast?.showToastPopup('Train Deleted Successfully', 'success');
           } else {
-            this.showTrainDeleteError(res);
+            this.toast?.showToastPopup(res, 'error');
           }
         });
     }
@@ -187,18 +187,6 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  showSuccessToast() {
-    if (this.toast) {
-      this.toast.showToastPopup('Train Deleted Successfully', 'success');
-    }
-  }
-
-  showTrainDeleteError(errorMessage: string) {
-    if (this.toast) {
-      this.toast.showToastPopup(errorMessage, 'error');
-    }
-  }
-
   handleTrainAdded(newTrain: ITrain) {
     if (this.stationList) {
       //The res we are getting after adding new train doesn't includes the departureStation.stationName and arrivalStation.stationName, so we call another api stationList, and map stationId with departureStationId returned by res from new train api
@@ -216,7 +204,7 @@ export class AdminComponent implements OnInit {
       this.trainList.sort((a, b) => b.trainId - a.trainId);
       this.filteredTrains = this.trainList;
       this.showAddTrainPopup = false;
-      this.toast.showToastPopup('Train Added Successfully', 'success');
+      this.toast?.showToastPopup('Train Added Successfully', 'success');
     }
   }
 

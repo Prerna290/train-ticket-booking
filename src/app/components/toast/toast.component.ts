@@ -6,8 +6,10 @@ import {
   faCircleExclamation,
   faCircleInfo,
   faTriangleExclamation,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
+export type ToastType = 'success' | 'error';
 @Component({
   selector: 'app-toast',
   standalone: true,
@@ -18,25 +20,49 @@ import {
 export class ToastComponent {
   @Input() message = '';
   @Input() duration = 7000;
-  @Input() messageType: 'success' | 'error' | 'warning' | 'info' = 'success';
+  @Input() messageType: ToastType = 'success';
+  @Input() dismissible = false;
   showToast = false;
-  faCircleCheck = faCircleCheck;
-  faTriangleExclamation = faTriangleExclamation;
-  faCircleExclamation = faCircleExclamation;
-  faCircleInfo = faCircleInfo;
+  timeout: any;
+
+  icons = {
+    success: faCircleCheck,
+    error: faCircleExclamation,
+    warning: faTriangleExclamation,
+    info: faCircleInfo,
+  };
+  faXmark = faXmark;
 
   ngOnInit() {}
 
-  showToastPopup(
-    message: string,
-    messageType: 'success' | 'error' | 'warning' | 'info'
-  ) {
+  showToastPopup(message: string, messageType: ToastType) {
     this.message = message;
     this.messageType = messageType;
     this.showToast = true;
-    setTimeout(() => {
-      this.showToast = false;
-      this.message = '';
-    }, this.duration);
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+
+    if (this.duration > 0) {
+      this.timeout = setTimeout(() => {
+        this.showToast = false;
+        this.message = '';
+      }, this.duration);
+    }
+  }
+
+  dismiss() {
+    this.showToast = false;
+    this.message = '';
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
   }
 }

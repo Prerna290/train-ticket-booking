@@ -2,7 +2,7 @@
 This is particularly helpful for centering or stretching elements. */
 
 .auth-overlay {
-  @apply fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50;
+  @apply fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50;
   @apply bg-gradient-to-br from-gray-900/90 to-gray-900/70;
 }
 
