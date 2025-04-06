@@ -4,10 +4,16 @@
 
 .toast.success {
   @apply bg-green-50 border-green-600 text-green-800 dark:bg-green-950 dark:border-green-700 dark:text-green-100;
+  .dismiss-button {
+    @apply text-green-800 dark:text-green-100 hover:text-green-600 dark:hover:text-green-700;
+  }
 }
 
 .toast.error {
   @apply bg-red-50 border-red-600 text-red-800 dark:bg-red-950 dark:border-red-700 dark:text-red-100;
+  .dismiss-button {
+    @apply text-red-800 dark:text-red-100 hover:text-red-600 dark:hover:text-red-700;
+  }
 }
 
 .icon-container {
@@ -23,7 +29,7 @@
 }
 
 .dismiss-button {
-  @apply flex-shrink-0 p-1 -m-1 rounded-full hover:bg-opacity-10 hover:bg-current focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current transition-colors duration-150;
+  @apply flex-shrink-0 p-1 rounded-full transition-colors duration-150;
 }
 
 .progress-bar {
