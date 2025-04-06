@@ -1,13 +1,14 @@
-<div class="container-div">
-  <form class="form">
+<div class="search-container">
+  <form class="search-form">
     <!-- From Location -->
-    <div class="location-select">
-      <fa-icon [icon]="faLocationDot"></fa-icon>
-      <label for="fromStation" class="from-label">From:</label>
+    <div class="form-field">
+      <fa-icon [icon]="faLocationDot" class="form-icon"></fa-icon>
+      <label for="fromStation" class="form-label">From:</label>
       <select
         id="fromStation"
         name="fromStation"
         [(ngModel)]="searchData.fromStationId"
+        class="form-select"
       >
         <option *ngFor="let station of stationList" [value]="station.stationID">
           {{ station.stationName }}
@@ -16,18 +17,19 @@
     </div>
 
     <!-- Arrow Icon -->
-    <div class="arrow-icon">
+    <button type="button" class="swap-button" (click)="swapStations()">
       <fa-icon [icon]="faArrowRightArrowLeft"></fa-icon>
-    </div>
+    </button>
 
     <!-- To Location -->
-    <div class="location-select">
-      <fa-icon [icon]="faLocationDot"></fa-icon>
-      <label for="toStation" class="to-label">To:</label>
+    <div class="form-field">
+      <fa-icon [icon]="faLocationDot" class="form-icon"></fa-icon>
+      <label for="toStation" class="form-label">To:</label>
       <select
         id="toStation"
         name="toStation"
         [(ngModel)]="searchData.toStationId"
+        class="form-select"
       >
         <option *ngFor="let station of stationList" [value]="station.stationID">
           {{ station.stationName }}
@@ -36,24 +38,25 @@
     </div>
 
     <!-- Date Picker -->
-    <div class="date-picker">
-      <fa-icon [icon]="faCalendarDays"></fa-icon>
-      <label for="datePicker" class="date-label">Date:</label>
+    <div class="form-field">
+      <fa-icon [icon]="faCalendarDays" class="form-icon"></fa-icon>
+      <label for="datePicker" class="form-label">Date:</label>
       <input
         type="date"
         id="datePicker"
         name="datePicker"
         [(ngModel)]="searchData.dateOfTravel"
+        class="form-input"
       />
     </div>
 
     <!-- Search Button -->
     <button type="submit" class="submit-btn" (click)="getSearchResults()">
-      Modify Search
+      Search Trains
     </button>
   </form>
 
-  <div *ngIf="trainSearchResults.length === 0 && isLoading" class="loader">
+  <div *ngIf="isLoading" class="loader">
     <app-loader></app-loader>
   </div>
 
@@ -61,31 +64,35 @@
     *ngIf="trainSearchResults.length > 0 && !isLoading"
     class="total-results"
   >
-    <span>{{ trainSearchResults.length }}</span> result{{
+    <span class="results-count">{{ trainSearchResults.length }}</span> result{{
       trainSearchResults.length > 1 ? "s" : ""
     }}
-    found on
-    <span>{{ searchData.dateOfTravel | date : "fullDate" }}</span>
+    found for
+    <span class="travel-date">{{
+      searchData.dateOfTravel | date : "fullDate"
+    }}</span>
   </div>
 
   <div *ngIf="trainSearchResults.length === 0 && !isLoading" class="no-results">
-    No trains found for the selected criteria.
+    <img src="images/empty-state.png" alt="No Results Found" />
+    <p>No trains found for the selected criteria.</p>
+    <p>Please try different stations or date.</p>
   </div>
 
   <div class="container train-details-container">
     <div
       *ngFor="let train of trainSearchResults; let i = index"
-      class="train-list"
+      class="train-card"
     >
-      <div class="id-name">
-        <div>
-          <span class="train-name">{{ train.trainName }}</span
-          >&nbsp;<span class="train-no">({{ train.trainNo }})</span>
+      <div class="train-header">
+        <div class="train-info">
+          <h3 class="train-name">{{ train.trainName }}</h3>
+          <span class="train-number">({{ train.trainNo }})</span>
         </div>
-        <div class="arival-departure-station">
-          <span>{{ train.departureStationName }}</span
-          ><fa-icon [icon]="faArrowRightArrowLeft"></fa-icon
-          ><span>{{ train.arrivalStationName }}</span>
+        <div class="train-route">
+          <span class="station">{{ train.departureStationName }}</span>
+          <fa-icon [icon]="faArrowRightArrowLeft" class="route-icon"></fa-icon>
+          <span class="station">{{ train.arrivalStationName }}</span>
         </div>
       </div>
       <div class="timings">
@@ -99,41 +106,38 @@
         <div class="timing">
           <span class="label">Arrival:</span>
           <span class="value">
-            {{
-              calculateArrivalDate(
-                train.departureDate,
-                train.arrivalTime,
-                train.departureTime
-              )
-            }}
+            {{ train.arrivalDate }}
             | {{ train.arrivalTime }}
           </span>
         </div>
         <div class="timing">
-          <span class="label">Journey Time:</span>
+          <span class="label">Duration</span>
           <span class="value">
-            {{
-              calculateTotalJourneyTime(train.departureTime, train.arrivalTime)
-            }}
+            {{ train.journeyTime }}
           </span>
         </div>
       </div>
       <div class="book-ticket-availability">
-        <div class="check-availability">
-          <button class="availability" (click)="toggleCheckAvailability(i)">
-            Check Availability
-          </button>
-          <p *ngIf="showTicketAvailability[i]" class="total-seats-available">
-            Seats Available:
-            <span>{{ train.totalSeats - train.bookedSeats }}</span>
-          </p>
+        <button
+          class="availability-button"
+          (click)="toggleCheckAvailability(i)"
+        >
+          <fa-icon [icon]="faCircleInfo" class="mr-1"></fa-icon>
+          Check Availability
+        </button>
+
+        <div *ngIf="showTicketAvailability[i]" class="availability-info">
+          Seats Available:
+          <span class="seats-available">{{
+            train.totalSeats - train.bookedSeats
+          }}</span>
         </div>
         <button
           [disabled]="train.totalSeats - train.bookedSeats === 0"
           class="book-train"
           (click)="openBookTicketPopup(i)"
         >
-          Book Ticket
+          Book Now
         </button>
       </div>
       <div *ngIf="openBookTicket[i]">

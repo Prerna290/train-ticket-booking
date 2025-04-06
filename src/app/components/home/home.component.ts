@@ -92,10 +92,9 @@ export class HomeComponent {
   }
 
   swapStations() {
-    const { fromStation, toStation } = this.stationForm.value;
     this.stationForm.patchValue({
-      fromStation: toStation,
-      toStation: fromStation,
+      fromStation: this.stationForm.value.toStation,
+      toStation: this.stationForm.value.fromStation,
     });
     this.showSameLocationError = false;
   }

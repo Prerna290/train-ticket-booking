@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ISearch, IStation, ITrain } from '../../model/train';
 import { TicketBookingService } from '../../services/ticket-booking.service';
-import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
@@ -12,6 +11,7 @@ import {
   faCircleInfo,
   faLocationDot,
   faTrain,
+  faArrowRightArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { BookTicketComponent } from '../book-ticket/book-ticket.component';
 import { LoaderComponent } from '../loader/loader.component';
@@ -36,19 +36,17 @@ export class SearchComponent {
   stationList: IStation[] = [];
   showTicketAvailability = [false];
 
-  activatedRoute = inject(ActivatedRoute);
-
   faArrowRightArrowLeft = faArrowRightArrowLeft;
   faTrain = faTrain;
   faLocationDot = faLocationDot;
   faCalendarDays = faCalendarDays;
   faCircleInfo = faCircleInfo;
-  moment = moment;
   openBookTicket: boolean[] = [false];
   isLoading = false;
 
   private ticketBookingService = inject(TicketBookingService);
   private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
 
   constructor() {}
 
@@ -189,5 +187,11 @@ export class SearchComponent {
 
   formatDepartureTime(departureTime: string) {
     return moment(departureTime).format('MMM Do YYYY');
+  }
+
+  swapStations() {
+    const temp = this.searchData.fromStationId;
+    this.searchData.fromStationId = this.searchData.toStationId;
+    this.searchData.toStationId = temp;
   }
 }

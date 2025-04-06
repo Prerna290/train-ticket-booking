@@ -1,125 +1,128 @@
-.container-div {
-  @apply bg-white dark:bg-gray-900 pb-6 min-h-[85dvh];
+.search-container {
+  @apply bg-background-secondary dark:bg-background-dark-secondary min-h-screen pb-8;
 }
 
 .total-results {
-  @apply py-5 px-10 text-lg font-medium bg-blue-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200;
+  @apply bg-blue-100 dark:bg-gray-700 p-4 rounded-lg text-center text-gray-700 dark:text-gray-300;
+}
 
-  span {
-    @apply font-bold text-gray-700 dark:text-white;
-  }
+.results-count {
+  @apply font-bold text-primary-500 dark:text-primary-400;
 }
 
 .no-results {
-  @apply p-5 text-lg font-medium text-center text-red-500 dark:text-gray-300;
+  @apply flex flex-col items-center justify-center p-8 text-center;
+}
+
+.no-results p {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.travel-date {
+  @apply font-semibold text-gray-800 dark:text-gray-200;
 }
 
 .train-details-container {
-  @apply mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 my-10;
+  @apply mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mt-8;
+}
 
-  .train-list {
-    @apply pb-4 rounded-lg border border-solid border-gray-200 bg-white  dark:bg-gray-800;
+.train-card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-borderColor-light dark:border-borderColor-dark;
 
-    .id-name {
-      @apply flex flex-row justify-between items-center bg-blue-100 dark:bg-gray-700 py-4 px-6 rounded-t-lg;
+  .train-header {
+    @apply bg-blue-50 dark:bg-gray-700 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2;
 
-      .train-name {
-        @apply text-base font-semibold text-black dark:text-white;
-      }
-
-      .arival-departure-station {
-        @apply text-sm flex items-center;
-
-        span {
-          @apply font-medium text-black dark:text-white;
-        }
-
-        fa-icon {
-          @apply mx-3 font-normal text-gray-700 dark:text-gray-200;
-        }
-      }
+    .train-name {
+      @apply text-lg font-semibold text-gray-900 dark:text-white;
     }
 
-    .label {
-      @apply text-xs text-gray-600 dark:text-gray-400;
+    .train-route {
+      @apply text-sm flex gap-2 items-center;
     }
 
-    .value {
-      @apply text-sm font-medium text-gray-800 dark:text-gray-200;
+    .station {
+      @apply font-medium text-gray-900 dark:text-gray-200;
     }
 
-    .timings {
-      @apply grid grid-cols-1 md:grid-cols-3 gap-4 py-4 px-6;
+    .route-icon {
+      @apply text-gray-500 dark:text-gray-400 text-xs;
     }
+  }
 
-    .timing {
-      @apply flex flex-col;
-    }
+  .train-info {
+    @apply flex items-center gap-2;
+  }
 
-    .train-no {
-      @apply text-sm font-medium text-blue-700 dark:text-blue-500 mb-2;
-    }
+  .label {
+    @apply text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wider;
+  }
+
+  .value {
+    @apply text-sm font-medium text-gray-800 dark:text-gray-200;
+  }
+
+  .timings {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4 p-4;
+  }
+
+  .timing {
+    @apply flex flex-col;
+  }
+
+  .train-number {
+    @apply text-sm font-medium text-primary-400;
   }
 }
 
 .book-ticket-availability {
-  @apply flex justify-between px-6;
-  .book-train {
-    @apply py-1 px-3 bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors duration-300 rounded-md text-white text-xs;
-  }
-
-  .check-availability {
-    @apply flex flex-row items-center gap-2;
-
-    .availability {
-      @apply py-1 px-2 bg-orange-400 hover:bg-orange-500 dark:bg-orange-500 dark:hover:bg-orange-600 transition-colors duration-300 rounded-md text-white text-xs;
-    }
-  }
+  @apply flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-t border-gray-200 dark:border-gray-700;
 }
 
-.total-seats-available {
-  @apply m-0 text-gray-800 dark:text-white font-medium text-sm;
-  span {
-    @apply font-medium;
-  }
+.availability-button {
+  @apply flex items-center text-sm text-primary-500 dark:text-primary-400 hover:text-blue-600 dark:hover:text-highlight-dark-blue transition-colors;
 }
 
-.form {
+.availability-info {
+  @apply text-sm text-gray-700 dark:text-gray-300;
+}
+
+.seats-available {
+  @apply font-bold text-primary-500 dark:text-primary-400;
+}
+
+.book-train {
+  @apply text-primary-500 border-2 border-solid border-blue-100 dark:bg-primary-400 dark:hover:bg-primary-500 py-2 px-4 rounded-md shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.search-form {
   @apply flex flex-col md:flex-row items-center p-10 shadow-2xl w-full gap-6 bg-white dark:bg-gray-800 py-10;
+}
 
-  .location-select,
-  .date-picker {
-    @apply flex items-center p-3 rounded-full text-lg bg-gray-100 text-gray-800 w-full shadow-md hover:shadow-lg dark:bg-gray-300 dark:text-gray-500 transition-shadow duration-300;
+.form-field {
+  @apply flex items-center p-3 rounded-lg text-lg bg-gray-50 w-full shadow-md hover:shadow-lg dark:bg-gray-700 hover:border hover:border-solid hover:border-primary-400 transition-shadow duration-300;
+}
 
-    fa-icon {
-      @apply text-Dark-Cyan dark:text-teal-400 mr-2 text-xl;
-    }
+.form-icon {
+  @apply text-primary-500 dark:text-primary-400 text-lg mr-3;
+}
 
-    .from-label,
-    .to-label,
-    .date-label {
-      @apply text-base text-gray-700 mr-2;
-    }
+.form-label {
+  @apply text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap mr-1;
+}
 
-    select,
-    input {
-      @apply bg-transparent focus:outline-none w-full text-black;
-    }
-  }
+.form-select,
+.form-input {
+  @apply bg-transparent border-none focus:outline-none text-gray-900 dark:text-gray-100 text-base font-medium w-full;
+}
 
-  .submit-btn {
-    @apply bg-yellow-500 dark:bg-yellow-600 text-white font-medium text-lg p-3 rounded-full shadow-lg hover:bg-yellow-400 dark:hover:bg-yellow-500 transition-colors duration-300 w-full md:w-auto;
-  }
+.swap-button {
+  @apply flex items-center justify-center w-12 h-12 flex-shrink-0 p-2 rounded-full transition-all duration-300 bg-primary-500 text-white shadow-lg hover:bg-primary-400 hover:shadow-xl;
+}
 
-  .arrow-icon {
-    @apply flex flex-row justify-center w-fit text-xl text-black dark:text-white;
-  }
-
-  .submit-btn {
-    @apply bg-yellow-500 text-white font-medium text-lg p-4 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 text-nowrap;
-  }
+.submit-btn {
+  @apply bg-yellow text-white flex-shrink-0 font-medium text-lg py-3 px-6 rounded-full shadow-md hover:shadow-lg hover:bg-yellow-600 transition-colors hover:bg-primary-400 w-full md:w-auto;
 }
 
 .loader {
-  @apply my-14;
+  @apply flex justify-center items-center py-16;
 }
