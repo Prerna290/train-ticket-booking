@@ -14,7 +14,7 @@
         <a routerLink="/home" class="action-link"
           ><fa-icon [icon]="faHouse"></fa-icon>Home Page
         </a>
-        <a *ngIf="isUserLoggedIn" routerLink="/bookings" class="action-link">
+        <a routerLink="/bookings" class="action-link">
           <fa-icon [icon]="faClipboardList"></fa-icon>My Bookings
         </a>
         <a *ngIf="isAdmin" routerLink="/admin" class="action-link"

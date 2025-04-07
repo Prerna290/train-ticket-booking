@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { TicketBookingService } from '../../services/ticket-booking.service';
 import { IBooking, IUser } from '../../model/train';
 import { CommonModule } from '@angular/common';
@@ -34,18 +34,21 @@ export class MyBookingsComponent {
 
   private ticketBookingService = inject(TicketBookingService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.ticketBookingService.userData$.subscribe((data) => {
       this.userData = data;
+      if (this.userData) {
+        this.getMyBookings();
+      }
     });
   }
 
   ngAfterViewInit() {
-    if (this.userData) {
-      this.getMyBookings();
-    } else {
+    if (!this.userData) {
       this.toast?.showToastPopup('Please log in to see your bookings', 'error');
+      this.cdr.detectChanges();
       setTimeout(() => {
         this.router.navigate(['/login']);
       }, 3000);

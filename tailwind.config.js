@@ -73,7 +73,8 @@ module.exports = {
 // red-600: #DC2626;
 // red-700 → "#B91C1C";
 // red-800: #991B1B;
-// red-900/20 → rgba(127, 29, 29, 0.2) (Equivalent to #7F1D1D with 20% opacity)
+// red-900/20 → rgba(127, 29, 29, 0.2) (Equivalent to #7F1D1D with 20% opacity);
+// red-950: "#450a0a";
 
 // blue-50: "#EFF6FF";
 // blue-100: "#DBEAFE";
@@ -81,6 +82,13 @@ module.exports = {
 // blue-500: "#3B82F6";
 // blue-600: "#2563EB";
 // blue-900/20 → rgba(30, 58, 138, 0.2) (Equivalent to #1E3A8A with 20% opacity)
+
+// green-50: "#f0fdf4";
+// green-100: "#dcfce7";
+// green-600: "#16a34a";
+// green-700: "#15803d";
+// green-800: "#166534";
+// green-950: "#052e16";
 
 // white: #FFFFFF;
 

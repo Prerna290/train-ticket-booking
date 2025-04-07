@@ -6,9 +6,7 @@
     </div>
     <div class="footer-links">
       <a routerLink="/home" class="footer-link">Home</a>
-      <a *ngIf="userData" routerLink="/bookings" class="footer-link"
-        >My Bookings</a
-      >
+      <a routerLink="/bookings" class="footer-link">My Bookings</a>
       <a *ngIf="isAdmin" routerLink="/admin" class="footer-link">Admin</a>
       <a *ngIf="!userData" routerLink="/login" class="footer-link">Login</a>
     </div>
