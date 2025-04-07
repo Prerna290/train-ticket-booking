@@ -5,33 +5,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "light-primary": "#2D3748", // Light Mode Primary Text
-        secondary: "#4A5568", // Light Mode Secondary Text
-        muted: "#718096", // Light Mode Muted Text
-        "dark-primary": "#F8FAFC", // Dark Mode Primary Text
-        "dark-secondary": "#D1D5DB", // Dark Mode Secondary Text
-        "dark-muted": "#94A3B8", // Dark Mode Muted Text
+        "light-primary": "#2D3748",
+        secondary: "#4A5568",
+        muted: "#718096",
+        "dark-primary": "#F8FAFC",
+        "dark-secondary": "#D1D5DB",
+        "dark-muted": "#94A3B8",
+        yellow: "#FFC107",
         primary: {
           500: "#1A365D", // Main Brand
           400: "#3B82F6", // Dark Mode Brand
         },
         background: {
-          default: "#F7FAFC", // Light Mode Main Background
-          secondary: "#EFF6FF", // Light Mode Secondary Background
-          dark: "#111827", // Dark Mode Main Background
-          // "dark-secondary": "#1E293B",
-          "dark-secondary": "#121926", // Dark Mode Secondary Background
+          default: "#F7FAFC",
+          secondary: "#EFF6FF",
+          dark: "#111827",
+          "dark-secondary": "#121926",
         },
         borderColor: {
-          light: "#CBD5E1", // Light Mode Border
-          dark: "#334155", // Dark Mode Border
+          light: "#CBD5E1",
+          dark: "#334155",
         },
-        success: "#10B981",
-        error: "#E53E3E",
-        yellow: "#FFC107",
         highlight: {
-          blue: "#3182CE", // Light Mode
-          "dark-blue": "#2C7A7B", // Dark Mode
+          blue: "#3182CE",
+          "dark-blue": "#2C7A7B",
         },
       },
       spacing: {
@@ -43,9 +40,7 @@ module.exports = {
   plugins: [],
 };
 
-// List of all colors used in entire website
-
-// Tailwind
+// List of tailwind colors used in entire website
 // gray-100: "#F3F4F6";
 // gray-200: #E5E5E5;
 // gray-300: #D1D1D1;
@@ -65,7 +60,7 @@ module.exports = {
 // red-600: #DC2626;
 // red-700 → "#B91C1C";
 // red-800: #991B1B;
-// red-900/20 → rgba(127, 29, 29, 0.2) (Equivalent to #7F1D1D with 20% opacity);
+// red-900/20 → rgba(127, 29, 29, 0.2);
 // red-950: "#450a0a";
 
 // blue-50: "#EFF6FF";
@@ -73,7 +68,7 @@ module.exports = {
 // blue-400: "#60A5FA";
 // blue-500: "#3B82F6";
 // blue-600: "#2563EB";
-// blue-900/20 → rgba(30, 58, 138, 0.2) (Equivalent to #1E3A8A with 20% opacity)
+// blue-900/20 → rgba(30, 58, 138, 0.2);
 
 // green-50: "#f0fdf4";
 // green-100: "#dcfce7";
@@ -83,22 +78,3 @@ module.exports = {
 // green-950: "#052e16";
 
 // white: #FFFFFF;
-
-// Custom
-// primary-500: #1A365D; (Also bg-primary-500/90)
-// Primary-400: #3B82F6;
-// background-secondary: #F3F4F6;
-// background-dark-secondary: #1F2937;
-// background-default: "#F7FAFC";
-// background-dark: "#111827";
-// secondary: "#4A5568";
-// dark-secondary: "#D1D5DB";
-// muted: "#718096";
-// "dark-muted": "#94A3B8",
-// light-primary: "#2D3748";
-// dark-primary: "#F8FAFC"
-// borderColor-light: "#CBD5E1";
-// borderColor-dark: #334155";
-// highlight-blue: #3182CE";
-// highlight-dark-blue: "#2C7A7B";
-// yellow: "#FFC107";

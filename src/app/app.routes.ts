@@ -34,6 +34,6 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  { path: '**', redirectTo: '404' },
   { path: '404', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '404' },
 ];
