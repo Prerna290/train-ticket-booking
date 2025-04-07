@@ -40,7 +40,7 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  @ViewChild('dropdownContainer', { static: false })
+  @ViewChild('dropdownContainer')
   dropdownContainer!: ElementRef;
   @ViewChild(ToastComponent)
   toast!: ToastComponent;
@@ -55,18 +55,13 @@ export class AppComponent {
   faUserCircle = faUserCircle;
   faSignOutAlt = faSignOutAlt;
   faUserPlus = faUserPlus;
-  faSignInAlt = faSignInAlt;
   faMoon = faMoon;
   faSun = faSun;
   faClipboardList = faClipboardList;
-  faUser = faUser;
-  faEnvelope = faEnvelope;
 
   userData!: IUser;
   isDropdownOpen = false;
-
   isDarkMode = false;
-  userTheme = '';
   isAdmin = false;
 
   constructor() {}
@@ -77,6 +72,12 @@ export class AppComponent {
       this.userData = userData;
       this.isAdmin = this.authService.checkIsAdmin();
     });
+  }
+
+  getUserInitials(): string {
+    return this.userData.lastName
+      ? `${this.userData.firstName[0]}${this.userData.lastName[0]}`.toUpperCase()
+      : this.userData.firstName.slice(0, 2).toUpperCase();
   }
 
   logoutProfile() {

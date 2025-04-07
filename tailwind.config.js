@@ -5,14 +5,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "Dark-Cyan": "#008A90",
-        "Charleston-Green": "#222831",
-        "Persian-Green": "#00A896",
-        "yellow-400": "#00A896",
-        "yellow-500": "#00A896",
-        "orange-500": "#00A896",
-        "yellow-600": "#00A896",
-        //From Here
         "light-primary": "#2D3748", // Light Mode Primary Text
         secondary: "#4A5568", // Light Mode Secondary Text
         muted: "#718096", // Light Mode Muted Text

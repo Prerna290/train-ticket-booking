@@ -1,71 +1,77 @@
-<app-toast #toast></app-toast>
-<div>
-  <nav>
-    <div class="container nav-container">
-      <a class="logo" routerLink="/home">
-        <fa-icon [icon]="faTrain"></fa-icon>
-        <span class="title">RailConnect</span>
+<div class="app-container">
+  <app-toast #toast></app-toast>
+
+  <nav class="navbar">
+    <div class="nav-container container">
+      <a routerLink="/home" class="logo">
+        <div class="logo-icon">
+          <fa-icon [icon]="faTrain"></fa-icon>
+        </div>
+        <span class="logo-text">RailConnect</span>
       </a>
-      <div class="links">
-        <button *ngIf="!isDarkMode" class="moon-icon" (click)="toggleTheme()">
-          <fa-icon [icon]="faMoon"></fa-icon>
-        </button>
-        <button *ngIf="isDarkMode" class="sun-icon" (click)="toggleTheme()">
-          <fa-icon [icon]="faSun"></fa-icon>
+
+      <div class="nav-links">
+        <button (click)="toggleTheme()" class="theme-toggle">
+          <fa-icon
+            [icon]="isDarkMode ? faSun : faMoon"
+            class="theme-icon"
+          ></fa-icon>
         </button>
 
         <ng-container *ngIf="userData; else loggedOutTemplate">
-          <div
-            *ngIf="userData"
-            class="user-icon"
-            (click)="toggleDropdown()"
-            #dropdownContainer
-          >
-            {{
-              userData.lastName
-                ? userData.firstName[0].toUpperCase() +
-                  userData.lastName[0].toUpperCase()
-                : userData.firstName.slice(0, 2).toUpperCase()
-            }}
-          </div>
-          <div *ngIf="isDropdownOpen" class="dropdown">
-            <ul>
-              <li>
-                <fa-icon [icon]="faUser"></fa-icon>
-                <span
-                  >{{ userData.firstName.toUpperCase() }}
-                  {{ userData.lastName.toUpperCase() }}</span
-                >
-              </li>
-              <li>
-                <fa-icon [icon]="faEnvelope"></fa-icon>
-                <span>{{ userData.email }}</span>
-              </li>
+          <div class="user-dropdown" #dropdownContainer>
+            <button (click)="toggleDropdown()" class="user-button">
+              {{ getUserInitials() }}
+            </button>
 
-              <hr class="horizontal-line" />
-              <li [routerLink]="'/bookings'">
-                <fa-icon [icon]="faClipboardList"></fa-icon>My Bookings
-              </li>
-              <li *ngIf="isAdmin" [routerLink]="'/admin'">
-                <fa-icon [icon]="faUserCircle"></fa-icon>Admin
-              </li>
-              <li (click)="logoutProfile()">
-                <fa-icon [icon]="faSignOutAlt"></fa-icon>Sign Out
-              </li>
-            </ul>
+            <div *ngIf="isDropdownOpen" class="dropdown-menu">
+              <div class="user-info">
+                <p class="user-name">
+                  {{ userData.firstName }} {{ userData.lastName }}
+                </p>
+                <p class="user-email">{{ userData.email }}</p>
+              </div>
+
+              <div>
+                <a
+                  routerLink="/bookings"
+                  class="menu-item"
+                  (click)="isDropdownOpen = false"
+                >
+                  <fa-icon [icon]="faClipboardList" class="menu-icon"></fa-icon>
+                  My Bookings
+                </a>
+
+                <a
+                  *ngIf="isAdmin"
+                  routerLink="/admin"
+                  class="menu-item"
+                  (click)="isDropdownOpen = false"
+                >
+                  <fa-icon [icon]="faUserCircle" class="menu-icon"></fa-icon>
+                  Admin Dashboard
+                </a>
+
+                <button (click)="logoutProfile()" class="menu-item">
+                  <fa-icon [icon]="faSignOutAlt" class="menu-icon"></fa-icon>
+                  Sign Out
+                </button>
+              </div>
+            </div>
           </div>
         </ng-container>
 
         <ng-template #loggedOutTemplate>
-          <button routerLink="/login" class="register-btn">
+          <a routerLink="/login" class="signup-button">
             <fa-icon [icon]="faUserPlus"></fa-icon>
             <span>Sign Up</span>
-          </button>
+          </a>
         </ng-template>
       </div>
     </div>
   </nav>
-</div>
 
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+  <router-outlet></router-outlet>
+
+  <app-footer></app-footer>
+</div>

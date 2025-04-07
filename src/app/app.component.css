@@ -1,66 +1,72 @@
-nav {
-  @apply dark:bg-gray-900 bg-indigo-50 shadow-lg border-0 border-b-2 border-solid dark:border-teal-400 border-Dark-Cyan;
+.app-container {
+  @apply flex flex-col min-h-screen bg-background-default dark:bg-background-dark transition-colors duration-300;
+}
+
+.navbar {
+  @apply bg-background-secondary dark:bg-gray-900 shadow-md border-b-2 border-solid border-primary-500 dark:border-primary-400;
 
   .nav-container {
     @apply mx-auto flex items-center justify-between py-4 px-6;
   }
+}
 
-  .logo {
-    @apply flex items-center md:text-2xl text-lg font-bold text-Dark-Cyan dark:text-teal-400 hover:text-teal-500  dark:hover:text-teal-300;
+.logo {
+  @apply flex items-center gap-2  hover:scale-110;
 
-    fa-icon {
-      @apply md:text-2xl text-xl;
-    }
-
-    .title {
-      @apply md:ml-3 ml-2 tracking-wide;
-    }
+  .logo-icon {
+    @apply text-primary-500 dark:text-primary-400 text-2xl transition-transform duration-300;
   }
 
-  .links {
-    @apply flex md:gap-6 gap-4 items-center;
+  .logo-text {
+    @apply text-xl font-semibold tracking-wide text-primary-500 dark:text-primary-400 transition-colors duration-300;
   }
+}
 
-  .dropdown {
-    @apply absolute right-[200px] top-16 mt-2 shadow-2xl bg-gray-100 dark:bg-gray-800 rounded-xl z-50 cursor-pointer;
+.nav-links {
+  @apply flex items-center md:gap-6 gap-4;
+}
 
-    ul {
-      @apply p-2 flex flex-col;
+.theme-toggle {
+  @apply p-2 w-10 h-10 flex items-center justify-center rounded-full text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-400;
+}
 
-      li {
-        @apply text-gray-600 dark:text-gray-100 p-2 hover:bg-gray-200 dark:hover:text-gray-600 rounded-md flex flex-row items-center;
-        fa-icon {
-          @apply mr-2 text-lg h-5 w-5 flex items-center justify-center;
-        }
-      }
+.theme-icon {
+  @apply text-lg;
+}
 
-      .horizontal-line {
-        @apply border border-Dark-Cyan dark:border-Persian-Green;
-      }
-    }
-  }
+.user-dropdown {
+  @apply relative;
+}
 
-  .register-btn {
-    @apply flex items-center space-x-2 text-Dark-Cyan dark:text-teal-400 border p-2 border-solid border-Dark-Cyan dark:border-teal-400 rounded-md hover:text-teal-500  dark:hover:text-teal-300;
-  }
+.user-button {
+  @apply flex items-center justify-center w-10 h-10 rounded-full bg-primary-500 text-white border border-primary-500 transition-all duration-200 ease-in-out hover:bg-white hover:border-primary-500 hover:text-primary-500;
+  @apply dark:bg-primary-400 dark:border-primary-400 dark:hover:bg-background-secondary hover:border-primary-500 hover:text-primary-500 hover:border-2 font-medium hover:font-semibold;
+}
 
-  .user-icon {
-    @apply text-lg font-semibold cursor-pointer text-Dark-Cyan dark:text-teal-400 border-2 border-solid border-Dark-Cyan dark:border-teal-400  rounded-full px-2 py-1 hover:text-teal-500  dark:hover:text-teal-300;
-  }
+.dropdown-menu {
+  @apply absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg overflow-hidden z-50 border border-primary-500 dark:border-primary-400 transform transition-all duration-200 ease-out;
+}
 
-  .moon-icon {
-    @apply text-Charleston-Green;
+.user-info {
+  @apply px-4 py-3 border-b border-primary-500 dark:border-primary-400;
+}
 
-    fa-icon {
-      @apply text-lg;
-    }
-  }
+.user-name {
+  @apply text-sm font-medium text-gray-900 dark:text-gray-100 overflow-hidden;
+}
 
-  .sun-icon {
-    @apply text-gray-200;
+.user-email {
+  @apply text-sm text-gray-500 dark:text-gray-400 overflow-hidden;
+}
 
-    fa-icon {
-      @apply text-lg;
-    }
-  }
+.menu-item {
+  @apply flex w-full items-center px-4 py-2 text-sm text-light-primary dark:text-dark-primary hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
+}
+
+.menu-icon {
+  @apply mr-2 h-5 w-5 text-gray-500 dark:text-gray-400;
+}
+
+.signup-button {
+  @apply px-4 py-2 rounded-md text-sm font-medium text-white bg-primary-500 dark:bg-primary-400 hover:bg-primary-400 dark:hover:bg-primary-500 transition-colors flex items-center;
 }
