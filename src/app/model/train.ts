@@ -46,8 +46,8 @@ export interface IBookTicket {
   passengerId: number;
   travelDate: string | null;
   bookingDate: string;
-  totalSeats: 0;
-  TrainAppBookingPassengers: ITrainBookingPassengers;
+  totalSeats: number;
+  TrainAppBookingPassengers: ITrainBookingPassenger[];
 }
 
 export interface IBooking {
@@ -63,10 +63,10 @@ export interface IBooking {
   passengerName?: string;
   age?: number;
   bookingPassengerId?: number;
-  passengers: ITrainBookingPassengers[];
+  passengers: ITrainBookingPassenger[];
 }
 
-export interface ITrainBookingPassengers {
+export interface ITrainBookingPassenger {
   bookingPassengerId: number;
   passengerName: string;
   seatNo: number;
