@@ -1,72 +1,142 @@
-<button
-  class="sidebar-toggle"
-  [class.left]="position === 'left'"
-  [class.right]="position === 'right'"
-  (click)="toggleSidebar()"
->
-  {{ isCollapsed ? "☰" : "✕" }}
-</button>
 <nav
   class="sidebar"
-  [ngClass]="position === 'left' ? 'left' : 'right'"
-  [ngClass]="
-    width === 'small' ? 'small' : width === 'medium' ? 'medium' : 'large'
-  "
-  [class.collapsed]="isCollapsed"
+  [ngClass]="[
+    position === 'left' ? 'left' : 'right',
+    width === 'small' ? 'small' : width === 'medium' ? 'medium' : 'large',
+    isCollapsed ? 'collapsed' : ''
+  ]"
 >
-  <h3 class="sidebar-title" *ngIf="title">{{ title }}</h3>
+  <header *ngIf="title || collapsible" class="sidebar-header">
+    <h3 *ngIf="title">{{ title }}</h3>
+    <button
+      *ngIf="collapsible"
+      class="toggle-btn"
+      (click)="toggleSidebarState()"
+    >
+      {{ isCollapsed ? "☰" : "✕" }}
+    </button>
+  </header>
 
-  <ul class="sidebar-menu">
-    <ng-container *ngFor="let item of items; trackBy: trackByFn">
-      <!-- Section Headers -->
-      <li class="section-header" *ngIf="item.isHeader">
-        {{ item.label }}
-      </li>
+  <ul class="sidebar-menu" *ngIf="items?.length">
+    <!-- ; trackBy: trackByFn -->
+    <ng-container *ngFor="let item of items; trackBy: trackByFn; let i = index">
+      <div class="labels-list">
+        <li class="section-header">
+          <i *ngIf="item.icon" [class]="item.icon"></i>
+          {{ item.header }}
+        </li>
 
-      <!-- Regular Items -->
-      <li
+        <!-- Labels under the header -->
+        <li
+          *ngFor="let label of item.labels; let j = index"
+          class="menu-item"
+          [class.active]="activeItemPath === label.path"
+          [class.has-children]="label.children"
+        >
+          <p>{{ i }}</p>
+          <p>{{ j }}</p>
+          <a
+            (click)="onItemClick(label, $event)"
+            [routerLink]="label.path || null"
+            [ngStyle]="{
+              'background-color':
+                hoverItemIndex === i && hoverLabelIndex === j
+                  ? backgroundHighlightColor
+                  : 'transparent'
+            }"
+            (mouseenter)="hoverItemIndex = i; hoverLabelIndex = j"
+            (mouseleave)="hoverItemIndex = null; hoverLabelIndex = null"
+          >
+            <i
+              *ngIf="label.children?.length"
+              class="caret"
+              [class.rotated]="label.isExpanded !== false"
+              >▼</i
+            >
+            <span>{{ label.label }}</span>
+          </a>
+
+          <ul
+            *ngIf="label.children && label.isExpanded"
+            class="submenu"
+            role="menu"
+          >
+            <li
+              *ngFor="let child of label.children; let k = index"
+              [class.active]="activeItemPath === child.path"
+              class="submenu-item"
+            >
+              <!-- <p>{{ j }}</p> -->
+              <a
+                [routerLink]="child.path"
+                (click)="sidebarItemSelected.emit(child)"
+                [ngStyle]="{
+                  'background-color':
+                    hoverItemIndex === i &&
+                    hoverLabelIndex === j &&
+                    hoverChildIndex === k
+                      ? backgroundHighlightColor
+                      : 'transparent'
+                }"
+                (mouseenter)="
+                  hoverItemIndex = i; hoverLabelIndex = j; hoverChildIndex = k
+                "
+                (mouseleave)="hoverChildIndex = null"
+              >
+                {{ child.label }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+      <!-- Other headers as regular section headers -->
+      <!-- <li *ngIf="!first" class="section-header">
+        <i *ngIf="section.icon" [class]="section.icon"></i>
+        {{ section.header }}
+      </li> -->
+      <!-- Labels under other headers -->
+      <!-- <li
+        *ngFor="let label of section.labels; let i = index"
+        *ngIf="!first"
         class="menu-item"
-        [class.active]="activeItemPath === item.path"
-        [class.has-children]="item.children"
+        [class.active]="activeItemPath === label.path"
+        [class.has-children]="label.children"
       >
         <a
-          class="menu-link"
+          (click)="onItemClick(label, $event)"
+          [routerLink]="label.path || null"
           [style.background-color]="
-            activeItemPath === item.path ? highlightColor : ''
+            activeItemPath === label.path ? highlightColor : ''
           "
-          (click)="onItemClick(item, $event)"
-          [routerLink]="!item.children ? item.path : null"
         >
-          <i *ngIf="item.icon" class="icon" [class]="item.icon"></i>
-          <span class="label">{{ item.label }}</span>
+          <i *ngIf="label.icon" [class]="label.icon"></i>
+          <span>{{ label.label }}</span>
           <i
-            *ngIf="item.children"
+            *ngIf="label.children"
             class="caret"
-            [class.rotated]="item.isExpanded"
+            [class.rotated]="label.isExpanded"
             >▼</i
           >
         </a>
-
-        <!-- Children Items -->
-        <ul class="submenu" *ngIf="item.children && item.isExpanded">
+        <ul *ngIf="label.children && label.isExpanded" class="submenu">
           <li
-            *ngFor="let child of item.children"
-            class="submenu-item"
+            *ngFor="let child of label.children"
             [class.active]="activeItemPath === child.path"
           >
             <a
-              class="submenu-link"
+              [routerLink]="child.path"
+              (click)="itemClick.emit(child)"
               [style.background-color]="
                 activeItemPath === child.path ? highlightColor : ''
               "
-              (click)="itemClick.emit(child)"
-              [routerLink]="child.path"
             >
               {{ child.label }}
             </a>
           </li>
         </ul>
-      </li>
+      </li> -->
     </ng-container>
   </ul>
+
+  <ng-content></ng-content>
 </nav>

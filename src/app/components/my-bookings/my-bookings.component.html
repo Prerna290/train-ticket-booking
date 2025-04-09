@@ -1,4 +1,28 @@
 <app-toast #toast></app-toast>
+<app-sidebar
+  [position]="'left'"
+  [width]="'small'"
+  [items]="sidebarItems"
+  [activeItemPath]="activeItemPath"
+  [backgroundHighlightColor]="'#4A5568'"
+  [sidebarId]="'leftt'"
+  [collapsible]="false"
+  [hideSidebarOnPathChange]="true"
+  [closeOnClickOutside]="true"
+>
+</app-sidebar>
+
+<app-sidebar
+  [title]="'My App'"
+  [sidebarId]="'rightt'"
+  [position]="'right'"
+  [width]="'medium'"
+  [items]="sidebarItems"
+  [activeItemPath]="activeItemPath"
+  [backgroundHighlightColor]="'#FF3D71'"
+>
+</app-sidebar>
+
 <div class="booking-container">
   <div class="container">
     <div class="header">
