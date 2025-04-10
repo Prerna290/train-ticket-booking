@@ -100,10 +100,6 @@ export class SidebarComponent {
     this.toggleSidebar.emit(this.isCollapsed);
   }
 
-  trackByFn(index: number, item: SidebarSection): string {
-    return `${index}-${item.header}-${item.icon || ''}`;
-  }
-
   onItemClick(item: SidebarLabel, event: Event): void {
     if (item.children) {
       item.isExpanded = !item.isExpanded;
@@ -112,65 +108,44 @@ export class SidebarComponent {
       this.sidebarItemSelected.emit(item);
     }
   }
-
-  getIconClass(icon: string): string {
-    // Placeholder for custom icon logic if needed
-    return icon; // Assumes FontAwesome or direct class names
-  }
-
-  // getIconClass(icon: string): string {
-  //   if (this.iconProvider === 'fontawesome') {
-  //     return icon;
-  //   } else if (this.iconProvider === 'custom' && this.customIcons[icon]) {
-  //     return this.customIcons[icon];
-  //   }
-  //   return '';
-  // }
 }
-
-// <app-sidebar
-//   [title]="'My App'"
-//   [position]="'left'"
-//   [width]="'medium'"
-//   [items]="sidebarItems"
-//   [activeItemPath]="activeItemPath"
-//   [highlightColor]="'4A5568'"
-// >
-// </app-sidebar>
-
-// <app-sidebar
-//   [title]="'My App'"
-//   [position]="'right'"
-//   [width]="'medium'"
-//   [items]="sidebarItems"
-//   [activeItemPath]="activeItemPath"
-//   [highlightColor]="'4A5568'"
-// >
-// </app-sidebar>
-// 1. Make Service
-// 2. Icons
-// 3. on page change SidebarComponent, should not hide
-
-// sidebarItems: SidebarItem[] = [
-//   { label: 'Dashboard', icon: 'fas fa-home', path: '/admin' },
-//   { label: 'Documents', icon: 'fas fa-file', path: '/home' },
-//   { label: 'Integrations', icon: 'fas fa-plug', path: '/integrations' },
-//   { isHeader: true, label: 'COMPLIANCE' },
-//   {
-//     label: 'Frameworks',
-//     icon: 'fas fa-shield-alt',
-//     children: [
-//       { label: 'Controls', path: '/admin' },
-//       { label: 'Monitors', path: '/frameworks/monitors' },
-//     ],
-//   },
-// ];
 
 // activeItemPath = '/dashboard';
 // highlightColor = '#e3f2fd';
 
 // import { SidebarComponent, SidebarItem } from '../sidebar/sidebar.component';
 
-// <!-- highlight color not working -->
-// <!-- hideSidebarOnPathChange not working -->
-// <!-- closeOnClickOutside not working -->
+// Icons
+// on page change SidebarComponent, should not hide
+// hideSidebarOnPathChange not working
+// closeOnClickOutside not working
+
+// <app-sidebar
+//   [position]="'left'"
+//   [width]="'small'"
+//   [items]="sidebarItems"
+//   [activeItemPath]="activeItemPath"
+//   [backgroundHighlightColor]="'#4A5568'"
+//   [sidebarId]="'leftt'"
+//   [collapsible]="false"
+//   [hideSidebarOnPathChange]="true"
+//   [closeOnClickOutside]="true"
+// >
+//   <div sidebarHeaderContent>
+//     <h3>My Bookings</h3>
+//   </div>
+//   <div sidebarFooterContent>
+//     <h3>My Bookings 2</h3>
+//   </div>
+// </app-sidebar>
+
+// <app-sidebar
+//   [title]="'My App'"
+//   [sidebarId]="'rightt'"
+//   [position]="'right'"
+//   [width]="'medium'"
+//   [items]="sidebarItems"
+//   [activeItemPath]="activeItemPath"
+//   [backgroundHighlightColor]="'#FF3D71'"
+// >
+// </app-sidebar>

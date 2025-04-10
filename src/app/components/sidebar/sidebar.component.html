@@ -6,6 +6,9 @@
     isCollapsed ? 'collapsed' : ''
   ]"
 >
+  <div class="sidebar-content-wrapper">
+    <ng-content select="[sidebarHeaderContent]"></ng-content>
+  </div>
   <header *ngIf="title || collapsible" class="sidebar-header">
     <h3 *ngIf="title">{{ title }}</h3>
     <button
@@ -18,23 +21,18 @@
   </header>
 
   <ul class="sidebar-menu" *ngIf="items?.length">
-    <!-- ; trackBy: trackByFn -->
     <ng-container *ngFor="let item of items; trackBy: trackByFn; let i = index">
       <div class="labels-list">
         <li class="section-header">
-          <i *ngIf="item.icon" [class]="item.icon"></i>
           {{ item.header }}
         </li>
 
-        <!-- Labels under the header -->
         <li
           *ngFor="let label of item.labels; let j = index"
           class="menu-item"
           [class.active]="activeItemPath === label.path"
           [class.has-children]="label.children"
         >
-          <p>{{ i }}</p>
-          <p>{{ j }}</p>
           <a
             (click)="onItemClick(label, $event)"
             [routerLink]="label.path || null"
@@ -66,7 +64,6 @@
               [class.active]="activeItemPath === child.path"
               class="submenu-item"
             >
-              <!-- <p>{{ j }}</p> -->
               <a
                 [routerLink]="child.path"
                 (click)="sidebarItemSelected.emit(child)"
@@ -89,54 +86,9 @@
           </ul>
         </li>
       </div>
-      <!-- Other headers as regular section headers -->
-      <!-- <li *ngIf="!first" class="section-header">
-        <i *ngIf="section.icon" [class]="section.icon"></i>
-        {{ section.header }}
-      </li> -->
-      <!-- Labels under other headers -->
-      <!-- <li
-        *ngFor="let label of section.labels; let i = index"
-        *ngIf="!first"
-        class="menu-item"
-        [class.active]="activeItemPath === label.path"
-        [class.has-children]="label.children"
-      >
-        <a
-          (click)="onItemClick(label, $event)"
-          [routerLink]="label.path || null"
-          [style.background-color]="
-            activeItemPath === label.path ? highlightColor : ''
-          "
-        >
-          <i *ngIf="label.icon" [class]="label.icon"></i>
-          <span>{{ label.label }}</span>
-          <i
-            *ngIf="label.children"
-            class="caret"
-            [class.rotated]="label.isExpanded"
-            >▼</i
-          >
-        </a>
-        <ul *ngIf="label.children && label.isExpanded" class="submenu">
-          <li
-            *ngFor="let child of label.children"
-            [class.active]="activeItemPath === child.path"
-          >
-            <a
-              [routerLink]="child.path"
-              (click)="itemClick.emit(child)"
-              [style.background-color]="
-                activeItemPath === child.path ? highlightColor : ''
-              "
-            >
-              {{ child.label }}
-            </a>
-          </li>
-        </ul>
-      </li> -->
     </ng-container>
   </ul>
-
-  <ng-content></ng-content>
+  <div class="sidebar-content-wrapper">
+    <ng-content select="[sidebarFooterContent]"></ng-content>
+  </div>
 </nav>
