@@ -9,7 +9,6 @@ import { ToastComponent } from '../toast/toast.component';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import moment from 'moment';
-import { SidebarComponent, SidebarSection } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-my-bookings',
@@ -20,7 +19,6 @@ import { SidebarComponent, SidebarSection } from '../sidebar/sidebar.component';
     LoaderComponent,
     ToastComponent,
     FontAwesomeModule,
-    SidebarComponent,
   ],
   templateUrl: './my-bookings.component.html',
   styleUrl: './my-bookings.component.css',
@@ -33,56 +31,6 @@ export class MyBookingsComponent {
   groupedMyBookings: IBooking[] = [];
   sortType: 'latest' | 'oldest' = 'latest';
   loadingBookings = false;
-
-  sidebarItems: SidebarSection[] = [
-    {
-      header: 'Introduction',
-      icon: 'fas fa-info',
-      labels: [
-        { label: 'API Reference Guide', path: '/api-reference' },
-        { label: 'API Changelogggggggggg trd', path: '/changelog' },
-        {
-          label: 'Understand Razorpay APIs',
-          children: [
-            { label: 'Authentication', path: '/authentication' },
-            { label: 'Sandbox Setup', path: '/sandbox-setup' },
-            { label: 'Best Practices', path: '/best-practices' },
-          ],
-        },
-      ],
-    },
-    {
-      header: 'Payments',
-      icon: 'fas fa-credit-card',
-      labels: [
-        {
-          label: 'Orders',
-          children: [
-            { label: 'Orders Entity', path: '/orders-entity' },
-            {
-              label: 'Create an Order',
-              path: '/create-order',
-              isExpanded: true,
-            },
-            { label: 'Fetch All Orders', path: '/fetch-all-orders' },
-            {
-              label: 'Fetch All Orders (With Expanded Payments)',
-              path: '/admin',
-            },
-          ],
-        },
-        { label: 'Payments', path: '/bookings' },
-      ],
-    },
-    {
-      header: 'Downtime',
-      icon: 'fas fa-exclamation-triangle',
-      labels: [{ label: 'Settlements', path: '/settlements' }],
-    },
-  ];
-
-  activeItemPath = '/bookings';
-  highlightColor = '#ff34dd';
 
   private ticketBookingService = inject(TicketBookingService);
   private router = inject(Router);
