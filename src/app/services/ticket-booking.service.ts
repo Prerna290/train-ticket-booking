@@ -14,7 +14,7 @@ import {
   providedIn: 'root',
 })
 export class TicketBookingService {
-  apiRoute = 'https://freeapi.miniprojectideas.com/api/TrainApp/';
+  private apiRoute = '/api/';
 
   private isUserLoggedIn = new BehaviorSubject<boolean>(false);
   userLoggedIn$ = this.isUserLoggedIn.asObservable();
