@@ -7,7 +7,7 @@
 }
 
 .header {
-  @apply absolute md:top-36 top-24 text-center md:mb-12 mb-0 mx-auto md:px-0 px-4;
+  @apply absolute md:top-36 top-32 text-center md:mb-12 mb-0 mx-auto md:px-0 px-4;
 }
 
 .main-heading {
@@ -23,7 +23,7 @@
 }
 
 .search-form {
-  @apply md:absolute md:left-28 relative p-8 md:w-[630px] w-auto flex flex-col gap-6 rounded-2xl bg-white dark:bg-gray-800 border border-borderColor-light dark:border-borderColor-dark md:mx-0 mx-2;
+  @apply md:absolute md:left-28 relative p-8 md:w-[630px] w-[96dvw] flex flex-col gap-6 rounded-2xl bg-white dark:bg-gray-800 border border-borderColor-light dark:border-borderColor-dark md:mx-0 mx-2;
 }
 
 .search-form-header {
