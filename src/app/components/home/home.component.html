@@ -1,12 +1,11 @@
 <section class="home-section">
-  <div class="container header">
-    <h1 class="main-heading">Railway Ticket Booking</h1>
-    <p class="subheading">
-      Plan your journey and book your tickets quickly and easily!
-    </p>
-  </div>
-
-  <div class="search container">
+  <div class="search">
+    <div class="container header">
+      <h1 class="main-heading">Railway Ticket Booking</h1>
+      <p class="subheading">
+        Plan your journey and book your tickets quickly and easily!
+      </p>
+    </div>
     <form
       [formGroup]="stationForm"
       (ngSubmit)="onSubmit()"
@@ -87,7 +86,6 @@
         Search Trains
       </button>
     </form>
-
     <app-loader *ngIf="!imageLoaded"></app-loader>
     <div class="illustration">
       <img
