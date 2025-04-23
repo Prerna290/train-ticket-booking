@@ -9,12 +9,11 @@ import {
   ITrain,
   IUser,
 } from '../model/train';
-
 @Injectable({
   providedIn: 'root',
 })
 export class TicketBookingService {
-  private apiRoute = '/api/';
+  apiRoute = 'https://freeapi.miniprojectideas.com/api/TrainApp/';
 
   private isUserLoggedIn = new BehaviorSubject<boolean>(false);
   userLoggedIn$ = this.isUserLoggedIn.asObservable();
